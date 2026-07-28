@@ -4,11 +4,19 @@
     box-sizing: border-box;
 }
 @font-face {
-    font-family: "CardFont";
+    font-family: "CardNameFont";
     src: url(../assets/fonts/Yu-Gi-Oh!\ Matrix\ Book.ttf);
 }
+@font-face {
+    font-family: "CardTypeFont";
+    src: url(../assets/fonts/Yu-Gi-Oh!\ ITC\ Stone\ Serif\ Small\ Caps\ Bold.ttf);
+}
+@font-face {
+    font-family: "CardDescFont";
+    src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
+}
+
 #cardContainer {
-    font-family: "CardFont";
     position: relative;
     width: fit-content;
     height: fit-content;
@@ -16,12 +24,14 @@
     transform: translateX(-50%);
 }
 #nameContainer {
+    font-family: "CardNameFont";
     width: 77%;
     height: 5.8%;
     position: absolute;
     top: 10.3%;
     left: 11.3%;
     padding-left: 4px;
+    display: inline-block;
 }
 #starsContainer {
     width: 70%;
@@ -30,7 +40,7 @@
     top: 17%;
     left: 15%;
     text-align: end;
-    padding-right: 4px;
+    padding-right: 2px;
 }
 .star {
     height: 90%;
@@ -45,4 +55,62 @@
 }
 #cardImg {
     width: 100%;
+}
+#textContainer {
+    font-family: "CardTypeFont";
+    width: 75%;
+    height: 16%;
+    position: absolute;
+    top: 70.2%;
+    left: 12.4%;
+    padding: 2px;
+}
+.scrollable {
+  overflow-y: auto;
+  max-height: 200px; 
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#descriptionContainer {
+    font-family: "CardNameFont";
+    font-size: 12px;
+    overflow-y: scroll;
+    height: 65%;
+    padding-left: 2px;
+}
+#separator {
+    border-color: black;
+    margin-top: 2px;
+}
+#atk {
+    padding-right: 8px;
+}
+#statsContainer {
+    font-family: "CardDescFont";
+    height: 10%;
+    text-align: end;
+    font-size: 13px;
+}
+#attribute {
+    position: absolute;
+    top: 0%;
+    right: 4px;
+    padding-left: 4px;
+    display: inline-block;
+    height: 100%;
 }
