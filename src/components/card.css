@@ -1,0 +1,48 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: "CardFont";
+    src: url(../assets/fonts/Yu-Gi-Oh!\ Matrix\ Book.ttf);
+}
+#cardContainer {
+    font-family: "CardFont";
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#nameContainer {
+    width: 77%;
+    height: 5.8%;
+    position: absolute;
+    top: 10.3%;
+    left: 11.3%;
+    padding-left: 4px;
+}
+#starsContainer {
+    width: 70%;
+    height: 4.2%;
+    position: absolute;
+    top: 17%;
+    left: 15%;
+    text-align: end;
+    padding-right: 4px;
+}
+.star {
+    height: 90%;
+}
+#imageContainer {
+    width: 66.8%;
+    height: 44%;
+    background-color:white;
+    position: absolute;
+    top: 22%;
+    left: 16.8%;      
+}
+#cardImg {
+    width: 100%;
+}
