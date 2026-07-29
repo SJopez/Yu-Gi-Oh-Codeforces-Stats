@@ -32,6 +32,7 @@
     left: 11.3%;
     padding-left: 4px;
     display: inline-block;
+    
 }
 #cardName {
     width: min-content;
@@ -56,7 +57,7 @@
     position: absolute;
     top: 22%;
     left: 16.8%;
-    background-image: url('src/assets/cards/itadrias.png');
+    background-image: url('src/assets/cards/tourist.jpg');
     background-repeat: no-repeat;
     background-size: cover;      
 }
@@ -135,4 +136,10 @@
     );
     position: absolute;
 }
-
+#effect {
+    position: absolute;
+    width: 408px;
+    height: 612px;
+    z-index: 10;
+    opacity: 1;
+}

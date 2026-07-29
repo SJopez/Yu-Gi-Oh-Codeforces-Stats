@@ -2,6 +2,7 @@ import './card.css'
 
 interface CardProps {
     username: String;
+    rank: String;
     starts: number;
     type: String;
     attack: Number;
@@ -29,7 +30,8 @@ export default function Card(props: CardProps) {
 
     return (
         <div id='cardContainer'>
-            <img id='cardTemplate' src="src/assets/cards/expert1.png"></img>
+            <img id='effect' src={`src/assets/cards/effects/${props.rank}.png`}></img>
+            <img id='cardTemplate' src={`src/assets/cards/${props.rank}.png`}></img>
             <div id='nameContainer'>
                 <h1 id='cardName'>{props.username}</h1>
                 <Attribute lang = "asdad"></Attribute>
@@ -42,7 +44,7 @@ export default function Card(props: CardProps) {
                 
             </div>
             <div id='textContainer'>
-                <label id='cardType'> [{props.type}/Spellcaster] </label>
+                <label id='cardType'> [{props.type}] </label>
                 <div id='descriptionContainer' className='scrollable'>
                     <p id='description'>
                         Requires 3 Tributes to Normal Summon (cannot be Normal Set). This card's Normal Summon cannot be negated.  
