@@ -8,6 +8,18 @@ interface CardProps {
     defense: Number;
 }
 
+interface AttributeProps {
+    lang: String;
+}
+
+function Attribute(props: AttributeProps){
+    return (
+        <div id='langContainer'>
+            <img id="attribute" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-plain.svg" />
+        </div>
+    )
+}
+
 export default function Card(props: CardProps) {
     var starArray = []
     
@@ -17,16 +29,17 @@ export default function Card(props: CardProps) {
 
     return (
         <div id='cardContainer'>
-            <img id='cardTemplate' src="src/assets/cards/it1.png"></img>
+            <img id='cardTemplate' src="src/assets/cards/expert1.png"></img>
             <div id='nameContainer'>
                 <h1 id='cardName'>{props.username}</h1>
-                <img src="src/assets/cards/c++.svg.png" id='attribute'></img>
+                <Attribute lang = "asdad"></Attribute>
+                
             </div>
             <div id='starsContainer'>
                 {starArray}
             </div>
             <div id='imageContainer'>
-                <img src='src/assets/cards/itadrias.png' id='cardImg'></img>
+                
             </div>
             <div id='textContainer'>
                 <label id='cardType'> [{props.type}/Spellcaster] </label>

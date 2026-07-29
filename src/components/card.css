@@ -33,6 +33,10 @@
     padding-left: 4px;
     display: inline-block;
 }
+#cardName {
+    width: min-content;
+    display: inline-block;
+}
 #starsContainer {
     width: 70%;
     height: 4.2%;
@@ -51,10 +55,14 @@
     background-color:white;
     position: absolute;
     top: 22%;
-    left: 16.8%;      
+    left: 16.8%;
+    background-image: url('src/assets/cards/itadrias.png');
+    background-repeat: no-repeat;
+    background-size: cover;      
 }
 #cardImg {
     width: 100%;
+
 }
 #textContainer {
     font-family: "CardTypeFont";
@@ -107,10 +115,24 @@
     font-size: 13px;
 }
 #attribute {
-    position: absolute;
-    top: 0%;
-    right: 4px;
-    padding-left: 4px;
-    display: inline-block;
     height: 100%;
 }
+#langContainer {
+    right: 2px;
+    width: min-content;
+    height: 90%;
+    padding: 2px;
+    top: 5%;
+    border-radius: 50%;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        circle at 35% 30%,
+        #dde0e2,
+        #596672 60%,
+        #011629
+    );
+    position: absolute;
+}
+
