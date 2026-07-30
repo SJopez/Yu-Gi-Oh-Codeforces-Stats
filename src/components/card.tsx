@@ -1,4 +1,6 @@
 import './card.css'
+const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, import: 'default' });
+const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
 
 interface CardProps {
     username: String;
@@ -47,15 +49,15 @@ export default function Card(props: CardProps) {
     var starArray = []
     
     for (var i = 0; i < Math.min(props.starts, 12); i++) {
-        starArray.push(<img className='star' src="src/assets/cards/star.png"></img>)
+        starArray.push(<img className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
     }
 
     return (
         <div id='cardContainer'>
             <CardGlow></CardGlow>
             <Sparkle></Sparkle>
-            <img id='effect' src={`src/assets/cards/effects/${props.rank}.png`}></img>
-            <img id='cardTemplate' src={`src/assets/cards/${props.rank}.png`}></img>
+            <img id='effect' src={effects[`/src/assets/cards/effects/${props.rank}.png`] as string}></img>
+            <img id='cardTemplate' src={images[`/src/assets/cards/${props.rank}.png`] as string}></img>
             <div id='nameContainer'>
                 <h1 id='cardName'>{props.username}</h1>
                 <Attribute></Attribute>
@@ -63,7 +65,7 @@ export default function Card(props: CardProps) {
             <div id='starsContainer'>
                 {starArray}
             </div>
-            <div id='imageContainer'>
+            <div id='imageContainer' style = {{ backgroundImage: `url(${images[`/src/assets/cards/tourist.jpg`]})` }}>
                 
             </div>
             <div id='textContainer'>
