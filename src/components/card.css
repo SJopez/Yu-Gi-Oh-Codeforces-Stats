@@ -38,6 +38,29 @@
     width: min-content;
     display: inline-block;
 }
+#cardName {
+  background: linear-gradient(
+    90deg,
+    #7a5b16 0%,
+    #d4af37 25%,
+    #fff3c4 50%,
+    #d4af37 75%,
+    #7a5b16 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: gold-shimmer 3s linear infinite;
+}
+
+@keyframes gold-shimmer {
+  to {
+    background-position: -200% center;
+  }
+}
 #starsContainer {
     width: 70%;
     height: 4.2%;
@@ -141,5 +164,95 @@
     width: 408px;
     height: 612px;
     z-index: 10;
+    opacity: 0.5;
+}
+.sparkle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle span {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+  animation: sparkle-twinkle 2.4s ease-in-out infinite;
+}
+
+.sparkle span::before,
+
+.sparkle span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(90deg, transparent, gold 50%, transparent);
+  filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.sparkle span::before {
+  width: 100%;
+  height: 2.5px;
+  transform: translate(-50%, -50%);
+}
+
+.sparkle span::after {
+  width: 2.5px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(180deg, transparent, #fff 50%, transparent);
+}
+
+.sparkle span:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; }
+.sparkle span:nth-child(2) { top: 12%; left: 65%; animation-delay: 0.4s; }
+.sparkle span:nth-child(3) { top: 60%; left: 40%; animation-delay: 0.8s; }
+.sparkle span:nth-child(4) { top: 75%; left: 80%; animation-delay: 1.2s; }
+.sparkle span:nth-child(5) { top: 85%; left: 10%; animation-delay: 1.6s; }
+.sparkle span:nth-child(6) { top: 17%; left: 10%; animation-delay: 1.6s; }
+
+
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+  50% {
     opacity: 1;
+    transform: scale(1.3) rotate(20deg);
+  }
+}
+.card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 40;
+}
+
+.card-glow-path {
+  fill: none;
+  stroke: gold;
+  opacity: 0.8;
+  stroke-width: 1;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+  stroke-dasharray: 100 1638; /* segmento brillante + resto del recorrido */
+  animation: border-travel 4s linear infinite;
+}
+
+@keyframes border-travel {
+  to {
+    stroke-dashoffset: -1738; /* = suma del dasharray (100 + 1638) */
+  }
+}
+body {
+    background-color: #1e1e1e;
+}
+#tp {
+    position: absolute;
+    width: 408px;
+    height: 612px;
+    z-index: 10;
 }

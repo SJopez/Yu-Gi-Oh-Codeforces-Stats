@@ -20,7 +20,32 @@ function Attribute(props: AttributeProps){
         </div>
     )
 }
-
+export function Sparkle() {
+  return (
+    <div className="sparkle">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  );
+}
+export function CardGlow() {
+  return (
+    <svg className="card-glow" viewBox="0 0 408 612">
+      <rect
+        className="card-glow-path"
+        x="23"
+        y="42"
+        width="360"
+        height="520"
+        rx="13"
+      />
+    </svg>
+  );
+}
 export default function Card(props: CardProps) {
     var starArray = []
     
@@ -30,12 +55,13 @@ export default function Card(props: CardProps) {
 
     return (
         <div id='cardContainer'>
+            <CardGlow></CardGlow>
+            <Sparkle></Sparkle>
             <img id='effect' src={`src/assets/cards/effects/${props.rank}.png`}></img>
             <img id='cardTemplate' src={`src/assets/cards/${props.rank}.png`}></img>
             <div id='nameContainer'>
                 <h1 id='cardName'>{props.username}</h1>
                 <Attribute lang = "asdad"></Attribute>
-                
             </div>
             <div id='starsContainer'>
                 {starArray}
