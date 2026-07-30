@@ -9,11 +9,8 @@ interface CardProps {
     defense: Number;
 }
 
-interface AttributeProps {
-    lang: String;
-}
 
-function Attribute(props: AttributeProps){
+function Attribute(){
     return (
         <div id='langContainer'>
             <img id="attribute" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-plain.svg" />
@@ -61,7 +58,7 @@ export default function Card(props: CardProps) {
             <img id='cardTemplate' src={`src/assets/cards/${props.rank}.png`}></img>
             <div id='nameContainer'>
                 <h1 id='cardName'>{props.username}</h1>
-                <Attribute lang = "asdad"></Attribute>
+                <Attribute></Attribute>
             </div>
             <div id='starsContainer'>
                 {starArray}
