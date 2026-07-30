@@ -17,11 +17,12 @@
 }
 
 #cardContainer {
-    position: relative;
+    position: absolute;
     width: fit-content;
     height: fit-content;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 #nameContainer {
     font-family: "CardNameFont";
