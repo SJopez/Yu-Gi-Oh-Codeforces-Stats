@@ -1,1 +1,5 @@
+.fastapicloud
 .env
+pyproyect.toml
+__pycache__
+.test.py
