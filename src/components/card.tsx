@@ -14,7 +14,8 @@ interface CardProps {
     glow: Boolean;
     sparkle: Boolean;
     effectOpacity: number;
-    nameEffect: Boolean
+    nameEffect: Boolean;
+    width: number
 }
 
 
@@ -54,6 +55,7 @@ export function CardGlow() {
 export default function Card(props: CardProps) {
     var starArray = []
     var name = useRef<HTMLHeadingElement>(null)
+    var cardContainer = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if(name.current){
@@ -67,11 +69,11 @@ export default function Card(props: CardProps) {
     })
     
     for (var i = 0; i < Math.min(props.starts, 12); i++) {
-        starArray.push(<img className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
+        starArray.push(<img id={`start${i}`} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
     }
 
     return (
-        <div id='cardContainer'>
+        <div id='cardContainer' ref={cardContainer}>
             {props.glow && <CardGlow></CardGlow>}
             {props.sparkle && <Sparkle></Sparkle>}
             <img style={{opacity: props.effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${props.rank}.png`] as string}></img>
