@@ -3,10 +3,10 @@
     src: url(../assets/fonts/Yu-Gi-Oh!\ Matrix\ Book.ttf);
 }
 #inputContainer {
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 20px;
+    margin: 20px;
 }
 #inputContainer input {
     width: 300px;

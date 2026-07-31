@@ -1,6 +1,6 @@
 import Card from './card'
 import './menu.css'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Metrics from '../metrics.json'
 
 interface CodeforcesUser {
@@ -14,33 +14,32 @@ interface Input {
     onchange: (user: CodeforcesUser) => void;
 }
 
+async function handleSubmit(user: string, change: Function) {
+    const response = await fetch("https://codeforces.com/api/user.info?handles="+user)
+    if(!response.ok) throw new Error("Something went wrong!")
+    const data = await response.json()
+    const result = data.result[0] as CodeforcesUser
+    
+    change(result)
+}
+
 function InputField(props: Input) {
     var currInput = useRef<HTMLInputElement>(null);
 
-    async function handleSubmit() {
-        
-        const user = currInput.current?.value
-        const response = await fetch("https://codeforces.com/api/user.info?handles="+user)
-        if(!response.ok) throw new Error("Something went wrong!")
-        const data = await response.json()
-        const result = data.result[0] as CodeforcesUser
-        
-        props.onchange(result)
-    }
     return (
         <div id='inputContainer'>
-            <input ref={currInput} id='inputField' type="text" placeholder='Enter your username...'></input>
-            <button id='inputButton' onClick={handleSubmit}>Submit</button>
+            <input ref={currInput} id='inputField' type="text" placeholder='Enter your username...' defaultValue={"Tourist"}></input>
+            <button id='inputButton' onClick={() => handleSubmit(currInput.current?.value!, props.onchange)}>Submit</button>
         </div>
     )
 
 }
 
 export default function Menu() {
-    var [username, setUsername] = useState("Tourist")
+    var [username, setUsername] = useState("")
     var [type, setType] = useState("Legendary Grandmaster")
     var [rank, setRank] = useState("legendary_grandmaster")
-    var [photo, setPhoto] = useState("/src/assets/cards/tourist.jpg")
+    var [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
     var [glow, setGlow] = useState(true)
     var [sparkle, setSparkle] = useState(true)
     var [effectOpacity, setEffectOpacity] = useState(0.6)
@@ -54,12 +53,16 @@ export default function Menu() {
         setUsername(user.handle)
         setRank(config.rankName)
         setPhoto(user.titlePhoto)
-        setType(user.type)
+        setType(config.type)
         setGlow(config.glow)
         setSparkle(config.sparkle)
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
     }
+
+    useEffect(() => {
+        handleSubmit("tourist", change)       
+    }, [])
 
     return (
         <div id='menu'>
