@@ -45,7 +45,6 @@ export default function Menu() {
     var [sparkle, setSparkle] = useState(true)
     var [effectOpacity, setEffectOpacity] = useState(0.6)
     var [nameEffect, setNameEffect] = useState(true)
-    type MetricsEntry = typeof Metrics[keyof typeof Metrics];
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
