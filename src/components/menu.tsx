@@ -13,6 +13,9 @@ interface CodeforcesUser {
 interface Input {
     onchange: (user: CodeforcesUser) => void;
 }
+interface MenuOptions {
+    width: number;
+}
 
 async function handleSubmit(user: string, change: Function) {
     const response = await fetch("https://codeforces.com/api/user.info?handles="+user)
@@ -35,8 +38,8 @@ function InputField(props: Input) {
 
 }
 
-export default function Menu() {
-    var [username, setUsername] = useState("")
+export default function Menu(props: MenuOptions) {
+    var [username, setUsername] = useState("tourist")
     var [type, setType] = useState("Legendary Grandmaster")
     var [rank, setRank] = useState("legendary_grandmaster")
     var [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
@@ -78,10 +81,9 @@ export default function Menu() {
                 glow={glow} 
                 sparkle={sparkle} 
                 effectOpacity={effectOpacity}
-                nameEffect={nameEffect}         
-                >     
+                nameEffect={nameEffect}
+                width={props.width}>     
             </Card>
         </div>
     )
-
 }

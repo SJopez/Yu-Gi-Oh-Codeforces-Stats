@@ -32,12 +32,17 @@
     left: 11.3%;
     padding-left: 4px;
     display: inline-block;
-    
+    container-type: inline-size;  
+}
+#cardTemplate {
+    width: 100%;
 }
 #cardName {
     width: min-content;
     display: inline-block;
+    font-size: clamp(12px, 8cqw, 32px);
 }
+
 #cardName.golden {
   background: linear-gradient(
     90deg,
@@ -160,8 +165,7 @@
 }
 #effect {
     position: absolute;
-    width: 408px;
-    height: 612px;
+    width: 100%;
     z-index: 10;
     opacity: 0.55;
 }
