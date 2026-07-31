@@ -39,7 +39,7 @@
     width: min-content;
     display: inline-block;
 }
-#cardName {
+#cardName.golden {
   background: linear-gradient(
     90deg,
     #7a5b16 0%,
@@ -164,7 +164,7 @@
     width: 408px;
     height: 612px;
     z-index: 10;
-    opacity: 0.5;
+    opacity: 0.55;
 }
 .sparkle {
   position: absolute;

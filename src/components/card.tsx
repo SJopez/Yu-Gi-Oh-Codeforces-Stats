@@ -1,14 +1,20 @@
+import { useEffect, useRef } from 'react';
 import './card.css'
 const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, import: 'default' });
 const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
 
 interface CardProps {
-    username: String;
-    rank: String;
+    username: string;
+    rank: string;
     starts: number;
-    type: String;
+    type: string;
     attack: Number;
     defense: Number;
+    photo: string;
+    glow: Boolean;
+    sparkle: Boolean;
+    effectOpacity: number;
+    nameEffect: Boolean
 }
 
 
@@ -47,6 +53,18 @@ export function CardGlow() {
 }
 export default function Card(props: CardProps) {
     var starArray = []
+    var name = useRef<HTMLHeadingElement>(null)
+
+    useEffect(() => {
+        if(name.current){
+            if (props.nameEffect){
+                name.current.classList.add('golden')
+            }
+            else {
+                name.current.classList.remove('golden')
+            }
+        }
+    })
     
     for (var i = 0; i < Math.min(props.starts, 12); i++) {
         starArray.push(<img className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
@@ -54,20 +72,18 @@ export default function Card(props: CardProps) {
 
     return (
         <div id='cardContainer'>
-            <CardGlow></CardGlow>
-            <Sparkle></Sparkle>
-            <img id='effect' src={effects[`/src/assets/cards/effects/${props.rank}.png`] as string}></img>
+            {props.glow && <CardGlow></CardGlow>}
+            {props.sparkle && <Sparkle></Sparkle>}
+            <img style={{opacity: props.effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${props.rank}.png`] as string}></img>
             <img id='cardTemplate' src={images[`/src/assets/cards/${props.rank}.png`] as string}></img>
             <div id='nameContainer'>
-                <h1 id='cardName'>{props.username}</h1>
+                <h1 id='cardName' ref={name}>{props.username}</h1>
                 <Attribute></Attribute>
             </div>
             <div id='starsContainer'>
                 {starArray}
             </div>
-            <div id='imageContainer' style = {{ backgroundImage: `url(${images[`/src/assets/cards/tourist.jpg`]})` }}>
-                
-            </div>
+            <div id='imageContainer' style = {{ backgroundImage: `url(${props.photo})` }}></div>
             <div id='textContainer'>
                 <label id='cardType'> [{props.type}] </label>
                 <div id='descriptionContainer' className='scrollable'>

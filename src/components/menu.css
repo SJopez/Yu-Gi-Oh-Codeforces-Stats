@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "CardNameFont";
+    src: url(../assets/fonts/Yu-Gi-Oh!\ Matrix\ Book.ttf);
+}
+#inputContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+#inputContainer input {
+    width: 300px;
+    height: 30px;
+    font-size: 16px;
+    padding: 5px;
+    opacity: 1;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 2px solid rgb(90, 74, 74);
+    outline: none;
+}
