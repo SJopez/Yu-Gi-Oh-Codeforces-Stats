@@ -3,14 +3,14 @@ import './App.css'
 import Menu from './components/menu'
 
 function App() {
-  var container = useRef<HTMLDivElement | null>(null)
-  var [width, setWidth] = useState(0)
+  let container = useRef<HTMLDivElement | null>(null)
+  let [width, setWidth] = useState(0)
 
   useEffect(() => {
       function handleResize() {
           if (container.current) {
               setWidth(container.current.offsetWidth)
-          }
+            }
       }
 
       handleResize() 
