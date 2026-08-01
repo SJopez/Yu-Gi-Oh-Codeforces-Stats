@@ -11,6 +11,7 @@ interface FetchProps {
     width: number;
     preffix: string;
     scale?: Boolean;
+    info?: Boolean
 } 
 
 function Attribute(){
@@ -50,16 +51,16 @@ export function CardGlow() {
 }
 
 export default function Card(props: FetchProps) {
-    var starArray = []
-    var name = useRef<HTMLHeadingElement>(null)
-    var cardContainer = useRef<HTMLDivElement>(null)
-    var [type, setType] = useState("Legendary Grandmaster")
-    var [rank, setRank] = useState("legendary_grandmaster")
-    var [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
-    var [glow, setGlow] = useState(true)
-    var [sparkle, setSparkle] = useState(true)
-    var [effectOpacity, setEffectOpacity] = useState(0.6)
-    var [nameEffect, setNameEffect] = useState(true)
+    let starArray = []
+    let name = useRef<HTMLHeadingElement>(null)
+    let cardContainer = useRef<HTMLDivElement>(null)
+    let [type, setType] = useState("Legendary Grandmaster")
+    let [rank, setRank] = useState("legendary_grandmaster")
+    let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
+    let [glow, setGlow] = useState(true)
+    let [sparkle, setSparkle] = useState(true)
+    let [effectOpacity, setEffectOpacity] = useState(0.6)
+    let [nameEffect, setNameEffect] = useState(true)
 
     useEffect(() => {
         handleSubmit(props.username, change)       
@@ -90,7 +91,7 @@ export default function Card(props: FetchProps) {
         }
         if (cardContainer.current){
             if (props.scale){
-                var scale = 0.24 * props.width / 800
+                let scale = 0.24 * props.width / 800
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
             }
             else if (props.width >= 408){
@@ -103,37 +104,61 @@ export default function Card(props: FetchProps) {
 
     })
     
-    for (var i = 0; i < Math.min(props.stars, 12); i++) {
+    for (let i = 0; i < Math.min(props.stars, 12); i++) {
         starArray.push(<img id={`start${i}`} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
     }
 
+    function CardInformation() {
+        return (
+            <div className="cardInfo">
+                <div className="hudCorner hudCornerTopLeft" />
+                <div className="hudCorner hudCornerTopRight" />
+                <div className="hudCorner hudCornerBottomLeft" />
+                <div className="hudCorner hudCornerBottomRight" />
+                <div className="username">tourist</div>
+                <div className="statsList">
+                    <div className="statLine">Rank: <span className="statValue">Legendary Grandmaster</span></div>
+                    <div className="statLine">Max rank: <span className="statValue">Legendary Grandmaster</span></div>
+                    <div className="statLine">Rating: <span className="statValue">3823</span></div>
+                    <div className="statLine">Max rating: <span className="statValue">4009</span></div>
+                    <div className="statLine">World rank: <span className="statValue">#1</span></div>
+                    <div className="statLine">Problems solved: <span className="statValue">4127</span></div>
+                </div>
+                <div className="scanLine" />
+            </div>
+        );
+    }
+
     return (
-        <div className={props.preffix + 'cardContainer'} ref={cardContainer}>
-            {glow && <CardGlow></CardGlow>}
-            {sparkle && <Sparkle></Sparkle>}
-            <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
-            <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
-            <div id='nameContainer'>
-                <h1 id='cardName' ref={name}>{props.username}</h1>
-                <Attribute></Attribute>
-            </div>
-            <div id='starsContainer'>
-                {starArray}
-            </div>
-            <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
-            <div id='textContainer'>
-                <label id='cardType'> [{type}] </label>
-                <div id='descriptionContainer' className='scrollable'>
-                    <p id='description'>
-                        Requires 3 Tributes to Normal Summon (cannot be Normal Set). This card's Normal Summon cannot be negated.  
-                    </p>
+        <div className={props.preffix + 'totalContainer'}>
+            <div className={props.preffix + 'cardContainer'} ref={cardContainer}>
+                {glow && <CardGlow></CardGlow>}
+                {sparkle && <Sparkle></Sparkle>}
+                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
+                <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
+                <div id='nameContainer'>
+                    <h1 id='cardName' ref={name}>{props.username}</h1>
+                    <Attribute></Attribute>
                 </div>
-                <hr id='separator'></hr>
-                <div id='statsContainer'>
-                    <label id='atk'>ATK/{"4000"}</label>
-                    <label id='def'>DEF/{"1200"}</label>
+                <div id='starsContainer'>
+                    {starArray}
+                </div>
+                <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
+                <div id='textContainer'>
+                    <label id='cardType'> [{type}] </label>
+                    <div id='descriptionContainer' className='scrollable'>
+                        <p id='description'>
+                            Requires 3 Tributes to Normal Summon (cannot be Normal Set). This card's Normal Summon cannot be negated.  
+                        </p>
+                    </div>
+                    <hr id='separator'></hr>
+                    <div id='statsContainer'>
+                        <label id='atk'>ATK/{"4000"}</label>
+                        <label id='def'>DEF/{"1200"}</label>
+                    </div>
                 </div>
             </div>
+            {props.info && <CardInformation></CardInformation>}
         </div>
     )
 }

@@ -27,7 +27,7 @@ export async function handleSubmit(user: string, change: Function) {
 }
 
 function InputField(props: Input) {
-    var currInput = useRef<HTMLInputElement>(null);
+    let currInput = useRef<HTMLInputElement>(null);
 
     return (
         <div id='inputContainer'>
@@ -38,7 +38,7 @@ function InputField(props: Input) {
 }
 
 export default function Menu(props: MenuOptions) {
-    var [username, setUsername] = useState("tourist")
+    let [username, setUsername] = useState("tourist")
 
     return (
         <div id='menu'>
@@ -48,7 +48,8 @@ export default function Menu(props: MenuOptions) {
                 stars={8}
                 width={props.width}
                 preffix=''
-                scale={false}>     
+                scale={false}
+                info={true}>     
             </Card>
             <DuelDisk width={props.width}></DuelDisk>
         </div>
