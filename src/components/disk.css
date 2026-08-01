@@ -4,17 +4,11 @@
 #diskImage {
     width: 100%;
 }
-.mini1cardContainer, .mini2cardContainer, .mini3cardContainer, .mini4cardContainer, .mini5cardContainer, .selectedcardContainer {
+.mini1cardContainer, .mini2cardContainer, .mini3cardContainer, .mini4cardContainer, .mini5cardContainer {
     position: absolute;
     width: 408px;
     height: 612px;
     transform-origin: center;
-}
-.selectedcardContainer {
-    top: 12%;
-    left: 50.2%;
-    transform: translate(-50%, -50%) rotate(-15deg) scale(var(--card-scale));
-    z-index: -1;
 }
 .mini1cardContainer {
     top: 27.70%;
@@ -32,12 +26,12 @@
     transform: translate(-50%, -50%) rotate(230deg) scale(var(--card-scale));
 }
 .mini4cardContainer {
-    top: 74.8%;
-    left: 52.7%;
+    top: 74.6%;
+    left: 53.5%;
     transform: translate(-50%, -50%) rotate(230deg) scale(var(--card-scale));
 }
 .mini5cardContainer {
-    top: 82.7%;
-    left: 63.4%;
+    top: 82.5%;
+    left: 63.7%;
     transform: translate(-50%, -50%) rotate(230deg) scale(var(--card-scale));
 }
