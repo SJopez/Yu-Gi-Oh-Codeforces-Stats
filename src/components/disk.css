@@ -23,7 +23,7 @@
 .mini3cardContainer {
     top: 67%;
     left: 43%;
-    transform: translate(-50%, -50%) rotate(230deg) scale(var(--card-scale));
+    transform: translate(-50%, -50%) rotate(231deg) scale(var(--card-scale));
 }
 .mini4cardContainer {
     top: 74.6%;

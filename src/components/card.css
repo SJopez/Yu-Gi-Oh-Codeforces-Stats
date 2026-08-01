@@ -15,13 +15,13 @@
     font-family: "CardDescFont";
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 }
-
 .cardContainer {
     position: relative;
     width: fit-content;
     height: fit-content;
+    transform-origin: top left;
     left: 50%;
-    transform: translateX(-50%);
+    transform: scale(var(--card-scale)) translateX(-50%);
 }
 #nameContainer {
     font-family: "CardNameFont";
