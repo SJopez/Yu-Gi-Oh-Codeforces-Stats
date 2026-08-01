@@ -1,11 +1,13 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
+from collections import defaultdict
+from bs4 import BeautifulSoup 
+
+
 
 app = FastAPI()
 
-
-#get main user info provided by codeforces api /user.info
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,21 +19,13 @@ app.add_middleware(
 '''
 Needed info 
 
-#1) Username -> provided by user_info()
-#2) Rating -> provided by user_info()
-##3) Cantiad de problemas resueltos -> pending
-##4) Lista con todos los problemas, su dificultad y tags -> pending
-#5) Contribution -> provided by user_info()
+##4) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
 6) Premios -> pending
-7) Si es top mundial o no -> pending
-8) Si es top contribution o no -> pending
 ##9) Lenguage mas usado -> pending
-#10) Rank -> provided by user_info()
-#11) Avatar -> provided by user_info()
 
 '''
 
-def unique_solved_problems(response_2):
+async def unique_solved_problems(response_2):
     problems = dict()
     for sub in response_2:
         if sub.get('verdict') == 'OK':
@@ -54,8 +48,54 @@ def unique_solved_problems(response_2):
 
     return problems
 
+async def most_used_lang(problems):
+    langs = defaultdict(int)
 
+    for problem in problems.values():
+        lang = problem.get('prog_lang')
+        
+        langs[lang] += 1
+    
+    ans = ['C++', 0]
+    for lang in langs.items():
+        if lang[1] >= ans[1]:
+            ans = lang
+            
 
+    return ans[0]
+
+async def get_is_top10_rated(handle :str):
+    url = 'https://codeforces.com/api/user.ratedList?activeOnly=true'
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+    
+    response = response.json().get('result', [])
+    for i in range(10):
+        if handle == response[i].get('handle'):
+            return True
+    return False
+    
+async def get_is_top10_contr(handle : str):
+
+    url = 'https://codeforces.com'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:153.0)Gecko/20100101 Firefox/153.0'
+        }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url,headers=headers)
+    
+    soup = BeautifulSoup(response.text, 'html.parser')
+    contributor_box = soup.select('div.top-contributed')[1]
+    user_name = contributor_box.select('a.rated-user')
+    
+
+    return True if (handle in user_name) else False
+    
+
+async def get_badges(handle : str):
+    pass
 
 @app.get('/user.info')
 async def user_info_main(handle : str = Query(...)):
@@ -80,8 +120,14 @@ async def user_info_main(handle : str = Query(...)):
     async with httpx.AsyncClient() as client:
         response_2 = await client.get(url, params=params)
 
+    
     response_2 = response_2.json().get('result', [])
-    problems = unique_solved_problems(response_2)
+    problems = await unique_solved_problems(response_2)
+    lang = await most_used_lang(problems)
+    is_top10_rated = await get_is_top10_rated(handle)
+    is_top10_contr = await get_is_top10_contr(handle)
+    badges = await get_badges(handle)
+
 
     ans : dict = {
         'handle' : handle,
@@ -89,11 +135,13 @@ async def user_info_main(handle : str = Query(...)):
         'solved_problemes' : len(problems),
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank'),
+        'is_top10_rated' : is_top10_rated,
+        'is_top10_contr' : is_top10_contr,
+        'badges' : badges,
+        'most_used_lang' : lang,
         'avatar' : response.get('titlePhoto') 
-
     }
 
     return ans
-
 
 
