@@ -1,0 +1,37 @@
+#diskContainer {
+    position: relative;
+}
+#diskImage {
+    width: 100%;
+}
+.mini1cardContainer, .mini2cardContainer, .mini3cardContainer, .mini4cardContainer, .mini5cardContainer {
+    position: absolute;
+    width: 408px;
+    height: 612px;
+    transform-origin: center;
+}
+.mini1cardContainer {
+    top: 34.88%;
+    left: 26.36%;
+    transform: translate(-50%, -50%) rotate(-6.6deg) scale(var(--card-scale));
+}
+.mini2cardContainer {
+    top: 32.96%;
+    left: 38.85%;
+    transform: translate(-50%, -50%) rotate(-7.1deg) scale(var(--card-scale));
+}
+.mini3cardContainer {
+    top: 31.11%;
+    left: 51.32%;
+    transform: translate(-50%, -50%) rotate(-7.1deg) scale(var(--card-scale));
+}
+.mini4cardContainer {
+    top: 33.45%;
+    left: 66.07%;
+    transform: translate(-50%, -50%) rotate(21deg) scale(var(--card-scale));
+}
+.mini5cardContainer {
+    top: 39.31%;
+    left: 77.66%;
+    transform: translate(-50%, -50%) rotate(20.6deg) scale(var(--card-scale));
+}

@@ -2,6 +2,7 @@ import Card from './card'
 import './menu.css'
 import { useEffect, useRef, useState } from 'react'
 import Metrics from '../metrics.json'
+import DuelDisk from './disk';
 
 interface CodeforcesUser {
     handle: string;
@@ -82,8 +83,10 @@ export default function Menu(props: MenuOptions) {
                 sparkle={sparkle} 
                 effectOpacity={effectOpacity}
                 nameEffect={nameEffect}
-                width={props.width}>     
+                width={props.width}
+                preffix=''>     
             </Card>
+            <DuelDisk width={props.width}></DuelDisk>
         </div>
     )
 }
