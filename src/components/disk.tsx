@@ -10,7 +10,7 @@ export default function DuelDisk(props: DiskOptions){
     
     return (
         <div id="diskContainer">
-            <img id='diskImage' src={`${images["/src/assets/duel_disk.png"]}`}></img>
+            <img id='diskImage' src={`${images["/src/assets/duel.png"]}`}></img>
             <Card 
                 username={"Yo"} 
                 starts={8} 

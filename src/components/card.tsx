@@ -69,7 +69,7 @@ export default function Card(props: CardProps) {
             }
         }
         if (cardContainer.current && props.scale){
-            var scale = 0.24 * props.width / 1000
+            var scale = 0.24 * props.width / 800
             cardContainer.current.style.setProperty("--card-scale", scale.toString());
         }
 
