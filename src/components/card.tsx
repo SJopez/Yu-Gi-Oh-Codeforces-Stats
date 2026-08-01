@@ -88,9 +88,17 @@ export default function Card(props: FetchProps) {
                 name.current.classList.remove('golden')
             }
         }
-        if (cardContainer.current && props.scale){
-            var scale = 0.24 * props.width / 800
-            cardContainer.current.style.setProperty("--card-scale", scale.toString());
+        if (cardContainer.current){
+            if (props.scale){
+                var scale = 0.24 * props.width / 800
+                cardContainer.current.style.setProperty("--card-scale", scale.toString());
+            }
+            else if (props.width >= 408){
+                cardContainer.current.style.setProperty("--card-scale", "1");
+            }
+            else {
+                cardContainer.current.style.setProperty("--card-scale", (props.width / 408).toString());
+            }
         }
 
     })
