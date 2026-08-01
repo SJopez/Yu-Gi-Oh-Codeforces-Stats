@@ -16,7 +16,7 @@
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 }
 
-#cardContainer {
+.cardContainer {
     position: relative;
     width: fit-content;
     height: fit-content;
@@ -100,6 +100,7 @@
     top: 70.2%;
     left: 12.4%;
     padding: 2px;
+    container-type: inline-size;
 }
 .scrollable {
   overflow-y: auto;
