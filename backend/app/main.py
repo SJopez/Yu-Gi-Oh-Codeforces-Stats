@@ -21,7 +21,6 @@ Needed info
 
 ##4) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
 6) Premios -> pending
-##9) Lenguage mas usado -> pending
 
 '''
 
@@ -93,9 +92,23 @@ async def get_is_top10_contr(handle : str):
 
     return True if (handle in user_name) else False
     
+@app.get('/test')
+async def get_badges(handle : str = Query(...)):
 
-async def get_badges(handle : str):
-    pass
+    url = f'https://codeforces.com/profile/{handle}'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:153.0)Gecko/20100101 Firefox/153.0'
+        }
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url,headers=headers)
+    
+    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = soup.select('div.badge')
+    badges = [i.select('img.src') for i in soup]
+
+    return str(badges)
+    
 
 @app.get('/user.info')
 async def user_info_main(handle : str = Query(...)):
