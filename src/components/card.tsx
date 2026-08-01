@@ -15,7 +15,9 @@ interface CardProps {
     sparkle: Boolean;
     effectOpacity: number;
     nameEffect: Boolean;
-    width: number
+    width: number;
+    preffix: string;
+    scale?: Boolean;
 }
 
 
@@ -66,6 +68,11 @@ export default function Card(props: CardProps) {
                 name.current.classList.remove('golden')
             }
         }
+        if (cardContainer.current && props.scale){
+            var scale = 0.24 * props.width / 1000
+            cardContainer.current.style.setProperty("--card-scale", scale.toString());
+        }
+
     })
     
     for (var i = 0; i < Math.min(props.starts, 12); i++) {
@@ -73,7 +80,7 @@ export default function Card(props: CardProps) {
     }
 
     return (
-        <div id='cardContainer' ref={cardContainer}>
+        <div className={props.preffix + 'cardContainer'} ref={cardContainer}>
             {props.glow && <CardGlow></CardGlow>}
             {props.sparkle && <Sparkle></Sparkle>}
             <img style={{opacity: props.effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${props.rank}.png`] as string}></img>
