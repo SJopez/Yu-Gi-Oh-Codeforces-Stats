@@ -1,0 +1,112 @@
+{
+  "newbie": {
+    "card": "src/assets/cards/newbie.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/newbie.png",
+    "glow": false,
+    "rankName": "newbie",
+    "type": "Newbie",
+    "effectOpacity": 1
+ ,
+"nameEffect": false },
+  "pupil": {
+    "card": "src/assets/cards/pupil.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/pupil.png",
+    "glow": false,
+    "rankName": "pupil",
+    "type": "Pupil",
+    "effectOpacity": 1
+ ,
+"nameEffect": false },
+  "specialist": {
+    "card": "src/assets/cards/specialist.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/specialist.png",
+    "glow": false,
+    "rankName": "specialist",
+    "type": "Specialist",
+    "effectOpacity": 1,
+    "nameEffect": false
+  },
+  "expert": {
+    "card": "src/assets/cards/expert.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/expert.png",
+    "glow": false,
+    "rankName": "expert",
+    "type": "Expert",
+    "effectOpacity": 0.7,
+    "nameEffect": false
+  },
+  "candidate master": {
+    "card": "src/assets/cards/candidate_master.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/candidate_master.png",
+    "glow": false,
+    "rankName": "candidate_master",
+    "type": "Candidate Master",
+    "effectOpacity": 0.7,
+    "nameEffect": false
+  },
+  "master": {
+    "card": "src/assets/cards/master.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/master.png",
+    "glow": false,
+    "rankName": "master",
+    "type": "Master",
+    "effectOpacity": 0.8,
+    "nameEffect": false
+  },
+  "international master": {
+    "card": "src/assets/cards/international_master.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/international_master.png",
+    "glow": false,
+    "rankName": "international_master",
+    "type": "International Master",
+    "effectOpacity": 0.75,
+    "nameEffect": false
+  },
+  "grandmaster": {
+    "card": "src/assets/cards/grandmaster.png",
+    "nameDecoration": false,
+    "sparkle": true,
+    "effect": "src/assets/cards/effects/grandmaster.png",
+    "glow": false,
+    "rankName": "grandmaster",
+    "type": "Grandmaster",
+    "effectOpacity": 0.7,
+    "nameEffect": false
+  },
+  "international grandmaster": {
+    "card": "src/assets/cards/international_grandmaster.png",
+    "nameDecoration": false,
+    "sparkle": true,
+    "effect": "src/assets/cards/effects/international_grandmaster.png",
+    "glow": true,
+    "rankName": "international_grandmaster",
+    "type": "International Grandmaster",
+    "effectOpacity": 0.6,
+    "nameEffect": false
+  },
+  "legendary grandmaster": {
+    "card": "src/assets/cards/legendary_grandmaster.png",
+    "nameDecoration": true,
+    "sparkle": true,
+    "effect": "src/assets/cards/effects/legendary_grandmaster.png",
+    "glow": true,
+    "rankName": "legendary_grandmaster",
+    "type": "Legendary Grandmaster",
+    "effectOpacity": 0.55,
+    "nameEffect": true 
+  }
+}
