@@ -9,7 +9,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5176"],
+    allow_origins=[
+        "http://localhost:5176",
+        "https://yu-gi-oh-codeforces-stats.vercel.app"
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -25,7 +28,6 @@ HEADERS = {
 Needed info 
 
 1) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
-2) Maxrank y maxrating del usuraio
 3) Nombre de los badges
 
 '''
@@ -156,9 +158,11 @@ async def user_info(handle : str = Query(...)):
     ans : dict = {
         'handle' : handle,
         'rating' : response.get('rating'),
+        'max_rating' : response.get('maxRating'),
         'solved_problemes' : len(problems),
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank'),
+        'max_rank' : response.get('maxRank'),
         'badges' : badges,
         'most_used_lang' : lang,
         'avatar' : response.get('titlePhoto') 
