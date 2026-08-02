@@ -5,9 +5,7 @@ from collections import defaultdict
 from bs4 import BeautifulSoup 
 import asyncio
 
-
 app = FastAPI()
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,8 +24,9 @@ HEADERS = {
 '''
 Needed info 
 
-##4) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
-6) Premios -> pending
+1) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
+2) Maxrank y maxrating del usuraio
+3) Nombre de los badges
 
 '''
 
@@ -71,19 +70,20 @@ async def most_used_lang(problems):
 
     return ans[0]
 
-async def get_is_top10_rated(handle :str):
+async def get_top10_rated():
     url = 'https://codeforces.com/api/user.ratedList?activeOnly=true'
 
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
     
     response = response.json().get('result', [])
+    top = []
     for i in range(10):
-        if handle == response[i].get('handle'):
-            return True
-    return False
-    
-async def get_is_top10_contr(handle : str):
+        top.append(response[i].get('handle'))
+
+    return top
+
+async def get_top10_contr():
 
     url = 'https://codeforces.com'
 
@@ -92,10 +92,13 @@ async def get_is_top10_contr(handle : str):
     
     soup = BeautifulSoup(response.text, 'html.parser')
     contributor_box = soup.select('div.top-contributed')[1]
-    user_name = contributor_box.select('a.rated-user')
-    
+    user_name = contributor_box.select('a.rated-user') 
+    top = []
 
-    return True if (handle in user_name) else False
+    for user in user_name:
+        top.append(user.get('href')[9:])
+
+    return top
     
 async def get_badges(handle : str):
 
@@ -111,8 +114,22 @@ async def get_badges(handle : str):
     return badges
     
 
+@app.get('/tops')
+async def get_tops():
+    #return all top 10, contributors and rated
+    
+    top_rated, top_contributors = await asyncio.gather(
+        get_top10_rated(),
+        get_top10_contr()
+    )
+
+    return {
+        'top_rated' : top_rated,
+        'top_contributors' : top_contributors
+    }
+
 @app.get('/user.info')
-async def user_info_main(handle : str = Query(...)):
+async def user_info(handle : str = Query(...)):
     
     #main info in user.info api request from codeforces
 
@@ -130,10 +147,8 @@ async def user_info_main(handle : str = Query(...)):
     
     problems = await unique_solved_problems(response_2)
 
-    lang, is_top10_rated, is_top10_contr, badges = await asyncio.gather(
+    lang, badges = await asyncio.gather(
         most_used_lang(problems),
-        get_is_top10_rated(handle),
-        get_is_top10_contr(handle),
         get_badges(handle)
     )
     
@@ -144,8 +159,6 @@ async def user_info_main(handle : str = Query(...)):
         'solved_problemes' : len(problems),
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank'),
-        'is_top10_rated' : is_top10_rated,
-        'is_top10_contr' : is_top10_contr,
         'badges' : badges,
         'most_used_lang' : lang,
         'avatar' : response.get('titlePhoto') 
