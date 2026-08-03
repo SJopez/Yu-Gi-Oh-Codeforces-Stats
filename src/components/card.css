@@ -341,6 +341,6 @@ body {
         left: 50%;
         top: 0px;
         transform: translate(-50%, -20px);
-        margin-bottom: 20px;
+        margin: 20px;
     }
 }
