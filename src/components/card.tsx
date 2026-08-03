@@ -61,8 +61,10 @@ export default function Card(props: FetchProps) {
     let [sparkle, setSparkle] = useState(true)
     let [effectOpacity, setEffectOpacity] = useState(0.6)
     let [nameEffect, setNameEffect] = useState(true)
+    let [className, setClassName] = useState("cardContainer")
 
     useEffect(() => {
+        if (props.scale) setClassName("miniCardContainer")
         handleSubmit(props.username, change)       
     }, [])
     
@@ -91,7 +93,7 @@ export default function Card(props: FetchProps) {
         }
         if (cardContainer.current){
             if (props.scale){
-                let scale = 0.24 * props.width / 800
+                let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
             }
             else if (props.width >= 408){
@@ -131,7 +133,7 @@ export default function Card(props: FetchProps) {
 
     return (
         <div className={props.preffix + 'totalContainer'}>
-            <div className={props.preffix + 'cardContainer'} ref={cardContainer}>
+            <div id={props.preffix} className={className} ref={cardContainer}>
                 {glow && <CardGlow></CardGlow>}
                 {sparkle && <Sparkle></Sparkle>}
                 <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
