@@ -4,12 +4,10 @@
 }
 #inputContainer {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     margin: 20px;
 }
 #inputContainer input {
-    width: 300px;
+    width: 80%;
     height: 30px;
     font-size: 16px;
     padding: 5px;

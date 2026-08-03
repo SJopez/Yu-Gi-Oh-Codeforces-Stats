@@ -75,8 +75,14 @@ export default function DuelDisk(){
         let kaiba = kaibaContainer.current
 
         if (yugi && kaiba) {
-            yugi.style.width = Math.max(400, perc) + "px"
-            kaiba.style.width = Math.max(400, perc) + "px"
+            let value = perc + "px"
+
+            if (windowWidth <= 800){
+                value = "100%" 
+            }
+
+            yugi.style.width = value
+            kaiba.style.width = value
             setWidth(yugi.offsetWidth)
 
             let rank = rankTopContainer.current

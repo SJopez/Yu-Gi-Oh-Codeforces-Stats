@@ -334,14 +334,14 @@ body {
 }
 @media (max-width: 780px) {
     .cardContainer {
-        width: 90%;
         left: 50%;
-        transform: translate(-50%);
+        transform: translateX(-50%);
     }
     .cardInfo {
         left: 50%;
         top: 0px;
         transform: translate(-50%, -20px);
-        width: 80%;
+        max-width: 360px;
+        width: 95%;
     }
 }
