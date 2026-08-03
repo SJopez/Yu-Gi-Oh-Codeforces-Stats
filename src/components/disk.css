@@ -79,10 +79,6 @@
 .sectionBannerText.red {
     --banner-text: #ff0000;
 }
-@keyframes scanHorizontal {
-    from { left: -60px; }
-    to { left: 100%; }
-}
 .topContainer {
     position: relative;
     display: inline-block;
@@ -154,15 +150,7 @@
 .hudCornerBottomLeft, .hudCornerBottomRight { bottom: 6px; border-top: none; }
 .hudCornerTopLeft, .hudCornerBottomLeft { left: 6px; border-right: none; }
 .hudCornerTopRight, .hudCornerBottomRight { right: 6px; border-left: none; }
-.scanLineHorizontal {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 60px;
-    background: linear-gradient(90deg, transparent, var(--hud-color-dim), transparent);
-    animation: scanHorizontal 3.5s linear infinite;
-    pointer-events: none;
-}
+
 @media (max-width: 800px) {
     .topContainer {
         margin-top: 20px;

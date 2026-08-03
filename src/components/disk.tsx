@@ -7,24 +7,19 @@ function TopContributorsBanner() {
     return (
         <div className="sectionBanner">
             <span className="sectionBannerText">Top contributors</span>
-            <div className="scanLineHorizontal" />
         </div>
     )
 }
 function TopRatingBanner() {
     let sectionBanner = useRef<HTMLDivElement>(null)
     let sectionBannerText = useRef<HTMLSpanElement>(null)
-    let scan = useRef<HTMLDivElement>(null)
-
+    
     useEffect(() => {
         if (sectionBanner){
             sectionBanner.current?.classList.add('red')
         }
         if (sectionBannerText){
             sectionBannerText.current?.classList.add('red')
-        }
-        if (scan){
-            scan.current?.classList.add('red')
         }
     }, [])
 
@@ -58,7 +53,6 @@ function TopList(props: TopList) {
         <div className="slotList">
             {slotList}
         </div>
-        <div className="scanLineHorizontal" />
     </div>
   );
 }
