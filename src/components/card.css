@@ -321,15 +321,6 @@ body {
     color: var(--hud-color);
     text-shadow: 0 0 4px var(--hud-color);
 }
-.scanLine {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(180deg, transparent, var(--hud-scan), transparent);
-    animation: scan 3.5s linear infinite;
-    pointer-events: none;
-}
 @keyframes scan {
     from { top: -40px; }
     to { top: 612px; }

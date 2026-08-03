@@ -126,7 +126,6 @@ export default function Card(props: FetchProps) {
                     <div className="statLine">World rank: <span className="statValue">#1</span></div>
                     <div className="statLine">Problems solved: <span className="statValue">4127</span></div>
                 </div>
-                <div className="scanLine" />
             </div>
         );
     }
