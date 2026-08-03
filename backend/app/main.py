@@ -1,33 +1,56 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
-from collections import defaultdict
 from bs4 import BeautifulSoup 
+
+from collections import defaultdict
 import asyncio
+from contextlib import asynccontextmanager
 
 
-app = FastAPI()
+http_client : httpx.AsyncClient = None
 
+
+@asynccontextmanager
+async def lifespan(app : FastAPI):
+    global http_client
+    timeout = httpx.Timeout(30.0, connect = 10.0)
+    headers = {
+        'User-Agent': (
+            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0'
+        ),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+    }
+
+    http_client = httpx.AsyncClient(
+        headers=headers, 
+        follow_redirects=True,
+        timeout=timeout,
+        http2=False
+        )
+
+    yield
+    await http_client.aclose()
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5176"],
+    allow_origins=[
+        "http://localhost:5176",
+        "https://yu-gi-oh-codeforces-stats.vercel.app"
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-HEADERS = {
-    'User-Agent': (
-        'Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0'
-    ),
-    'Accept-Language': 'en-US,en;q=0.5',
-}
 
 '''
 Needed info 
 
-##4) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
-6) Premios -> pending
+1) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
+3) Nombre de los badges
 
 '''
 
@@ -71,38 +94,39 @@ async def most_used_lang(problems):
 
     return ans[0]
 
-async def get_is_top10_rated(handle :str):
+async def get_top10_rated():
     url = 'https://codeforces.com/api/user.ratedList?activeOnly=true'
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
+    response = await http_client.get(url)
     
     response = response.json().get('result', [])
+    top = []
     for i in range(10):
-        if handle == response[i].get('handle'):
-            return True
-    return False
-    
-async def get_is_top10_contr(handle : str):
+        top.append(response[i].get('handle'))
+
+    return top
+
+async def get_top10_contr():
 
     url = 'https://codeforces.com'
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url,headers=HEADERS)
+    response = await http_client.get(url)
     
     soup = BeautifulSoup(response.text, 'html.parser')
     contributor_box = soup.select('div.top-contributed')[1]
-    user_name = contributor_box.select('a.rated-user')
-    
+    user_name = contributor_box.select('a.rated-user') 
+    top = []
 
-    return True if (handle in user_name) else False
+    for user in user_name:
+        top.append(user.get('href')[9:])
+
+    return top
     
 async def get_badges(handle : str):
 
     url = f'https://codeforces.com/profile/{handle}'
     
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url,headers=HEADERS)
+    response = await http_client.get(url)
     
     soup = BeautifulSoup(response.text, 'html.parser')
     soup = soup.select('div.badge')
@@ -111,29 +135,38 @@ async def get_badges(handle : str):
     return badges
     
 
+@app.get('/tops')
+async def get_tops():
+    #return all top 10, contributors and rated
+    
+    top_rated = await get_top10_rated(),
+    top_contributors = await get_top10_contr()
+
+    return {
+        'top_rated' : top_rated,
+        'top_contributors' : top_contributors
+    }
+
 @app.get('/user.info')
-async def user_info_main(handle : str = Query(...)):
+async def user_info(handle : str = Query(...)):
     
     #main info in user.info api request from codeforces
 
     url_info = 'https://codeforces.com/api/user.info'
     url_stat = 'https://codeforces.com/api/user.status'
 
-    async with httpx.AsyncClient() as client:
-        response, response_2 = await asyncio.gather(
-            client.get(url_info,params={'handles':handle}),
-            client.get(url_stat,params={'handle':handle})
-        )
+    response, response_2 = await asyncio.gather(
+        http_client.get(url_info,params={'handles':handle}),
+        http_client.get(url_stat,params={'handle':handle})
+    )
 
     response = response.json().get('result')[0]
     response_2 = response_2.json().get('result', [])
     
     problems = await unique_solved_problems(response_2)
 
-    lang, is_top10_rated, is_top10_contr, badges = await asyncio.gather(
+    lang, badges = await asyncio.gather(
         most_used_lang(problems),
-        get_is_top10_rated(handle),
-        get_is_top10_contr(handle),
         get_badges(handle)
     )
     
@@ -141,11 +174,11 @@ async def user_info_main(handle : str = Query(...)):
     ans : dict = {
         'handle' : handle,
         'rating' : response.get('rating'),
+        'max_rating' : response.get('maxRating'),
         'solved_problemes' : len(problems),
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank'),
-        'is_top10_rated' : is_top10_rated,
-        'is_top10_contr' : is_top10_contr,
+        'max_rank' : response.get('maxRank'),
         'badges' : badges,
         'most_used_lang' : lang,
         'avatar' : response.get('titlePhoto') 
