@@ -156,5 +156,7 @@
         margin-top: 20px;
         top: 0px;
         transform: translate(-50%, 0px);
+        width: 90%;
     }
+
 }
