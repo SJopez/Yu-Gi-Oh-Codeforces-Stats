@@ -334,6 +334,7 @@ body {
 }
 @media (max-width: 780px) {
     .cardContainer {
+        width: 90%;
         left: 50%;
         transform: translate(-50%);
     }
@@ -341,6 +342,6 @@ body {
         left: 50%;
         top: 0px;
         transform: translate(-50%, -20px);
-        margin: 20px;
+        width: 80%;
     }
 }
