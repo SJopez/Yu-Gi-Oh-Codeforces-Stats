@@ -3,9 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import Card from './card';
 import './disk.css'
 
-interface DiskOptions {
-    width: number
-}
 function TopContributorsBanner() {
     return (
         <div className="sectionBanner">
@@ -66,7 +63,7 @@ function TopList(props: TopList) {
   );
 }
 
-export default function DuelDisk(props: DiskOptions){
+export default function DuelDisk(){
     let rankUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
     let contriUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
     let rankList = []
