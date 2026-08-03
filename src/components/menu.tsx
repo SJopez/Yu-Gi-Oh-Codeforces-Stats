@@ -51,7 +51,7 @@ export default function Menu(props: MenuOptions) {
                 scale={false}
                 info={true}>     
             </Card>
-            <DuelDisk width={props.width}></DuelDisk>
+            <DuelDisk></DuelDisk>
         </div>
     )
 }
