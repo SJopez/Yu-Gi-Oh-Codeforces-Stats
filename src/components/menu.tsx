@@ -33,7 +33,7 @@ function InputField(props: Input) {
     return (
         <div id='inputContainer'>
             <input ref={currInput} id='inputField' type="text" placeholder='Enter your username...' defaultValue={"Tourist"}></input>
-            <button id='inputButton' onClick={() => props.onchange(currInput.current?.value!)}>Submit</button>
+            <button id='inputButton' onClick={() => handleSubmit(currInput.current?.value!, props.onchange)}>Submit</button>
         </div>
     )
 }
