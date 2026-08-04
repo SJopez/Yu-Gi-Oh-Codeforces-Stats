@@ -69,7 +69,7 @@ export default function Card(props: FetchProps) {
     let [lang, setLang] = useState("")
     let [badgeList, setBadgeList] = useState(Array<string>())
     let [stars, setStars] = useState(0)
-
+ 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         handleSubmit(props.username, change)       
