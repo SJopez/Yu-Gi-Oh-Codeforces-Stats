@@ -6,7 +6,9 @@ asyncio==4.0.0
 beautifulsoup4==4.15.0
 bs4==0.0.2
 certifi==2026.7.22
+cffi==2.1.1
 click==8.4.2
+curl_cffi==0.16.0
 detect-installer==0.1.0
 dnspython==2.8.0
 email-validator==2.3.0
@@ -27,6 +29,7 @@ mdurl==0.1.2
 mypy==2.3.0
 mypy_extensions==1.1.0
 pathspec==1.1.1
+pycparser==3.0
 pydantic==2.13.4
 pydantic-extra-types==2.11.1
 pydantic-settings==2.14.2
