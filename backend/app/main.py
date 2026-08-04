@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
 from bs4 import BeautifulSoup 
+from curl_cffi import AsyncSession
 
 from collections import defaultdict
 import asyncio
@@ -110,7 +111,8 @@ async def get_top10_contr():
 
     url = 'https://codeforces.com'
 
-    response = await http_client.get(url)
+    async with AsyncSession(impersonate='firefox') as s:
+        response = await s.get(url)
     
     soup = BeautifulSoup(response.text, 'html.parser')
     contributor_box = soup.select('div.top-contributed')[1]
@@ -125,9 +127,13 @@ async def get_top10_contr():
 async def get_badges(handle : str):
 
     url = f'https://codeforces.com/profile/{handle}'
+
+    async with AsyncSession(impersonate='firefox') as s:
+        response = await s.get(url)
     
-    response = await http_client.get(url)
-    
+    if response.status_code != 200:
+        return [response.status_code]
+
     soup = BeautifulSoup(response.text, 'html.parser')
     soup = soup.select('div.badge')
     badges = [i.img['src'] for i in soup]
@@ -139,7 +145,7 @@ async def get_badges(handle : str):
 async def get_tops():
     #return all top 10, contributors and rated
     
-    top_rated = await get_top10_rated(),
+    top_rated = await get_top10_rated()
     top_contributors = await get_top10_contr()
 
     return {
