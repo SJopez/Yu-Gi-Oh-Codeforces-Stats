@@ -54,6 +54,7 @@ export default function Card(props: FetchProps) {
     let starArray = []
     let name = useRef<HTMLHeadingElement>(null)
     let cardContainer = useRef<HTMLDivElement>(null)
+    let [handle, setHandle] = useState("")
     let [type, setType] = useState("Legendary Grandmaster")
     let [rank, setRank] = useState("legendary_grandmaster")
     let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
@@ -62,6 +63,9 @@ export default function Card(props: FetchProps) {
     let [effectOpacity, setEffectOpacity] = useState(0.6)
     let [nameEffect, setNameEffect] = useState(true)
     let [className, setClassName] = useState("cardContainer")
+    let [maxRank, setMaxRank] = useState("")
+    let [rating, setRating] = useState(0)
+    let [maxRating, setMaxRating] = useState(0)
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
@@ -70,10 +74,16 @@ export default function Card(props: FetchProps) {
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
+        const maxRankIndex = user.maxRank as Rank
         const rankIndex = user.rank as Rank
         const config = Metrics[rankIndex]
+        const maxRankConfig = Metrics[maxRankIndex]
 
+        setHandle(user.handle)
         setRank(config.rankName)
+        setMaxRank(maxRankConfig.rankName)
+        setRating(rating)
+        setMaxRating(maxRating)
         setPhoto(user.avatar)
         setType(config.type)
         setGlow(config.glow)
@@ -117,12 +127,12 @@ export default function Card(props: FetchProps) {
                 <div className="hudCorner hudCornerTopRight" />
                 <div className="hudCorner hudCornerBottomLeft" />
                 <div className="hudCorner hudCornerBottomRight" />
-                <div className="username">tourist</div>
+                <div className="username">{handle}</div>
                 <div className="statsList">
-                    <div className="statLine">Rank: <span className="statValue">Legendary Grandmaster</span></div>
-                    <div className="statLine">Max rank: <span className="statValue">Legendary Grandmaster</span></div>
-                    <div className="statLine">Rating: <span className="statValue">3823</span></div>
-                    <div className="statLine">Max rating: <span className="statValue">4009</span></div>
+                    <div className="statLine">Rank: <span className="statValue">{type}r</span></div>
+                    <div className="statLine">Max rank: <span className="statValue">{maxRank}</span></div>
+                    <div className="statLine">Rating: <span className="statValue">{rating}</span></div>
+                    <div className="statLine">Max rating: <span className="statValue">{maxRating}</span></div>
                     <div className="statLine">World rank: <span className="statValue">#1</span></div>
                     <div className="statLine">Problems solved: <span className="statValue">4127</span></div>
                 </div>
@@ -138,7 +148,7 @@ export default function Card(props: FetchProps) {
                 <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
                 <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
                 <div id='nameContainer'>
-                    <h1 id='cardName' ref={name}>{props.username}</h1>
+                    <h1 id='cardName' ref={name}>{handle}</h1>
                     <Attribute></Attribute>
                 </div>
                 <div id='starsContainer'>
