@@ -70,7 +70,6 @@ export default function Card(props: FetchProps) {
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
-        console.log(user.rank)
         const rankIndex = user.rank as Rank
         const config = Metrics[rankIndex]
 
