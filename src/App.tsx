@@ -23,7 +23,7 @@ function App() {
   }, [])
 
   return (
-    <div ref={container}>
+    <div ref={container} id='totalContainer'>
       <Menu width={width}></Menu>  
     </div>
   )

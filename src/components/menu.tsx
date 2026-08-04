@@ -1,13 +1,13 @@
 import Card from './card'
 import './menu.css'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import DuelDisk from './disk';
 
 export interface CodeforcesUser {
     handle: string;
     rank: string;
     rating: number;
-    titlePhoto: string;
+    avatar: string;
     type: string;
 }
 interface Input {
@@ -39,9 +39,15 @@ function InputField(props: Input) {
 
 export default function Menu(props: MenuOptions) {
     let [username, setUsername] = useState("tourist")
+    let menu = useRef<HTMLDivElement>(null)
+    let [width, setWidth] = useState(0)
+
+    useEffect(() => {
+        if (menu.current) setWidth(menu.current.offsetWidth)
+    }, [])
 
     return (
-        <div id='menu'>
+        <div id='menu' ref={menu}>
             <InputField onchange={setUsername}></InputField>
             <Card 
                 username={username}
@@ -51,7 +57,7 @@ export default function Menu(props: MenuOptions) {
                 scale={false}
                 info={true}>     
             </Card>
-            <DuelDisk></DuelDisk>
+            <DuelDisk width={width}></DuelDisk>
         </div>
     )
 }
