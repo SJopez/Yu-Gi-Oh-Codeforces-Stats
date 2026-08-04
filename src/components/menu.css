@@ -2,6 +2,12 @@
     font-family: "CardNameFont";
     src: url(../assets/fonts/Yu-Gi-Oh!\ Matrix\ Book.ttf);
 }
+#menu {
+    max-width: 1280px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
 #inputContainer {
     position: relative;
     margin: 20px;

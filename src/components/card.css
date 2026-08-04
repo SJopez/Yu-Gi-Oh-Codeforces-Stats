@@ -217,7 +217,6 @@
 .sparkle span:nth-child(5) { top: 85%; left: 10%; animation-delay: 1.6s; }
 .sparkle span:nth-child(6) { top: 17%; left: 10%; animation-delay: 1.6s; }
 
-
 @keyframes sparkle-twinkle {
   0%, 100% {
     opacity: 0;

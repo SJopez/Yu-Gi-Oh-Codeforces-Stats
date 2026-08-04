@@ -57,7 +57,11 @@ function TopList(props: TopList) {
   );
 }
 
-export default function DuelDisk(){
+interface DuelProps {
+    width: number
+}
+
+export default function DuelDisk(props: DuelProps){
     let rankUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
     let contriUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
     let rankList = []
@@ -69,7 +73,7 @@ export default function DuelDisk(){
     let contriTopContainer = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        let windowWidth = window.innerWidth
+        let windowWidth = props.width
         let perc = windowWidth * 0.3
         let yugi = yugiContainer.current
         let kaiba = kaibaContainer.current

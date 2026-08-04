@@ -74,7 +74,7 @@ export default function Card(props: FetchProps) {
         const config = Metrics[rankIndex]
 
         setRank(config.rankName)
-        setPhoto(user.titlePhoto)
+        setPhoto(user.avatar)
         setType(config.type)
         setGlow(config.glow)
         setSparkle(config.sparkle)

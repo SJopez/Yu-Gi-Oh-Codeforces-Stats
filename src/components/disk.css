@@ -30,6 +30,7 @@
     left: var(--ml);
     transform: translate(-50%, -50%) rotate(var(--mr)) scale(var(--card-scale));
 }
+
 #mini1  { --mt: 35.94%; --ml: 14%;    --mr: -102.5deg; }
 #mini2  { --mt: 44%;    --ml: 16.76%; --mr: -101deg; }
 #mini3  { --mt: 67.74%; --ml: 32.41%; --mr: -130deg; }
@@ -158,6 +159,4 @@
         transform: translate(-50%, 0px);
         width: 90%;
     }
-    
-    
 }
