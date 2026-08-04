@@ -198,3 +198,7 @@ async def user_info(handle : str = Query(...)):
     return ans
 
 
+@app.get('/health')
+async def health():
+    return {'status': 'ok'}
+
