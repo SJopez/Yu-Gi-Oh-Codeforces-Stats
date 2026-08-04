@@ -66,7 +66,7 @@ export default function Card(props: FetchProps) {
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         handleSubmit(props.username, change)       
-    }, [])
+    })
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
