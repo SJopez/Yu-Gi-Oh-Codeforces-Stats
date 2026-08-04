@@ -7,11 +7,10 @@ import Metrics from '../metrics.json'
 
 interface FetchProps {
     username: string;
-    stars: number;
     width: number;
     preffix: string;
     scale?: Boolean;
-    info?: Boolean
+    info?: Boolean;    
 } 
 
 function Attribute(){
@@ -52,6 +51,7 @@ export function CardGlow() {
 
 export default function Card(props: FetchProps) {
     let starArray = []
+    let badgeArray = []
     let name = useRef<HTMLHeadingElement>(null)
     let cardContainer = useRef<HTMLDivElement>(null)
     let [handle, setHandle] = useState("")
@@ -66,6 +66,9 @@ export default function Card(props: FetchProps) {
     let [maxRank, setMaxRank] = useState("")
     let [rating, setRating] = useState(0)
     let [maxRating, setMaxRating] = useState(0)
+    let [lang, setLang] = useState("")
+    let [badgeList, setBadgeList] = useState(Array<string>())
+    let [stars, setStars] = useState(0)
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
@@ -85,11 +88,18 @@ export default function Card(props: FetchProps) {
         setRating(user.rating)
         setMaxRating(user.max_rating)
         setPhoto(user.avatar)
+        setLang(user.most_used_lang)
         setType(config.type)
         setGlow(config.glow)
         setSparkle(config.sparkle)
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
+        setBadgeList(user.badges)
+        
+
+        if (maxRankConfig == undefined) setStars(12)
+        else setStars(maxRankConfig.stars)
+        
     }
 
     useEffect(() => {
@@ -116,8 +126,11 @@ export default function Card(props: FetchProps) {
 
     })
     
-    for (let i = 0; i < Math.min(props.stars, 12); i++) {
+    for (let i = 0; i < stars; i++) {
         starArray.push(<img id={`start${i}`} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
+    }
+    for (let i = 0; i < badgeList.length; i++){
+        badgeArray.push(<img className='badge' src={badgeList[i]}></img>)
     }
 
     function CardInformation() {
@@ -133,8 +146,8 @@ export default function Card(props: FetchProps) {
                     <div className="statLine">Max rank: <span className="statValue">{maxRank}</span></div>
                     <div className="statLine">Rating: <span className="statValue">{rating}</span></div>
                     <div className="statLine">Max rating: <span className="statValue">{maxRating}</span></div>
-                    <div className="statLine">World rank: <span className="statValue">#1</span></div>
                     <div className="statLine">Problems solved: <span className="statValue">4127</span></div>
+                    <div className="statLine">Most used lang: <span className="statValue">{lang}</span></div>
                 </div>
             </div>
         );
@@ -155,6 +168,9 @@ export default function Card(props: FetchProps) {
                     {starArray}
                 </div>
                 <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
+                <div id='badgesContainer'>
+                    {badgeArray}
+                </div>
                 <div id='textContainer'>
                     <label id='cardType'> [{type}] </label>
                     <div id='descriptionContainer' className='scrollable'>

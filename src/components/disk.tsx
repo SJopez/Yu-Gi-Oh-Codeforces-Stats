@@ -60,10 +60,6 @@ function TopList(props: TopList) {
 interface DuelProps {
     width: number
 }
-interface Tops {
-    rankSetter: (list: Array<string>) => void;
-    contriSetter: (list: Array<string>) => void
-}
 
 async function fetchTops(rankSetter: (list: Array<string>) => void, 
                          contriSetter: (list: Array<string>) => void){
@@ -134,7 +130,6 @@ export default function DuelDisk(props: DuelProps){
         rankList.push(
             <Card 
                 username={rankuser}
-                stars={1}
                 preffix={`mini${i + 1}`}
                 width={width}
                 scale={true}>     
@@ -143,7 +138,6 @@ export default function DuelDisk(props: DuelProps){
         contriList.push(
             <Card 
                 username={contriUser}
-                stars={1}
                 preffix={`mini${5 + i + 1}`}
                 width={width}
                 scale={true}>     
