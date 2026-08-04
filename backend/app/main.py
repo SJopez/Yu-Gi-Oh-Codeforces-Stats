@@ -95,16 +95,20 @@ async def most_used_lang(problems):
             
 
     return ans[0]
-
+@app.get('/test')
 async def get_top10_rated():
-    url = 'https://codeforces.com/api/user.ratedList?activeOnly=true'
+    url = 'https://codeforces.com'
 
-    response = await http_client.get(url)
+    async with AsyncSession(impersonate='firefox') as s:
+        response = await s.get(url)
     
-    response = response.json().get('result', [])
+    soup = BeautifulSoup(response.text, 'html.parser')
+    contributor_box = soup.select('div.top-contributed')[0]
+    user_name = contributor_box.select('a.rated-user') 
     top = []
-    for i in range(10):
-        top.append(response[i].get('handle'))
+
+    for user in user_name:
+        top.append(user.get('href')[9:])
 
     return top
 
