@@ -284,6 +284,16 @@ body {
     overflow: hidden;
     box-shadow: 0 0 12px var(--hud-shadow), inset 0 0 20px var(--hud-shadow-inset);
 }
+.badge {
+  width: 20%;
+  float: right;
+}
+#badgesContainer {
+  width: 66.8%;
+  position: absolute;
+  top: 60%;
+  left: 16.8%;
+}
 .hudCorner {
     position: absolute;
     width: 16px;

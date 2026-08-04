@@ -11,6 +11,8 @@ export interface CodeforcesUser {
     rating: number;
     avatar: string;
     type: string;
+    most_used_lang: string;
+    badges: Array<string>;
 }
 interface Input {
     onchange: (user: string) => void;
@@ -52,7 +54,6 @@ export default function Menu(props: MenuOptions) {
             <InputField onchange={setUsername}></InputField>
             <Card 
                 username={username}
-                stars={8}
                 width={props.width}
                 preffix=''
                 scale={false}
