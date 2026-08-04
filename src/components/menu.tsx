@@ -5,7 +5,9 @@ import DuelDisk from './disk';
 
 export interface CodeforcesUser {
     handle: string;
+    maxRank: string;
     rank: string;
+    maxRating: number;
     rating: number;
     avatar: string;
     type: string;
