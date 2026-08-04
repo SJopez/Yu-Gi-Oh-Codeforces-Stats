@@ -5,9 +5,9 @@ import DuelDisk from './disk';
 
 export interface CodeforcesUser {
     handle: string;
-    maxRank: string;
+    max_rank: string;
     rank: string;
-    maxRating: number;
+    max_rating: number;
     rating: number;
     avatar: string;
     type: string;
@@ -24,7 +24,6 @@ export async function handleSubmit(user: string, change: Function) {
     if(!response.ok) throw new Error("Something went wrong!")
     const data = await response.json()
     const result = data as CodeforcesUser
-    
     change(result)
 }
 

@@ -60,10 +60,25 @@ function TopList(props: TopList) {
 interface DuelProps {
     width: number
 }
+interface Tops {
+    rankSetter: (list: Array<string>) => void;
+    contriSetter: (list: Array<string>) => void
+}
+
+async function fetchTops(rankSetter: (list: Array<string>) => void, 
+                         contriSetter: (list: Array<string>) => void){
+    const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/tops")
+    if(!response.ok) throw new Error("Something went wrong!")
+    const data = await response.json()
+    const rank = data.top_rated as Array<string>
+    const contri = data.top_contributors as Array<string>
+    rankSetter(rank)
+    contriSetter(contri)
+}
 
 export default function DuelDisk(props: DuelProps){
-    let rankUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
-    let contriUsernameList = ["sergio22", "sn0wm4n", "itadrias", "EduardoBrito", "jiangly", "alben", "idania", "suculini", "silvio rodriguez", "fiumba"]
+    let [rankUsernameList, setRankUsernameList] = useState(["benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq"]) 
+    let [contriUsernameList, setContriUsernameList] = useState(["benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq"])
     let rankList = []
     let contriList = []
     let yugiContainer = useRef<HTMLDivElement>(null)
@@ -77,6 +92,7 @@ export default function DuelDisk(props: DuelProps){
         let perc = windowWidth * 0.3
         let yugi = yugiContainer.current
         let kaiba = kaibaContainer.current
+        fetchTops(setRankUsernameList, setContriUsernameList)
 
         if (yugi && kaiba) {
             let value = perc + "px"
@@ -84,7 +100,7 @@ export default function DuelDisk(props: DuelProps){
             if (windowWidth <= 800){
                 value = "100%" 
             }
-
+            
             yugi.style.width = value
             kaiba.style.width = value
             setWidth(yugi.offsetWidth)
