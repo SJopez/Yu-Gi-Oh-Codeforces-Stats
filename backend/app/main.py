@@ -56,7 +56,6 @@ Needed info
 
 '''
 
-
 async def unique_solved_problems(response_2):
     problems = dict()
     for sub in response_2:
@@ -95,7 +94,7 @@ async def most_used_lang(problems):
             
 
     return ans[0]
-@app.get('/test')
+
 async def get_top10_rated():
     url = 'https://codeforces.com'
 
@@ -144,6 +143,16 @@ async def get_badges(handle : str):
     badges = [i.img['src'] for i in soup]
 
     return badges
+
+async def get_problems_tags(problems : dict):
+    tag = defaultdict(int)
+
+    for problem in problems.values():
+        for tag_ in problem.get('tags'):
+            tag[tag_] += 1
+
+    tag = sorted(tag, key=lambda x: tag.get(x), reverse=True)
+    return tag
     
 
 @app.get('/tops')
@@ -175,7 +184,9 @@ async def user_info(handle : str = Query(...)):
     response_2 = response_2.json().get('result', [])
     
     problems = await unique_solved_problems(response_2)
-
+    
+    problems_tags = await get_problems_tags(problems)
+    
     lang, badges = await asyncio.gather(
         most_used_lang(problems),
         get_badges(handle)
@@ -187,6 +198,7 @@ async def user_info(handle : str = Query(...)):
         'rating' : response.get('rating'),
         'max_rating' : response.get('maxRating'),
         'solved_problemes' : len(problems),
+        'tags': problems_tags,
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank'),
         'max_rank' : response.get('maxRank'),
