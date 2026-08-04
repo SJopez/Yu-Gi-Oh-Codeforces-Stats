@@ -40,6 +40,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5176",
+        "http://localhost:5173",
         "https://yu-gi-oh-codeforces-stats.vercel.app"
     ],
     allow_methods=["*"],
