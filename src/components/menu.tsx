@@ -21,8 +21,7 @@ export async function handleSubmit(user: string, change: Function) {
     const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/user.info?handle="+user)
     if(!response.ok) throw new Error("Something went wrong!")
     const data = await response.json()
-    const result = data.result as CodeforcesUser
-    console.log(data.result)
+    const result = data as CodeforcesUser
     console.log(result)
     
     change(result)
