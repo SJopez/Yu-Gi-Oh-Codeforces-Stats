@@ -22,7 +22,7 @@ export async function handleSubmit(user: string, change: Function) {
     if(!response.ok) throw new Error("Something went wrong!")
     const data = await response.json()
     const result = data.result as CodeforcesUser
-    console.log(data)
+    console.log(result)
     
     change(result)
 }
