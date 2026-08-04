@@ -74,14 +74,15 @@ export default function Card(props: FetchProps) {
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
+        console.log(user)
         const maxRankIndex = user.maxRank as Rank
         const rankIndex = user.rank as Rank
         const config = Metrics[rankIndex]
         const maxRankConfig = Metrics[maxRankIndex]
 
         setHandle(user.handle)
-        setRank(config.rankName)
-        setMaxRank(maxRankConfig.rankName)
+        setRank(config.type)
+        setMaxRank(maxRankConfig.type)
         setRating(rating)
         setMaxRating(maxRating)
         setPhoto(user.avatar)
