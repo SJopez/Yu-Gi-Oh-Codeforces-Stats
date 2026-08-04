@@ -7,6 +7,7 @@ from curl_cffi import AsyncSession
 from collections import defaultdict
 import asyncio
 from contextlib import asynccontextmanager
+import time
 
 
 http_client : httpx.AsyncClient = None
@@ -197,3 +198,9 @@ async def user_info(handle : str = Query(...)):
     return ans
 
 
+@app.get('/activate')
+async def activate():
+    url = 'https://yu-gi-oh-codeforces-stats.onrender.com/activate'
+    time.sleep(60)
+    response = http_client.get(url)
+    return response
