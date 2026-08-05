@@ -228,30 +228,6 @@
     transform: scale(1.3) rotate(20deg);
   }
 }
-.card-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: visible;
-  z-index: 40;
-}
-
-.card-glow-path {
-  fill: none;
-  stroke: gold;
-  opacity: 0.8;
-  stroke-width: 1;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 3px gold) drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
-  stroke-dasharray: 100 1638; /* segmento brillante + resto del recorrido */
-  animation: border-travel 4s linear infinite;
-}
-
-@keyframes border-travel {
-  to {
-    stroke-dashoffset: -1738; /* = suma del dasharray (100 + 1638) */
-  }
-}
 body {
     background-color: #1e1e1e;
 }
