@@ -34,21 +34,6 @@ export function Sparkle() {
   );
 }
 
-export function CardGlow() {
-  return (
-    <svg className="card-glow" viewBox="0 0 408 612">
-      <rect
-        className="card-glow-path"
-        x="23"
-        y="42"
-        width="360"
-        height="520"
-        rx="13"
-      />
-    </svg>
-  );
-}
-
 export default function Card(props: FetchProps) {
     let starArray = []
     let badgeArray = []
@@ -58,7 +43,6 @@ export default function Card(props: FetchProps) {
     let [type, setType] = useState("Legendary Grandmaster")
     let [rank, setRank] = useState("legendary_grandmaster")
     let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
-    let [glow, setGlow] = useState(true)
     let [sparkle, setSparkle] = useState(true)
     let [effectOpacity, setEffectOpacity] = useState(0.6)
     let [nameEffect, setNameEffect] = useState(true)
@@ -90,7 +74,6 @@ export default function Card(props: FetchProps) {
         setPhoto(user.avatar)
         setLang(user.most_used_lang)
         setType(config.type)
-        setGlow(config.glow)
         setSparkle(config.sparkle)
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
@@ -156,7 +139,6 @@ export default function Card(props: FetchProps) {
     return (
         <div className={props.preffix + 'totalContainer'}>
             <div id={props.preffix} className={className} ref={cardContainer}>
-                {glow && <CardGlow></CardGlow>}
                 {sparkle && <Sparkle></Sparkle>}
                 <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
                 <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
