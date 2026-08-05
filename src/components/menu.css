@@ -4,23 +4,155 @@
 }
 #menu {
     max-width: 1280px;
+    width: 100%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    background: linear-gradient(135deg, #0d0e15 0%, #1a1c29 50%, #0d0e15 100%);
+    border: 4px solid #4a5568;
+    border-left: 8px solid #2b6cb0;
+    border-right: 8px solid #c53030;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        inset 0 0 40px rgba(0, 0, 0, 0.6);
+    min-height: 600px;
 }
+#inputWrapper {
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 #inputContainer {
-    position: relative;
-    margin: 20px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(26, 28, 41, 0.8);
+    border: 2px solid #4a5568;
+    border-radius: 50px;
+    width: 100%;
+    max-width: 360px;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
-#inputContainer input {
-    width: 80%;
-    height: 30px;
-    font-size: 16px;
-    padding: 5px;
-    opacity: 1;
-    background-color: transparent;
-    color: white;
+
+#inputContainer:focus-within {
+    border-color: #63b3ed;
+    box-shadow: 0 0 15px rgba(99, 179, 237, 0.4);
+}
+
+#inputField {
+    flex: 1;
+    background: transparent;
     border: none;
-    border-bottom: 2px solid rgb(90, 74, 74);
     outline: none;
+    color: #e2e8f0;
+    font-size: 16px;
+    padding: 10px 5px;
+    font-family: inherit;
+}
+
+#inputField::placeholder {
+    color: #718096;
+}
+
+#inputButton {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #a0aec0;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+#inputButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+#inputButton:hover {
+    color: #63b3ed;
+    transform: scale(1.1);
+}
+
+#inputButton:active {
+    transform: scale(0.95);
+}
+
+#menuTitle {
+    font-family: "CardNameFont", 'Courier New', sans-serif;
+    font-size: 2.2rem;
+    text-align: center;
+    padding-top: 25px;
+    margin-bottom: -10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Gradiente dividido: Rojo (Yugi) a la izquierda y Azul (Kaiba) a la derecha */
+    background: linear-gradient(
+        90deg, 
+        #e53e3e 0%, 
+        #fc8181 30%, 
+        #ffffff 50%, 
+        #63b3ed 70%, 
+        #3182ce 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+    /* Resplandor dual en rojo y azul que combina con los bordes laterales */
+    filter: 
+        drop-shadow(-4px 0 10px rgba(197, 48, 48, 0.6)) 
+        drop-shadow(4px 0 10px rgba(43, 108, 176, 0.6));
+        
+    animation: title-shimmer 5s linear infinite;
+}
+
+#menuTitle span {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 5px;
+    margin-top: 6px;
+    
+    /* Subtítulo metálico oscuro con matices azul/rojo */
+    background: linear-gradient(
+        90deg, 
+        #c53030 0%, 
+        #cbd5e0 50%, 
+        #2b6cb0 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+@keyframes title-shimmer {
+    to {
+        background-position: -200% center;
+    }
+}
+
+@media (max-width: 600px) {
+    #menuTitle {
+        font-size: 1.5rem;
+    }
+    #menuTitle span {
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+    }
 }
