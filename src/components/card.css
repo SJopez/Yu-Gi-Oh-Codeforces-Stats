@@ -23,6 +23,7 @@
     transform-origin: top left;
     left: var(--card-left);
     transform: scale(var(--card-scale)) translateX(var(--card-left));
+
 }
 #nameContainer {
     font-family: "CardNameFont";
