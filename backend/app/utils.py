@@ -73,7 +73,7 @@ def normalize_lang(lang: str) -> str:
         "j": "J"
     }
     
-    return mapping.get(lang_lower, lang.split()[0] if lang else "Otros")
+    return mapping.get(lang_lower, lang.split()[0] if lang else "Other")
 
 async def most_used_lang(problems):
     langs = defaultdict(int)
