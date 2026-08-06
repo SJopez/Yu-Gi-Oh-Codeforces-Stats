@@ -103,6 +103,8 @@
     left: 12.4%;
     padding: 2px;
     container-type: inline-size;
+    font-size: clamp(10px, 3.6cqw, 15px);
+    line-height: 1.15;
 }
 .scrollable {
   overflow-y: auto;
@@ -127,23 +129,25 @@
 
 #descriptionContainer {
     font-family: "CardNameFont";
-    font-size: 12px;
+    font-size: clamp(7px, 3.6cqw, 12px);
+    line-height: 1.15;
     overflow-y: scroll;
     height: 65%;
     padding-left: 2px;
-}
-#separator {
-    border-color: black;
-    margin-top: 2px;
-}
-#atk {
-    padding-right: 8px;
 }
 #statsContainer {
     font-family: "CardDescFont";
     height: 10%;
     text-align: end;
-    font-size: 13px;
+    font-size: clamp(8px, 4.2cqw, 13px);
+    line-height: 1.2;
+}
+#separator {
+    border-color: black;
+    margin-top: 1px;
+}
+#atk {
+    padding-right: 8px;
 }
 #attribute {
     height: 100%;
@@ -238,29 +242,6 @@ body {
     z-index: 10;
 
 }
-.cardInfo {
-    --hud-color: #00f6ff;
-    --hud-border: rgba(0, 246, 255, 0.5);
-    --hud-shadow: rgba(0, 246, 255, 0.35);
-    --hud-shadow-inset: rgba(0, 246, 255, 0.08);
-    --hud-scan: rgba(0, 246, 255, 0.12);
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    top: 45px;
-    gap: 24px;
-    width: 360px;
-    padding: 32px 20px;
-    box-sizing: border-box;
-    background: linear-gradient(180deg, rgba(0, 30, 40, 0.35), rgba(0, 15, 25, 0.55));
-    backdrop-filter: blur(2px);
-    border: 1px solid var(--hud-border);
-    border-radius: 4px;
-    color: #aef9ff;
-    font-family: 'Courier New', monospace;
-    overflow: hidden;
-    box-shadow: 0 0 12px var(--hud-shadow), inset 0 0 20px var(--hud-shadow-inset);
-}
 .badge {
   width: 20%;
   float: right;
@@ -270,42 +251,6 @@ body {
   position: absolute;
   top: 60%;
   left: 16.8%;
-}
-.hudCorner {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--hud-color);
-}
-.hudCornerTopLeft, .hudCornerTopRight { top: 6px; border-bottom: none; }
-.hudCornerBottomLeft, .hudCornerBottomRight { bottom: 6px; border-top: none; }
-.hudCornerTopLeft, .hudCornerBottomLeft { left: 6px; border-right: none; }
-.hudCornerTopRight, .hudCornerBottomRight { right: 6px; border-left: none; }
-.username {
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-shadow: 0 0 6px var(--hud-color), 0 0 14px var(--hud-color);
-}
-.statsList {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-.statLine {
-    font-size: 0.9rem;
-    color: rgba(174, 249, 255, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-.statValue {
-    font-weight: 700;
-    color: var(--hud-color);
-    text-shadow: 0 0 4px var(--hud-color);
 }
 @keyframes scan {
     from { top: -40px; }
@@ -318,6 +263,99 @@ body {
   transform: translateX(-50%);
   
 }
+.cardInfo {
+    --hud-cyan: #00f6ff;
+    --hud-red: #ff3366;
+    --hud-bg: rgba(10, 14, 23, 0.85);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 28px 22px;
+    box-sizing: border-box;
+
+    background: 
+        linear-gradient(180deg, rgba(0, 246, 255, 0.04) 0%, transparent 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 246, 255, 0.03) 3px, rgba(0, 246, 255, 0.03) 3px),
+        var(--hud-bg);
+
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 246, 255, 0.3);
+    border-radius: 8px;
+    color: #e2f1f8;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 25px rgba(0, 246, 255, 0.05),
+        0 0 15px rgba(0, 246, 255, 0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+.cardInfo:hover {
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.9),
+        inset 0 0 30px rgba(0, 246, 255, 0.08),
+        0 0 22px rgba(0, 246, 255, 0.3);
+}
+
+.username {
+    padding-bottom: 5px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 0.12em;
+    border-bottom: 1px dashed rgba(0, 246, 255, 0.3);
+    text-shadow: 
+        0 0 8px rgba(0, 246, 255, 0.8),
+        0 0 18px rgba(0, 246, 255, 0.4);
+}
+
+.statsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.statLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 246, 255, 0.12);
+    border-left: 3px solid var(--hud-cyan);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: rgba(226, 241, 248, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: all 0.25s ease;
+}
+
+.statLine:hover {
+    background: rgba(0, 246, 255, 0.08);
+    border-left-color: var(--hud-red);
+    transform: translateX(4px);
+}
+
+.statValue {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--hud-cyan);
+    text-shadow: 0 0 6px rgba(0, 246, 255, 0.6);
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.statLine:hover .statValue {
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--hud-red);
+}
 @media (max-width: 780px) {
     .cardContainer {
         left: 50%;
@@ -328,6 +366,6 @@ body {
         top: 0px;
         transform: translate(-50%, -20px);
         max-width: 360px;
-        width: 95%;
+        width: 90%;
     }
 }
