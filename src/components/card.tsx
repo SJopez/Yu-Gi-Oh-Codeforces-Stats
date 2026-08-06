@@ -4,6 +4,7 @@ import { handleSubmit, type CodeforcesUser } from './menu';
 const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, import: 'default' });
 const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
 import Metrics from '../metrics.json'
+import Langs from '../langs.json'
 
 interface FetchProps {
     username: string;
@@ -13,10 +14,16 @@ interface FetchProps {
     info?: Boolean;    
 } 
 
-function Attribute(){
+interface AttributeProps {
+    lang: string;
+}
+
+function Attribute(props: AttributeProps){
+    type Lang = keyof typeof Langs
+    const langKey = props.lang as Lang
     return (
         <div id='langContainer'>
-            <img id="attribute" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-plain.svg" />
+            <img id="attribute" src={Langs[langKey]} />
         </div>
     )
 }
@@ -79,7 +86,7 @@ export default function Card(props: FetchProps) {
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
         setBadgeList(user.badges)
-        setProblems(user.solved_problems)
+        setProblems(user.solved_problemes)
 
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)
@@ -141,7 +148,7 @@ export default function Card(props: FetchProps) {
                 <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
                 <div id='nameContainer'>
                     <h1 id='cardName' ref={name}>{handle}</h1>
-                    <Attribute></Attribute>
+                    <Attribute lang={lang}></Attribute>
                 </div>
                 <div id='starsContainer'>
                     {starArray}
