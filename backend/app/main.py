@@ -1,13 +1,17 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
-from bs4 import BeautifulSoup 
-from curl_cffi import AsyncSession
 
-from collections import defaultdict
 import asyncio
 from contextlib import asynccontextmanager
 
+from app.services import get_top10_rated
+from app.services import get_top10_contr
+from app.services import get_badges
+
+from app.utils import most_used_lang
+from app.utils import unique_solved_problems
+from app.utils import get_problems_tags
 
 http_client : httpx.AsyncClient = None
 
@@ -46,115 +50,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-'''
-Needed info 
-
-1) Lista con todos los problemas, su dificultad y tags -> pending/ por ver
-3) Nombre de los badges
-
-'''
-
-async def unique_solved_problems(response_2):
-    problems = dict()
-    for sub in response_2:
-        if sub.get('verdict') == 'OK':
-            contesId = sub.get('contestId')
-            problem_index = sub.get('problem').get('index')
-            
-            prog_lang = sub.get('programmingLanguage')
-            tags = sub.get('problem').get('tags')
-            rating = sub.get('problem').get('rating')
-
-            #null rating == unrated contest
-
-            problems.update({
-                f'{contesId}_{problem_index}' : {
-                    'prog_lang' : prog_lang,
-                    'tags' : tags,
-                    'rating' : rating
-                } 
-            })
-
-    return problems
-
-async def most_used_lang(problems):
-    langs = defaultdict(int)
-
-    for problem in problems.values():
-        lang = problem.get('prog_lang')
-        
-        langs[lang] += 1
     
-    ans = ['C++', 0]
-    for lang in langs.items():
-        if lang[1] >= ans[1]:
-            ans = lang
-            
-
-    return ans[0]
-
-async def get_top10_rated():
-    url = 'https://codeforces.com'
-
-    async with AsyncSession(impersonate='firefox') as s:
-        response = await s.get(url)
-    
-    soup = BeautifulSoup(response.text, 'html.parser')
-    contributor_box = soup.select('div.top-contributed')[0]
-    user_name = contributor_box.select('a.rated-user') 
-    top = []
-
-    for user in user_name:
-        top.append(user.get('href')[9:])
-
-    return top
-
-async def get_top10_contr():
-
-    url = 'https://codeforces.com'
-
-    async with AsyncSession(impersonate='firefox') as s:
-        response = await s.get(url)
-    
-    soup = BeautifulSoup(response.text, 'html.parser')
-    contributor_box = soup.select('div.top-contributed')[1]
-    user_name = contributor_box.select('a.rated-user') 
-    top = []
-
-    for user in user_name:
-        top.append(user.get('href')[9:])
-
-    return top
-    
-async def get_badges(handle : str):
-
-    url = f'https://codeforces.com/profile/{handle}'
-
-    async with AsyncSession(impersonate='firefox') as s:
-        response = await s.get(url)
-    
-    if response.status_code != 200:
-        return [response.status_code]
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-    soup = soup.select('div.badge')
-    badges = [i.img['src'] for i in soup]
-
-    return badges
-
-async def get_problems_tags(problems : dict):
-    tag = defaultdict(int)
-
-    for problem in problems.values():
-        for tag_ in problem.get('tags'):
-            tag[tag_] += 1
-
-    tag = sorted(tag, key=lambda x: tag.get(x), reverse=True)
-    return tag
-    
-
 @app.get('/tops')
 async def get_tops():
     #return all top 10, contributors and rated
