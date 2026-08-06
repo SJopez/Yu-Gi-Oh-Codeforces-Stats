@@ -269,9 +269,9 @@ body {
     --hud-bg: rgba(10, 14, 23, 0.85);
 
     position: relative;
-    display: flex;
+    display: inline-block;
     flex-direction: column;
-    width: 90%;
+    width: 360px;
     padding: 28px 22px;
     box-sizing: border-box;
 
@@ -292,6 +292,8 @@ body {
         inset 0 0 25px rgba(0, 246, 255, 0.05),
         0 0 15px rgba(0, 246, 255, 0.15);
     transition: box-shadow 0.3s ease;
+    vertical-align: top;
+    top: 40px;
 }
 
 .cardInfo:hover {
