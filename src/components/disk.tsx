@@ -73,8 +73,8 @@ async function fetchTops(rankSetter: (list: Array<string>) => void,
 }
 
 export default function DuelDisk(props: DuelProps){
-    let [rankUsernameList, setRankUsernameList] = useState(["benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq"]) 
-    let [contriUsernameList, setContriUsernameList] = useState(["benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq", "benq"])
+    let [rankUsernameList, setRankUsernameList] = useState([""]) 
+    let [contriUsernameList, setContriUsernameList] = useState([""])
     let rankList = []
     let contriList = []
     let yugiContainer = useRef<HTMLDivElement>(null)

@@ -13,6 +13,7 @@ export interface CodeforcesUser {
     type: string;
     most_used_lang: string;
     badges: Array<string>;
+    solved_problems: number;
 }
 interface Input {
     onchange: (user: string) => void;

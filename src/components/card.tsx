@@ -53,6 +53,7 @@ export default function Card(props: FetchProps) {
     let [lang, setLang] = useState("")
     let [badgeList, setBadgeList] = useState(Array<string>())
     let [stars, setStars] = useState(0)
+    let [problems, setProblems] = useState(0)
  
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
@@ -78,7 +79,7 @@ export default function Card(props: FetchProps) {
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
         setBadgeList(user.badges)
-        
+        setProblems(user.solved_problems)
 
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)
@@ -119,17 +120,13 @@ export default function Card(props: FetchProps) {
     function CardInformation() {
         return (
             <div className="cardInfo">
-                <div className="hudCorner hudCornerTopLeft" />
-                <div className="hudCorner hudCornerTopRight" />
-                <div className="hudCorner hudCornerBottomLeft" />
-                <div className="hudCorner hudCornerBottomRight" />
                 <div className="username">{handle}</div>
                 <div className="statsList">
                     <div className="statLine">Rank: <span className="statValue">{type}r</span></div>
                     <div className="statLine">Max rank: <span className="statValue">{maxRank}</span></div>
                     <div className="statLine">Rating: <span className="statValue">{rating}</span></div>
                     <div className="statLine">Max rating: <span className="statValue">{maxRating}</span></div>
-                    <div className="statLine">Problems solved: <span className="statValue">4127</span></div>
+                    <div className="statLine">Problems solved: <span className="statValue">{problems}</span></div>
                     <div className="statLine">Most used lang: <span className="statValue">{lang}</span></div>
                 </div>
             </div>
