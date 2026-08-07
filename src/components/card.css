@@ -132,7 +132,7 @@
     font-size: clamp(7px, 3.6cqw, 12px);
     line-height: 1.15;
     overflow-y: scroll;
-    height: 65%;
+    height: 70%;
     padding-left: 2px;
 }
 #statsContainer {

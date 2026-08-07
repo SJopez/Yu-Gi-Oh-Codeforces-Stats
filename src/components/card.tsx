@@ -11,7 +11,9 @@ interface FetchProps {
     width: number;
     preffix: string;
     scale?: Boolean;
-    info?: Boolean;    
+    info?: Boolean;
+    isTopUser?: Boolean;
+    topUser?: CodeforcesUser;   
 } 
 
 interface AttributeProps {
@@ -64,8 +66,9 @@ export default function Card(props: FetchProps) {
  
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
-        handleSubmit(props.username, change)       
-    })
+        if (props.isTopUser) change(props.topUser!)
+        else handleSubmit(props.username, change)
+    }, [props.username, props.isTopUser, props.topUser, props.width])
     
     function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
@@ -129,7 +132,7 @@ export default function Card(props: FetchProps) {
             <div className="cardInfo">
                 <div className="username">{handle}</div>
                 <div className="statsList">
-                    <div className="statLine">Rank: <span className="statValue">{type}r</span></div>
+                    <div className="statLine">Rank: <span className="statValue">{type}</span></div>
                     <div className="statLine">Max rank: <span className="statValue">{maxRank}</span></div>
                     <div className="statLine">Rating: <span className="statValue">{rating}</span></div>
                     <div className="statLine">Max rating: <span className="statValue">{maxRating}</span></div>
