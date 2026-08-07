@@ -1,7 +1,15 @@
 from curl_cffi import AsyncSession
 from bs4 import BeautifulSoup
 
-async def get_top10_rated():
+import json
+
+async def get_top10_rated(cached : bool = False):
+    if cached:
+        with open('app/cache/top10_rated_cache.json', 'r') as file:
+            data = json.load(file)
+            
+        return data
+
     url = 'https://codeforces.com'
 
     async with AsyncSession(impersonate='firefox') as s:
@@ -17,7 +25,12 @@ async def get_top10_rated():
 
     return top
 
-async def get_top10_contr():
+async def get_top10_contr(cached : bool = False):
+    if cached:
+        with open('app/cache/top10_contributors_cache.json', 'r') as file:
+            data = json.load(file)
+
+        return data
 
     url = 'https://codeforces.com'
 
