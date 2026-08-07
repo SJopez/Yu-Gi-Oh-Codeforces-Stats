@@ -98,5 +98,5 @@ async def get_problems_tags(problems : dict):
         for tag_ in problem.get('tags'):
             tag[tag_] += 1
 
-    tag = sorted(tag, key=lambda x: tag.get(x), reverse=True)
+    tag = sorted(tag.items(),key = lambda x: x[1], reverse=True)
     return tag
