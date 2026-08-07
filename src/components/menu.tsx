@@ -15,6 +15,7 @@ export interface CodeforcesUser {
     badges: Array<string>;
     solved_problemes: number;
 }
+
 interface Input {
     onchange: (user: string) => void;
 }

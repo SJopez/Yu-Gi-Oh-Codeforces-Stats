@@ -2,6 +2,7 @@ const images = import.meta.glob('/src/assets/*.{png,jpg}', { eager: true, import
 import { useEffect, useRef, useState } from 'react';
 import Card from './card';
 import './disk.css'
+import type { CodeforcesUser } from './menu';
 
 function TopContributorsBanner() {
     return (
@@ -29,52 +30,57 @@ function TopRatingBanner() {
         </div>
     )
 }
+
 interface TopList {
-    list: Array<string>;
+    list: Array<CodeforcesUser>;
     subclass: string;
     title: string;
 }
+
 function TopList(props: TopList) {
-  let slotList = []
+    if (!props.list) return
+    let slotList = []
 
     for (let i = 0; i < props.list.length; i++){
         slotList.push(
-            <div className="slotRow"><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i]}</span></div>
+            <div className="slotRow"><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i].handle}</span></div>
         )
     }
 
-  return (
-    <div className={`topContainer ${props.subclass}`}>
-        <div className="hudCorner hudCornerTopLeft" />
-        <div className="hudCorner hudCornerTopRight" />
-        <div className="hudCorner hudCornerBottomLeft" />
-        <div className="hudCorner hudCornerBottomRight" />
-        <div className="topContainerHeader">{props.title}</div>
-        <div className="slotList">
-            {slotList}
+    return (
+        <div className={`topContainer ${props.subclass}`}>
+            <div className="hudCorner hudCornerTopLeft" />
+            <div className="hudCorner hudCornerTopRight" />
+            <div className="hudCorner hudCornerBottomLeft" />
+            <div className="hudCorner hudCornerBottomRight" />
+            <div className="topContainerHeader">{props.title}</div>
+            <div className="slotList">
+                {slotList}
+            </div>
         </div>
-    </div>
-  );
+    )
 }
 
 interface DuelProps {
     width: number
 }
 
-async function fetchTops(rankSetter: (list: Array<string>) => void, 
-                         contriSetter: (list: Array<string>) => void){
+async function fetchTops(rankSetter: (list: Array<CodeforcesUser>) => void, 
+                         contriSetter: (list: Array<CodeforcesUser>) => void){
+    console.log("dasdads")
     const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/tops")
     if(!response.ok) throw new Error("Something went wrong!")
     const data = await response.json()
-    const rank = data.top_rated as Array<string>
-    const contri = data.top_contributors as Array<string>
+    const rank = data.top_rated as Array<CodeforcesUser>
+    const contri = data.top_contributors as Array<CodeforcesUser>
     rankSetter(rank)
     contriSetter(contri)
+    console.log(data)
 }
 
 export default function DuelDisk(props: DuelProps){
-    let [rankUsernameList, setRankUsernameList] = useState([""]) 
-    let [contriUsernameList, setContriUsernameList] = useState([""])
+    let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>() 
+    let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>()
     let rankList = []
     let contriList = []
     let yugiContainer = useRef<HTMLDivElement>(null)
@@ -88,7 +94,9 @@ export default function DuelDisk(props: DuelProps){
         let perc = windowWidth * 0.3
         let yugi = yugiContainer.current
         let kaiba = kaibaContainer.current
-        fetchTops(setRankUsernameList, setContriUsernameList)
+        if (!rankUsernameList && !contriUsernameList){
+            fetchTops(setRankUsernameList, setContriUsernameList)
+        }
 
         if (yugi && kaiba) {
             let value = perc + "px"
@@ -106,11 +114,11 @@ export default function DuelDisk(props: DuelProps){
            
             if (rank && contri){
                 if (windowWidth > 800){
-                    rank.style.width = (windowWidth - width - 20) + "px"
-                    rank.style.height = yugi.offsetHeight + "px"
-                    
                     contri.style.width = (windowWidth - kaiba.offsetWidth - 20) + "px"
                     contri.style.height = kaiba.offsetHeight + "px"
+
+                    rank.style.width = (windowWidth - yugi.offsetWidth - 20) + "px"
+                    rank.style.height = yugi.offsetHeight + "px"
                 }
                 else {
                     rank.style.width = "100%"
@@ -121,36 +129,42 @@ export default function DuelDisk(props: DuelProps){
                 }
             }   
         }    
-    })
+    }, [props.width])
 
-    for (let i = 0; i < 5; i++){
-        let rankuser = rankUsernameList[i]
-        let contriUser = contriUsernameList[i]
-        
-        rankList.push(
-            <Card 
-                username={rankuser}
-                preffix={`mini${i + 1}`}
-                width={width}
-                scale={true}>     
-            </Card>
-        )
-        contriList.push(
-            <Card 
-                username={contriUser}
-                preffix={`mini${5 + i + 1}`}
-                width={width}
-                scale={true}>     
-            </Card>
+    if (rankUsernameList && contriUsernameList){
+        for (let i = 0; i < 5; i++){
+            let rankuser = rankUsernameList[i]
+            let contriUser = contriUsernameList[i]
+            
+            rankList.push(
+                <Card 
+                    username={rankuser.handle}
+                    preffix={`mini${i + 1}`}
+                    width={width}
+                    scale={true}
+                    isTopUser={true}
+                    topUser={rankuser}>     
+                </Card>
+            )
+            contriList.push(
+                <Card 
+                    username={contriUser.handle}
+                    preffix={`mini${5 + i + 1}`}
+                    width={width}
+                    scale={true}
+                    isTopUser={true}
+                    topUser={contriUser}>     
+                </Card>
         )
     }
 
+    }
     return (    
         <div id='duelContainer'>
             <TopRatingBanner></TopRatingBanner>
             <div id='rankContainer'>
                 <div id='rankTopContainer' ref={rankTopContainer}>
-                    <TopList list={rankUsernameList} subclass='topContainerRed' title='Top 10 mundial rating'></TopList>
+                    <TopList list={rankUsernameList!} subclass='topContainerRed' title='Top 10 mundial rating'></TopList>
                 </div>
                 <div className="diskContainer" id="yugiContainer" ref={yugiContainer}>
                     <img className='diskImage' src={`${images["/src/assets/yugi.png"]}`}></img>
@@ -160,7 +174,7 @@ export default function DuelDisk(props: DuelProps){
             <TopContributorsBanner></TopContributorsBanner>
             <div id='contriContainer'>
                 <div id='contriTopContainer' ref={contriTopContainer}>
-                    <TopList list={contriUsernameList} subclass='topContainerBlue' title='Top 10 mundial contributors'></TopList>
+                    <TopList list={contriUsernameList!} subclass='topContainerBlue' title='Top 10 mundial contributors'></TopList>
                 </div>
                 <div className="diskContainer" id="kaibaContainer" ref={kaibaContainer}>
                     <img className='diskImage' id='kaibaImage' src={`${images["/src/assets/kaiba.png"]}`}></img>
