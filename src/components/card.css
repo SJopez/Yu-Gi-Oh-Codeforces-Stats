@@ -132,7 +132,7 @@
     font-size: clamp(7px, 3.6cqw, 12px);
     line-height: 1.15;
     overflow-y: scroll;
-    height: 70%;
+    height: 90%;
     padding-left: 2px;
 }
 #statsContainer {
@@ -272,9 +272,10 @@ body {
     display: inline-block;
     flex-direction: column;
     width: 360px;
-    padding: 28px 22px;
+    padding: 28px 16px;
     box-sizing: border-box;
-
+    max-height: 520px;
+    
     background: 
         linear-gradient(180deg, rgba(0, 246, 255, 0.04) 0%, transparent 100%),
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 246, 255, 0.03) 3px, rgba(0, 246, 255, 0.03) 3px),
@@ -358,6 +359,94 @@ body {
     color: #ffffff;
     text-shadow: 0 0 8px var(--hud-red);
 }
+.typeBannerGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.typeBanner {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(0, 246, 255, 0.25);
+    border-radius: 3px;
+    font-size: 0.7rem;
+    color: rgba(226, 241, 248, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.typeBannerDivider {
+    width: 1px;
+    height: 12px;
+    background: var(--hud-cyan);
+    opacity: 0.5;
+}
+
+.typeBannerCount {
+    font-weight: 700;
+    color: var(--hud-cyan);
+    text-shadow: 0 0 6px rgba(0, 246, 255, 0.6);
+}
+
+.tagsLine {
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 120px;
+}
+
+.tagsTitle {
+    margin-bottom: 10px;
+}
+
+.tagsLine {
+    flex-direction: column;
+    align-items: flex-start;
+    height: 160px;
+}
+
+.tagsTitle {
+    margin-bottom: 8px;
+}
+
+.typeBannerGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+    
+    max-height: 120px; 
+    
+    overflow-y: auto;
+    padding-right: 6px; 
+    
+    scrollbar-width: thin;
+    scrollbar-color: var(--hud-cyan) transparent;
+}
+
+.typeBannerGrid::-webkit-scrollbar {
+    width: 4px;
+}
+
+.typeBannerGrid::-webkit-scrollbar-track {
+    background: rgba(0, 246, 255, 0.05); 
+    border-radius: 4px;
+}
+
+.typeBannerGrid::-webkit-scrollbar-thumb {
+    background: var(--hud-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 5px var(--hud-cyan);
+}
+
+.typeBannerGrid::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
 @media (max-width: 780px) {
     .cardContainer {
         left: 50%;

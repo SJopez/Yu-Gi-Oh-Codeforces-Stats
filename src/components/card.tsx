@@ -63,7 +63,8 @@ export default function Card(props: FetchProps) {
     let [badgeList, setBadgeList] = useState(Array<string>())
     let [stars, setStars] = useState(0)
     let [problems, setProblems] = useState(0)
- 
+    let [problemsTags, setProblemsTags] = useState(Array<Array<string | number>>())
+
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
@@ -90,6 +91,7 @@ export default function Card(props: FetchProps) {
         setNameEffect(config.nameEffect)
         setBadgeList(user.badges)
         setProblems(user.solved_problemes)
+        setProblemsTags(user.tags)
 
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)
@@ -128,6 +130,19 @@ export default function Card(props: FetchProps) {
     }
 
     function CardInformation() {
+        let tagList = []
+
+        for (let i = 0; i < problemsTags.length; i++){
+            let tag = problemsTags[i]
+            tagList.push(
+                <div className="typeBanner" key={i}> 
+                    <span>{tag[0]}</span>
+                    <span className="typeBannerDivider"></span>
+                    <span className="typeBannerCount">{tag[1]}</span>
+                </div>
+            )
+        }
+
         return (
             <div className="cardInfo">
                 <div className="username">{handle}</div>
@@ -138,9 +153,16 @@ export default function Card(props: FetchProps) {
                     <div className="statLine">Max rating: <span className="statValue">{maxRating}</span></div>
                     <div className="statLine">Problems solved: <span className="statValue">{problems}</span></div>
                     <div className="statLine">Most used lang: <span className="statValue">{lang}</span></div>
+                    
+                    <div className="statLine tagsLine">
+                        <span className="tagsTitle">Problems tags:</span> 
+                        <div className="typeBannerGrid">
+                            {tagList}
+                        </div>
+                    </div>
                 </div>
             </div>
-        );
+        )
     }
 
     return (
