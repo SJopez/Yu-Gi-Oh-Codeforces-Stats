@@ -14,6 +14,7 @@ export interface CodeforcesUser {
     most_used_lang: string;
     badges: Array<string>;
     solved_problemes: number;
+    tags: Array<Array<number | string>>;
 }
 
 interface Input {
