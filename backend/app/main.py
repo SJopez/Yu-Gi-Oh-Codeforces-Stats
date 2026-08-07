@@ -4,6 +4,7 @@ import httpx
 
 import asyncio
 from contextlib import asynccontextmanager
+import json
 
 from app.services import get_top10_rated
 from app.services import get_top10_contr
@@ -50,12 +51,44 @@ app.add_middleware(
     allow_headers=["*"],
 )
     
+
+@app.post('/update_tops_cache')
+async def update_tops_cache():
+    rated = await get_top10_rated()
+    #update top 10 rated cache
+
+    rated_path = 'app/cache/top10_rated_cache.json'
+    rated_list = []
+
+    for user in rated:
+        response = await user_info(user)
+        rated_list.append(response)
+
+    with open(rated_path, 'w') as file:
+        json.dump(rated_list, file, indent=4)
+
+    #update top 10 contributors
+    contr = await get_top10_contr()
+
+    contr_path = 'app/cache/top10_contributors_cache.json'
+    contr_list = []
+
+    for user in contr:
+        response = await user_info(user)
+        contr_list.append(response)
+
+    with open(contr_path, 'w') as file:
+        json.dump(contr_list, file, indent=4)
+
+    return {'result' : 'update'}
+
+
 @app.get('/tops')
 async def get_tops():
     #return all top 10, contributors and rated
     
-    top_rated = await get_top10_rated()
-    top_contributors = await get_top10_contr()
+    top_rated = await get_top10_rated(True)
+    top_contributors = await get_top10_contr(True)
 
     return {
         'top_rated' : top_rated,
