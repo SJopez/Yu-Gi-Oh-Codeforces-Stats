@@ -74,16 +74,22 @@ async def process_null_rated(user_info : dict = None):
 
     soup = BeautifulSoup(response.text, 'html.parser')
     soup = soup.select_one('div.userbox div.info')
+    
 
     li = soup.select_one('ul li')
     span = li.select('span')
+    try :
+        rank = soup.select_one('div.user-rank span').text[:-1]
+        max_rank : str = li.select_one('span.smaller').select('span')[0].text
+        max_rank = max_rank.capitalize()[:-2]
 
-    rank = soup.select_one('div.user-rank span').text[:-1]
-    max_rank : str = li.select_one('span.smaller').select('span')[0].text
-    max_rank = max_rank.capitalize()[:-2]
-
-    rating = span[0].text
-    max_rating = li.select_one('span.smaller').select('span')[1].text
+        rating = span[0].text
+        max_rating = li.select_one('span.smaller').select('span')[1].text
+    except AttributeError:
+        rank = soup.select_one('div.user-rank span').text[:-1]
+        max_rank = rank
+        rating = "Unrated"
+        max_rating = rating
 
     user_info.update({
         'rank' : rank,
