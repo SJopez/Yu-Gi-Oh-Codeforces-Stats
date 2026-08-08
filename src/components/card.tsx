@@ -77,6 +77,9 @@ export default function Card(props: FetchProps) {
     }, [props.username, props.isTopUser, props.topUser, props.width])
 
     function buildDescription(user: CodeforcesUser) {
+        if (props.rankRating.length == 0 || props.contributionRank.length == 0){
+            return
+        }
         type Legend = keyof typeof Descriptions.legends
         type RatingTop = keyof typeof Descriptions.tops.rank
         type ContriTop = keyof typeof Descriptions.tops.contribution
@@ -111,6 +114,7 @@ export default function Card(props: FetchProps) {
             numIndex = Math.floor(numIndex / 100) * 100
             
             let index = numIndex.toString() as UserRank
+            console.log(index)
             setDescription(Descriptions.users[index])
         }
     }
