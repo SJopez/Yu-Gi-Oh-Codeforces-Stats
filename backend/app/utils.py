@@ -75,7 +75,7 @@ def normalize_lang(lang: str) -> str:
     
     return mapping.get(lang_lower, lang.split()[0] if lang else "Other")
 
-async def most_used_lang(problems):
+async def most_used_lang(problems) -> str:
     langs = defaultdict(int)
 
     for problem in problems.values():
@@ -85,10 +85,10 @@ async def most_used_lang(problems):
             langs[norm_lang] += 1
     
     if not langs:
-        return None
+        return ''
 
     best_lang = max(langs.items(), key=lambda x: x[1])
-    return best_lang[0] if best_lang else ''
+    return best_lang[0]
 
 
 async def get_problems_tags(problems : dict):
