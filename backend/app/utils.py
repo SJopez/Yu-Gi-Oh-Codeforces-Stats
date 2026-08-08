@@ -88,7 +88,7 @@ async def most_used_lang(problems):
         return None
 
     best_lang = max(langs.items(), key=lambda x: x[1])
-    return best_lang[0]
+    return best_lang[0] if best_lang else ''
 
 
 async def get_problems_tags(problems : dict):
