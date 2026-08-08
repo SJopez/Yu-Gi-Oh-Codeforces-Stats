@@ -14,6 +14,7 @@ from app.services import process_null_rated
 from app.utils import most_used_lang
 from app.utils import unique_solved_problems
 from app.utils import get_problems_tags
+from app.utils import get_pos
 
 http_client : httpx.AsyncClient = None
 
@@ -109,6 +110,7 @@ async def user_info(handle : str = Query(...)):
         http_client.get(url_stat,params={'handle':handle})
     )
 
+
     response = response.json().get('result')[0]
     response_2 = response_2.json().get('result', [])
     
@@ -121,6 +123,8 @@ async def user_info(handle : str = Query(...)):
         get_badges(handle)
     )
 
+    rate_pos, contr_pos = await get_pos(response.get('handle'))
+
     ans : dict = {
         'handle' : response.get('handle'),
         'rating' : response.get('rating'),
@@ -132,7 +136,9 @@ async def user_info(handle : str = Query(...)):
         'max_rank' : response.get('maxRank'),
         'badges' : badges,
         'most_used_lang' : lang,
-        'avatar' : response.get('titlePhoto') 
+        'avatar' : response.get('titlePhoto'),
+        'rated_pos' : rate_pos, #only if the user is en top10 rated
+        'contr_pos' : contr_pos #only ig user is sin top10 contr
     }
 
     if response.get('rank') is None or response.get('maxRank') is None:
