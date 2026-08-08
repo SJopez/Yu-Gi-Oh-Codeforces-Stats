@@ -1,4 +1,5 @@
 from collections import defaultdict
+import json
 
 async def unique_solved_problems(response_2):
     problems = dict()
@@ -75,6 +76,31 @@ def normalize_lang(lang: str) -> str:
     
     return mapping.get(lang_lower, lang.split()[0] if lang else "Other")
 
+async def get_pos(handle : str):
+    
+    with open('app/cache/top10_rated_cache.json', 'r') as file:
+        rated_data = json.load(file)
+
+    with open('app/cache/top10_contributors_cache.json', 'r') as file:
+        contr_data = json.load(file)
+    
+    rate_pos = 1
+    contr_pos = 1
+
+    for user in rated_data:
+        if user.get('handle') == handle:
+            break
+        rate_pos += 1
+        
+    for user in contr_data:
+        if user.get('handle') == handle:
+            break
+        contr_pos += 1
+    
+    return (rate_pos if rate_pos != 11 else -1, 
+            contr_pos if contr_pos != 11 else -1)
+    
+    
 async def most_used_lang(problems) -> str:
     langs = defaultdict(int)
 
