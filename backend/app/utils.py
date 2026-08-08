@@ -116,7 +116,6 @@ async def most_used_lang(problems) -> str:
     best_lang = max(langs.items(), key=lambda x: x[1])
     return best_lang[0]
 
-
 async def get_problems_tags(problems : dict):
     tag = defaultdict(int)
 

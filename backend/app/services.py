@@ -94,8 +94,8 @@ async def process_null_rated(user_info : dict = None):
     user_info.update({
         'rank' : rank,
         'max_rank' : max_rank,
-        'rating' : rating,
-        'max_rating' : max_rating
+        'rating' : int(rating),
+        'max_rating' : int(max_rating)
     })
 
 
