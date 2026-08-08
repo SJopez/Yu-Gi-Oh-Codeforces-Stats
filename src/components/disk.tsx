@@ -43,7 +43,7 @@ function TopList(props: TopList) {
 
     for (let i = 0; i < props.list.length; i++){
         slotList.push(
-            <div className="slotRow"><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i].handle}</span></div>
+            <div className="slotRow" key={i}><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i].handle}</span></div>
         )
     }
 
@@ -62,25 +62,16 @@ function TopList(props: TopList) {
 }
 
 interface DuelProps {
-    width: number
+    width: number;
+    ratingRank: Array<CodeforcesUser>;
+    contributionRank: Array<CodeforcesUser>;
 }
 
-async function fetchTops(rankSetter: (list: Array<CodeforcesUser>) => void, 
-                         contriSetter: (list: Array<CodeforcesUser>) => void){
-    console.log("dasdads")
-    const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/tops")
-    if(!response.ok) throw new Error("Something went wrong!")
-    const data = await response.json()
-    const rank = data.top_rated as Array<CodeforcesUser>
-    const contri = data.top_contributors as Array<CodeforcesUser>
-    rankSetter(rank)
-    contriSetter(contri)
-    console.log(data)
-}
+
 
 export default function DuelDisk(props: DuelProps){
-    let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>() 
-    let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>()
+    let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>([]) 
+    let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>([])
     let rankList = []
     let contriList = []
     let yugiContainer = useRef<HTMLDivElement>(null)
@@ -90,13 +81,19 @@ export default function DuelDisk(props: DuelProps){
     let contriTopContainer = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
+        if (props.contributionRank){
+            setRankUsernameList(props.contributionRank)
+        }
+        if (props.ratingRank){
+            setContriUsernameList(props.ratingRank)
+        }
+    }, [props.ratingRank, props.contributionRank])
+
+    useEffect(() => {
         let windowWidth = props.width
         let perc = windowWidth * 0.3
         let yugi = yugiContainer.current
         let kaiba = kaibaContainer.current
-        if (!rankUsernameList && !contriUsernameList){
-            fetchTops(setRankUsernameList, setContriUsernameList)
-        }
 
         if (yugi && kaiba) {
             let value = perc + "px"
@@ -131,7 +128,7 @@ export default function DuelDisk(props: DuelProps){
         }    
     }, [props.width])
 
-    if (rankUsernameList && contriUsernameList){
+    if (rankUsernameList.length && contriUsernameList.length){
         for (let i = 0; i < 5; i++){
             let rankuser = rankUsernameList[i]
             let contriUser = contriUsernameList[i]
@@ -143,7 +140,9 @@ export default function DuelDisk(props: DuelProps){
                     width={width}
                     scale={true}
                     isTopUser={true}
-                    topUser={rankuser}>     
+                    topUser={rankuser}
+                    rankRating={rankUsernameList}
+                    contributionRank={contriUsernameList}>     
                 </Card>
             )
             contriList.push(
@@ -153,10 +152,12 @@ export default function DuelDisk(props: DuelProps){
                     width={width}
                     scale={true}
                     isTopUser={true}
-                    topUser={contriUser}>     
+                    topUser={contriUser}
+                    rankRating={rankUsernameList}
+                    contributionRank={contriUsernameList}>     
                 </Card>
-        )
-    }
+            )
+        }
 
     }
     return (    
