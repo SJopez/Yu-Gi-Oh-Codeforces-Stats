@@ -9,6 +9,7 @@ import json
 from app.services import get_top10_rated
 from app.services import get_top10_contr
 from app.services import get_badges
+from app.services import process_null_rated
 
 from app.utils import most_used_lang
 from app.utils import unique_solved_problems
@@ -120,7 +121,6 @@ async def user_info(handle : str = Query(...)):
         most_used_lang(problems),
         get_badges(handle)
     )
-    
 
     ans : dict = {
         'handle' : handle,
@@ -135,6 +135,9 @@ async def user_info(handle : str = Query(...)):
         'most_used_lang' : lang,
         'avatar' : response.get('titlePhoto') 
     }
+
+    if response.get('rank') is None or response.get('maxRank') is None:
+        await process_null_rated(ans)
 
     return ans
 
