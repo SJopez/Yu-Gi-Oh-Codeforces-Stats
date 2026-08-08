@@ -1,4 +1,15 @@
 {
+  "unrated": {
+    "card": "src/assets/cards/newbie.png",
+    "nameDecoration": false,
+    "sparkle": false,
+    "effect": "src/assets/cards/effects/newbie.png",
+    "rankName": "unrated",
+    "type": "Unrated",
+    "effectOpacity": 0.7,
+    "stars": 0,
+    "nameEffect": false 
+  },
   "newbie": {
     "card": "src/assets/cards/newbie.png",
     "nameDecoration": false,
@@ -89,7 +100,7 @@
   },
   "international grandmaster": {
     "card": "src/assets/cards/international_grandmaster.png",
-    "nameDecoration": false,
+    "nameDecoration": true,
     "sparkle": true,
     "effect": "src/assets/cards/effects/international_grandmaster.png",
     "rankName": "international_grandmaster",
@@ -108,6 +119,17 @@
     "effectOpacity": 0.55,
     "nameEffect": true,
     "stars": 11 
+  },
+  "headquarters": {
+    "card": "src/assets/cards/headquarters.png",
+    "nameDecoration": true,
+    "sparkle": true,
+    "effect": "src/assets/cards/effects/newbie.png",
+    "rankName": "headquarters",
+    "type": "Headquarter",
+    "effectOpacity": 1,
+    "nameEffect": true,
+    "stars": 0
   }
 }
 

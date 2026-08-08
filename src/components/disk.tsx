@@ -82,10 +82,10 @@ export default function DuelDisk(props: DuelProps){
 
     useEffect(() => {
         if (props.contributionRank){
-            setRankUsernameList(props.contributionRank)
-        }
+            setContriUsernameList(props.contributionRank)
+        }   
         if (props.ratingRank){
-            setContriUsernameList(props.ratingRank)
+            setRankUsernameList(props.ratingRank)
         }
     }, [props.ratingRank, props.contributionRank])
 

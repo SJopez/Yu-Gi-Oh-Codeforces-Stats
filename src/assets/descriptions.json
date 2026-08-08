@@ -28,12 +28,12 @@
   "legends": {
     "tourist": "Exists across every ruleset ever written — ICPC, IOI, TopCoder, Codeforces — as every Monster type at once. Its effects cannot be negated by Judge, clock, or opponent. It has already won. THE ABSOLUTE GOAT",
     "jiangly": "Every Spell/Trap your opponent controls is treated as a cheer, not a threat. Cannot be destroyed or targeted while you hold 3+ cards — the Jiangly Fans Club always intervenes first.",
-    "benq": "Once per turn: Special Summon 'Farmer John' and 'Bessie' from Deck or hand. While both are out, this card cannot be targeted, and its ATK equals every problem it has authored.",
-    "mikemirzayanov": "Not a Monster — this card IS the Field itself. Every ruling and rating change exists only because it allows it. Cannot be destroyed, negated, or removed. Its text overrides all others.",
-    "petr": "On the field since before any current player joined. Its stats predate a rating system that no longer exists in its original form. Immune to 'Power Creep.' Still wins.",
-    "errichto": "Once per turn: reveal 1 low-ATK monster in hand and explain its effect aloud to Special Summon it, gaining 500 ATK. Countless monsters worldwide were taught to fight by this card.",
-    "um_nik": "Effect: 'No.' That is the entire text of this card. It has never needed to be longer.",
-    "secondthread": "Once per turn, either player's turn: reveal your opponent's entire hand aloud. They cannot prevent it — thousands already know before their next move."
+    "Benq": "Once per turn: Special Summon 'Farmer John' and 'Bessie' from Deck or hand. While both are out, this card cannot be targeted, and its ATK equals every problem it has authored.",
+    "MikeMirzayanov": "Not a Monster — this card IS the Field itself. Every ruling and rating change exists only because it allows it. Cannot be destroyed, negated, or removed. Its text overrides all others.",
+    "Petr": "On the field since before any current player joined. Its stats predate a rating system that no longer exists in its original form. Immune to 'Power Creep.' Still wins.",
+    "Errichto": "Once per turn: reveal 1 low-ATK monster in hand and explain its effect aloud to Special Summon it, gaining 500 ATK. Countless monsters worldwide were taught to fight by this card.",
+    "Um_nik": "Effect: 'No.' That is the entire text of this card. It has never needed to be longer.",
+    "SecondThread": "Once per turn, either player's turn: reveal your opponent's entire hand aloud. They cannot prevent it — thousands already know before their next move."
   },
   "users": {
     "400": "Whenever this card submits, there's a 50% chance of Wrong Answer on test 3. Its ATK is halved if forced to explain its own code.",

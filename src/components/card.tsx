@@ -26,8 +26,9 @@ interface AttributeProps {
 function Attribute(props: AttributeProps){
     type Lang = keyof typeof Langs
     const langKey = props.lang as Lang
+    
     return (
-        <div id='langContainer'>
+        <div id='langContainer' style={{opacity: props.lang == "" ? 0 : 1}}>
             <img id="attribute" src={Langs[langKey]} />
         </div>
     )
@@ -69,6 +70,8 @@ export default function Card(props: FetchProps) {
     let [problems, setProblems] = useState(0)
     let [problemsTags, setProblemsTags] = useState(Array<Array<string | number>>())
     let [description, setDescription] = useState("")
+    let [template, setTemplate] = useState("src/assets/cards/legendary_grandmaster.png")
+    let [effect, setEffect] = useState("src/assets/cards/effects/legendary_grandmaster.png")
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
@@ -77,44 +80,27 @@ export default function Card(props: FetchProps) {
     }, [props.username, props.isTopUser, props.topUser, props.width])
 
     function buildDescription(user: CodeforcesUser) {
-        if (props.rankRating.length == 0 || props.contributionRank.length == 0){
-            return
-        }
         type Legend = keyof typeof Descriptions.legends
         type RatingTop = keyof typeof Descriptions.tops.rank
         type ContriTop = keyof typeof Descriptions.tops.contribution
         type UserRank = keyof typeof Descriptions.users
 
         let handle = user.handle
-        let isTopRaing = false
-        let isTopContri = false
-
-        for (let i = 0; i < 10; i++){
-            if (handle == props.rankRating[i].handle){
-                isTopRaing = true
-                break
-            }
-            if (handle == props.contributionRank[i].handle){
-                isTopContri = true
-                break
-            }
-        }
-
+        
         if (handle in Descriptions.legends) {
             setDescription(Descriptions.legends[handle as Legend])
         }
-        else if (isTopRaing){
-            setDescription(Descriptions.tops.rank[handle as RatingTop])
+        else if (user.rank_pos > 0){
+            setDescription(Descriptions.tops.rank[user.rank_pos.toString() as RatingTop])
         }
-        else if (isTopContri){
-            setDescription(Descriptions.tops.contribution[handle as ContriTop])
+        else if (user.contr_pos > 0){
+            setDescription(Descriptions.tops.contribution[user.contr_pos.toString() as ContriTop])
         }
         else {
-            let numIndex = Math.max(400, rating)
+            let numIndex = Math.max(400, user.rating)
             numIndex = Math.floor(numIndex / 100) * 100
             
             let index = numIndex.toString() as UserRank
-            console.log(index)
             setDescription(Descriptions.users[index])
         }
     }
@@ -125,7 +111,9 @@ export default function Card(props: FetchProps) {
         const rankIndex = user.rank as Rank
         const config = Metrics[rankIndex]
         const maxRankConfig = Metrics[maxRankIndex]
-
+        
+        setTemplate(config.card)
+        setEffect(config.effect)
         setHandle(user.handle)
         setRank(config.rankName)
         setMaxRank(user.max_rank)
@@ -172,10 +160,10 @@ export default function Card(props: FetchProps) {
     })
     
     for (let i = 0; i < stars; i++) {
-        starArray.push(<img id={`start${i}`} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
+        starArray.push(<img id={`start${i}`} key={i} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
     }
     for (let i = 0; i < badgeList.length; i++){
-        badgeArray.push(<img className='badge' src={badgeList[i]}></img>)
+        badgeArray.push(<img className='badge' key={i} src={badgeList[i]}></img>)
     }
 
     function CardInformation() {
@@ -218,8 +206,8 @@ export default function Card(props: FetchProps) {
         <div className={props.preffix + 'totalContainer'}>
             <div id={props.preffix} className={className} ref={cardContainer}>
                 {sparkle && <Sparkle></Sparkle>}
-                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/src/assets/cards/effects/${rank}.png`] as string}></img>
-                <img id='cardTemplate' src={images[`/src/assets/cards/${rank}.png`] as string}></img>
+                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
+                <img id='cardTemplate' src={images[`/${template}`] as string}></img>
                 <div id='nameContainer'>
                     <h1 id='cardName' ref={name}>{handle}</h1>
                     <Attribute lang={lang}></Attribute>
@@ -240,8 +228,8 @@ export default function Card(props: FetchProps) {
                     </div>
                     <hr id='separator'></hr>
                     <div id='statsContainer'>
-                        <label id='atk'>ATK/{"4000"}</label>
-                        <label id='def'>DEF/{"1200"}</label>
+                        <label id='atk'>ATK/{maxRating}</label>
+                        <label id='def'>DEF/{problems}</label>
                     </div>
                 </div>
             </div>
