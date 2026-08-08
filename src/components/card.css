@@ -14,7 +14,8 @@
 @font-face {
     font-family: "CardDescFont";
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
-}
+} 
+
 .cardContainer {
     position: relative;
     display: inline-block;
