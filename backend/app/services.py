@@ -79,14 +79,14 @@ async def process_null_rated(user_info : dict = None):
     span = li.select('span')
 
     try :
-        rank = soup.select_one('div.user-rank span').text[:-1]
+        rank = soup.select_one('div.user-rank span').text[:-1].lower()
         max_rank : str = li.select_one('span.smaller').select('span')[0].text
-        max_rank = max_rank.capitalize()[:-2]
+        max_rank = max_rank.lower()
 
         rating = span[0].text
         max_rating = li.select_one('span.smaller').select('span')[1].text
     except AttributeError:
-        rank = soup.select_one('div.user-rank span').text[:-1]
+        rank = soup.select_one('div.user-rank span').text[:-1].lower()
         max_rank = rank
         rating = 0
         max_rating = 0
