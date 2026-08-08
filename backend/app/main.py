@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
 
@@ -55,7 +55,6 @@ app.add_middleware(
 )
     
 
-@app.post('/update_tops_cache')
 async def update_tops_cache():
     rated = await get_top10_rated()
     #update top 10 rated cache
@@ -83,8 +82,10 @@ async def update_tops_cache():
     with open(contr_path, 'w') as file:
         json.dump(contr_list, file, indent=4)
 
-    return {'result' : 'update'}
-
+@app.post('/update_tops_cache')
+async def trigger_cache_uptade(background_task : BackgroundTasks):
+    background_task.add_task(update_tops_cache)
+    return {'result': 'cache update started'}
 
 @app.get('/tops')
 async def get_tops():
