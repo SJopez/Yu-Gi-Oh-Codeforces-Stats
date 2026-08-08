@@ -5,6 +5,7 @@ const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, 
 const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
 import Metrics from '../metrics.json'
 import Langs from '../langs.json'
+import Descriptions from '../assets/descriptions.json'
 
 interface FetchProps {
     username: string;
@@ -13,7 +14,9 @@ interface FetchProps {
     scale?: Boolean;
     info?: Boolean;
     isTopUser?: Boolean;
-    topUser?: CodeforcesUser;   
+    topUser?: CodeforcesUser;
+    rankRating: Array<CodeforcesUser>;
+    contributionRank: Array<CodeforcesUser>;  
 } 
 
 interface AttributeProps {
@@ -31,16 +34,17 @@ function Attribute(props: AttributeProps){
 }
 
 export function Sparkle() {
-  return (
-    <div className="sparkle">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  );
+   let spanList = []
+
+   for (let i = 0; i < 6; i++){
+       spanList.push(<span key={i}></span>)
+   }
+    
+   return (
+        <div className="sparkle">
+            {spanList}
+        </div>
+  )
 }
 
 export default function Card(props: FetchProps) {
@@ -64,14 +68,54 @@ export default function Card(props: FetchProps) {
     let [stars, setStars] = useState(0)
     let [problems, setProblems] = useState(0)
     let [problemsTags, setProblemsTags] = useState(Array<Array<string | number>>())
+    let [description, setDescription] = useState("")
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
         else handleSubmit(props.username, change)
     }, [props.username, props.isTopUser, props.topUser, props.width])
-    
-    function change(user: CodeforcesUser) {
+
+    function buildDescription(user: CodeforcesUser) {
+        type Legend = keyof typeof Descriptions.legends
+        type RatingTop = keyof typeof Descriptions.tops.rank
+        type ContriTop = keyof typeof Descriptions.tops.contribution
+        type UserRank = keyof typeof Descriptions.users
+
+        let handle = user.handle
+        let isTopRaing = false
+        let isTopContri = false
+
+        for (let i = 0; i < 10; i++){
+            if (handle == props.rankRating[i].handle){
+                isTopRaing = true
+                break
+            }
+            if (handle == props.contributionRank[i].handle){
+                isTopContri = true
+                break
+            }
+        }
+
+        if (handle in Descriptions.legends) {
+            setDescription(Descriptions.legends[handle as Legend])
+        }
+        else if (isTopRaing){
+            setDescription(Descriptions.tops.rank[handle as RatingTop])
+        }
+        else if (isTopContri){
+            setDescription(Descriptions.tops.contribution[handle as ContriTop])
+        }
+        else {
+            let numIndex = Math.max(400, rating)
+            numIndex = Math.floor(numIndex / 100) * 100
+            
+            let index = numIndex.toString() as UserRank
+            setDescription(Descriptions.users[index])
+        }
+    }
+
+   function change(user: CodeforcesUser) {
         type Rank = keyof typeof Metrics
         const maxRankIndex = user.max_rank as Rank
         const rankIndex = user.rank as Rank
@@ -92,6 +136,7 @@ export default function Card(props: FetchProps) {
         setBadgeList(user.badges)
         setProblems(user.solved_problemes)
         setProblemsTags(user.tags)
+        buildDescription(user)
 
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)
@@ -186,7 +231,7 @@ export default function Card(props: FetchProps) {
                     <label id='cardType'> [{type}] </label>
                     <div id='descriptionContainer' className='scrollable'>
                         <p id='description'>
-                            Requires 3 Tributes to Normal Summon (cannot be Normal Set). This card's Normal Summon cannot be negated.  
+                            {description}  
                         </p>
                     </div>
                     <hr id='separator'></hr>
