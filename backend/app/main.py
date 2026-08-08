@@ -123,7 +123,7 @@ async def user_info(handle : str = Query(...)):
     )
 
     ans : dict = {
-        'handle' : handle,
+        'handle' : response.get('handle'),
         'rating' : response.get('rating'),
         'max_rating' : response.get('maxRating'),
         'solved_problemes' : len(problems),
