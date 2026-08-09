@@ -155,7 +155,6 @@ export default function Card(props: FetchProps) {
             }
             else {
                 cardContainer.current.style.setProperty("--card-scale", (props.width / 360).toString());
-                console.log("escalaaa")
             }
         }
 
