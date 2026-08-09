@@ -80,8 +80,20 @@
 .sectionBannerText.red {
     --banner-text: #ff0000;
 }
+#rankTopContainer, #contriTopContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+#rankContainer, #contriContainer {
+    display: flex;
+    align-items: flex-end;
+}
+#contriContainer {
+    flex-direction: row-reverse;
+}
 .topContainer {
-    position: relative;
     display: inline-block;
     width: 80%;
     box-sizing: border-box;
@@ -93,9 +105,6 @@
     overflow: hidden;
     box-shadow: 0 0 12px var(--hud-color-border), inset 0 0 20px var(--hud-color-dim);
     font-family: 'Courier New', monospace;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .topContainerRed {
     --hud-color: #ff3c3c;
@@ -155,8 +164,9 @@
 @media (max-width: 800px) {
     .topContainer {
         margin-top: 20px;
-        top: 0px;
-        transform: translate(-50%, 0px);
         width: 90%;
+    }
+    #rankContainer, #contriContainer {
+        display: block;
     }
 }

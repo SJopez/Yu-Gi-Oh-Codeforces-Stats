@@ -67,8 +67,6 @@ interface DuelProps {
     contributionRank: Array<CodeforcesUser>;
 }
 
-
-
 export default function DuelDisk(props: DuelProps){
     let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>([]) 
     let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>([])
@@ -112,10 +110,12 @@ export default function DuelDisk(props: DuelProps){
             if (rank && contri){
                 if (windowWidth > 800){
                     contri.style.width = (windowWidth - kaiba.offsetWidth - 20) + "px"
-                    contri.style.height = kaiba.offsetHeight + "px"
+                    //contri.style.height = kaiba.offsetHeight + "px"
 
                     rank.style.width = (windowWidth - yugi.offsetWidth - 20) + "px"
-                    rank.style.height = yugi.offsetHeight + "px"
+                    //rank.style.height = yugi.offsetHeight + "px"
+                    contri.style.minHeight = kaiba.offsetHeight + "px"
+                    rank.style.minHeight = yugi.offsetHeight + "px"
                 }
                 else {
                     rank.style.width = "100%"
@@ -180,8 +180,7 @@ export default function DuelDisk(props: DuelProps){
                 <div className="diskContainer" id="kaibaContainer" ref={kaibaContainer}>
                     <img className='diskImage' id='kaibaImage' src={`${images["/src/assets/kaiba.png"]}`}></img>
                     {contriList}                     
-                </div>
-                
+                </div>               
             </div>
         </div>
     )

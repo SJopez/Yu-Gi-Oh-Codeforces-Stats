@@ -15,7 +15,7 @@ export interface CodeforcesUser {
     badges: Array<string>;
     solved_problemes: number;
     tags: Array<Array<number | string>>;
-    rank_pos: number;
+    rated_pos: number;
     contr_pos: number;
 }
 

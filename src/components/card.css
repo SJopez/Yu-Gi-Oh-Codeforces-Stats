@@ -450,7 +450,7 @@ body {
     background: #ffffff;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 835px) {
     .cardContainer {
         left: 50%;
         transform: translateX(-50%);
