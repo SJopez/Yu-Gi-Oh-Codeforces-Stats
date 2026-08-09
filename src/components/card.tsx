@@ -151,11 +151,12 @@ export default function Card(props: FetchProps) {
                 cardContainer.current.style.setProperty("--card-scale", "1");
             }
             else {
-                cardContainer.current.style.setProperty("--card-scale", (props.width / 408).toString());
+                cardContainer.current.style.setProperty("--card-scale", (props.width / 360).toString());
+                console.log("escalaaa")
             }
         }
 
-    })
+    }, [props.width])
     
     for (let i = 0; i < stars; i++) {
         starArray.push(<img id={`start${i}`} key={i} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)
