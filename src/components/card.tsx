@@ -89,6 +89,9 @@ export default function Card(props: FetchProps) {
         if (handle in Descriptions.legends) {
             setDescription(Descriptions.legends[handle as Legend])
         }
+        else if (user.rank == "headquarters"){ 
+            setDescription(Descriptions.headquarters)
+        }
         else if (user.rated_pos > 0){
             setDescription(Descriptions.tops.rank[user.rated_pos.toString() as RatingTop])
         }
