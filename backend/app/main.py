@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
 
@@ -16,7 +16,7 @@ from app.utils import unique_solved_problems
 from app.utils import get_problems_tags
 from app.utils import get_pos
 
-http_client : httpx.AsyncClient = None
+http_client : httpx.AsyncClient = httpx.AsyncClient()
 
 
 @asynccontextmanager
@@ -51,17 +51,16 @@ app.add_middleware(
         "https://yu-gi-oh-codeforces-stats.vercel.app"
     ],
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
     
 
-@app.post('/update_tops_cache')
 async def update_tops_cache():
-    rated = await get_top10_rated()
+    rated : list[str] = await get_top10_rated()
     #update top 10 rated cache
 
     rated_path = 'app/cache/top10_rated_cache.json'
-    rated_list = []
+    rated_list : list[str] = []
 
     for user in rated:
         response = await user_info(user)
@@ -83,8 +82,10 @@ async def update_tops_cache():
     with open(contr_path, 'w') as file:
         json.dump(contr_list, file, indent=4)
 
-    return {'result' : 'update'}
-
+@app.post('/update_tops_cache')
+async def trigger_cache_uptade(background_task : BackgroundTasks):
+    background_task.add_task(update_tops_cache)
+    return {'result': 'cache update started'}
 
 @app.get('/tops')
 async def get_tops():
@@ -99,9 +100,8 @@ async def get_tops():
     }
 
 @app.get('/user.info')
-async def user_info(handle : str = Query(...)):
+async def user_info(handle : str = Query(...)) -> dict:
     
-    #main info in user.info api request from codeforces
 
     url_info = 'https://codeforces.com/api/user.info'
     url_stat = 'https://codeforces.com/api/user.status'
