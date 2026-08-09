@@ -158,7 +158,7 @@ export default function Card(props: FetchProps) {
             }
         }
 
-    }, [props.width])
+    }, [props.width, nameEffect, props.scale])
     
     for (let i = 0; i < stars; i++) {
         starArray.push(<img id={`start${i}`} key={i} className='star' src={images['/src/assets/cards/star.png'] as string}></img>)

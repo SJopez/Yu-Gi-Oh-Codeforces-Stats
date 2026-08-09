@@ -126,7 +126,7 @@
     "sparkle": true,
     "effect": "src/assets/cards/effects/newbie.png",
     "rankName": "headquarters",
-    "type": "Headquarter",
+    "type": "Headquarters",
     "effectOpacity": 1,
     "nameEffect": true,
     "stars": 0
