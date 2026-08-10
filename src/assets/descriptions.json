@@ -7,7 +7,7 @@
       "4": "Cannot be destroyed by a lower-Rated monster. Once per turn: discard 1 card to cancel a rating drop and restore this card's Peak ATK.",
       "5": "If this card wins a Duel, it gains 100 ATK permanently. This increase cannot be removed by any effect, not even its own controller's.",
       "6": "Once per turn: Tribute 1 'Contest' Spell to draw 3 cards, keep 1. This card ignores all 'Div. 3 or lower' effects.",
-      "7": "When this card would take battle damage, reveal 1 solution instead. Its DEF can never fall below its ATK.",
+      "7": "When this card would take battle damage, reveal 1 solution instead and during the turn its DEF can never fall below its ATK.",
       "8": "Gains a Milestone Counter each time it's Summoned. +200 ATK per counter. Cannot be Tributed for a lower-Rank Summon.",
       "9": "Its activation cannot be responded to during Contest Phase. Once per turn: view your opponent's hand and negate 1 approach.",
       "10": "While in the Top 10, immune to 'Rank Decay.' If it would drop out, you may banish it instead to keep its record intact."

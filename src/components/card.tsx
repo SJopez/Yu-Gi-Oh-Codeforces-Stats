@@ -53,6 +53,7 @@ export default function Card(props: FetchProps) {
     let badgeArray = []
     let name = useRef<HTMLHeadingElement>(null)
     let cardContainer = useRef<HTMLDivElement>(null)
+    let blurContainer = useRef<HTMLDivElement>(null)
     let [handle, setHandle] = useState("")
     let [type, setType] = useState("Legendary Grandmaster")
     let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
@@ -71,11 +72,16 @@ export default function Card(props: FetchProps) {
     let [description, setDescription] = useState("")
     let [template, setTemplate] = useState("src/assets/cards/legendary_grandmaster.png")
     let [effect, setEffect] = useState("src/assets/cards/effects/legendary_grandmaster.png")
+    let [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
-        else if (props.username != handle) handleSubmit(props.username, change)
+        else if (props.username != handle && cardContainer.current) {
+            cardContainer.current.style.filter = "blur(8px)"
+            setLoading(true)
+            handleSubmit(props.username, change)
+        }
     }, [props.username, props.isTopUser, props.width])
 
     function buildDescription(user: CodeforcesUser) {
@@ -131,10 +137,14 @@ export default function Card(props: FetchProps) {
         setProblems(user.solved_problemes)
         setProblemsTags(user.tags)
         buildDescription(user)
-
+        
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)
         
+        if (cardContainer.current) {
+            setLoading(false)
+            cardContainer.current.style.filter = "blur(0px)"
+        }
     }
 
     useEffect(() => {
@@ -206,32 +216,36 @@ export default function Card(props: FetchProps) {
 
     return (
         <div className={props.preffix + 'totalContainer'}>
-            <div id={props.preffix} className={className} ref={cardContainer}>
-                {sparkle && <Sparkle></Sparkle>}
-                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
-                <img id='cardTemplate' src={images[`/${template}`] as string}></img>
-                <div id='nameContainer'>
-                    <h1 id='cardName' ref={name}>{handle}</h1>
-                    <Attribute lang={lang}></Attribute>
-                </div>
-                <div id='starsContainer'>
-                    {starArray}
-                </div>
-                <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
-                <div id='badgesContainer'>
-                    {badgeArray}
-                </div>
-                <div id='textContainer'>
-                    <label id='cardType'> [{type}] </label>
-                    <div id='descriptionContainer' className='scrollable'>
-                        <p id='description'>
-                            {description}  
-                        </p>
+            <div id='blurContainer' ref={blurContainer}>
+                {loading && <h1 className="loadingText"> Loading Rival... </h1>}
+                
+                <div id={props.preffix} className={className} ref={cardContainer}>
+                    {sparkle && <Sparkle></Sparkle>}
+                    <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
+                    <img id='cardTemplate' src={images[`/${template}`] as string}></img>
+                    <div id='nameContainer'>
+                        <h1 id='cardName' ref={name}>{handle}</h1>
+                        <Attribute lang={lang}></Attribute>
                     </div>
-                    <hr id='separator'></hr>
-                    <div id='statsContainer'>
-                        <label id='atk'>ATK/{maxRating}</label>
-                        <label id='def'>DEF/{problems}</label>
+                    <div id='starsContainer'>
+                        {starArray}
+                    </div>
+                    <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
+                    <div id='badgesContainer'>
+                        {badgeArray}
+                    </div>
+                    <div id='textContainer'>
+                        <label id='cardType'> [{type}] </label>
+                        <div id='descriptionContainer' className='scrollable'>
+                            <p id='description'>
+                                {description}  
+                            </p>
+                        </div>
+                        <hr id='separator'></hr>
+                        <div id='statsContainer'>
+                            <label id='atk'>ATK/{maxRating}</label>
+                            <label id='def'>DEF/{problems}</label>
+                        </div>
                     </div>
                 </div>
             </div>

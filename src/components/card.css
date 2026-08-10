@@ -24,7 +24,6 @@
     transform-origin: top left;
     left: var(--card-left);
     transform: scale(var(--card-scale)) translateX(var(--card-left));
-
 }
 #nameContainer {
     font-family: "CardNameFont";
@@ -275,7 +274,7 @@ body {
     display: inline-block;
     flex-direction: column;
     width: 400px;
-    padding: 28px 16px;
+    padding: 20px 16px 16px 16px;
     box-sizing: border-box;
     max-height: 520px;
     
@@ -437,12 +436,9 @@ body {
     flex-wrap: wrap;
     gap: 6px;
     width: 100%;
-    
     max-height: 120px; 
-    
     overflow-y: auto;
     padding-right: 6px; 
-    
     scrollbar-width: thin;
     scrollbar-color: var(--hud-cyan) transparent;
 }
@@ -465,7 +461,40 @@ body {
 .typeBannerGrid::-webkit-scrollbar-thumb:hover {
     background: #ffffff;
 }
-
+#blurContainer {
+    position:relative;
+}
+.loadingText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    
+    color: var(--hud-dark, #1e293b); 
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); 
+    
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: hud-loading-pulse 1.5s ease-in-out infinite;
+}
+@keyframes hud-loading-pulse {
+    0%, 100% {
+        opacity: 0.6;
+        text-shadow: 0 2px 5px rgba(30, 41, 59, 0.1);
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 
+            0 4px 10px rgba(30, 41, 59, 0.4), 
+            0 4px 20px rgba(30, 41, 59, 0.2);
+    }
+}
 @media (max-width: 835px) {
     .cardContainer {
         left: 50%;

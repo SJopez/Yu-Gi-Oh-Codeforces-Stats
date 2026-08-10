@@ -93,10 +93,6 @@ export default function Menu(props: MenuOptions) {
     let [width, setWidth] = useState(0)
 
     useEffect(() => {
-        console.log(`Username changed to: ${username}`);
-    }, [username])
-
-    useEffect(() => {
         if (menu.current) setWidth(menu.current.offsetWidth)
             
         if (rankUsernameList.length == 0 && contriUsernameList.length == 0){
