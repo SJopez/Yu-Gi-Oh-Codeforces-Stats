@@ -180,7 +180,7 @@
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: #d4af37;
+   
 }
 .sparkle {
   position: absolute;
@@ -494,8 +494,8 @@ body {
     max-height: 612px;
     opacity: 0.5;
     transform: scale(var(--card-scale));
-    width: 100%;
-    height: 100%;
+    width: 408px;
+    height: 612px;
 }
 .loadingText {
     position: absolute;
