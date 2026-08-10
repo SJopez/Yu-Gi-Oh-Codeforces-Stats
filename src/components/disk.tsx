@@ -2,7 +2,7 @@ const images = import.meta.glob('/src/assets/*.{png,jpg}', { eager: true, import
 import { useEffect, useRef, useState } from 'react';
 import Card from './card';
 import './disk.css'
-import { handleSubmit, type CodeforcesUser } from './menu';
+import { type CodeforcesUser } from './menu';
 
 function TopContributorsBanner() {
     return (
