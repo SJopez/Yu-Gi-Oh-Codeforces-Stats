@@ -217,7 +217,7 @@ export default function Card(props: FetchProps) {
     return (
         <div className={props.preffix + 'totalContainer'}>
             <div id='blurContainer' ref={blurContainer}>
-                {loading && <h1 className="loadingText"> Loading Rival... </h1>}
+                {loading && <h1 className="loadingText"> Loading... </h1>}
                 
                 <div id={props.preffix} className={className} ref={cardContainer}>
                     {sparkle && <Sparkle></Sparkle>}

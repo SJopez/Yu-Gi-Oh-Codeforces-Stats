@@ -131,7 +131,6 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    /* MEJORA: Resplandor de texto más intenso y línea divisoria inferior */
     text-shadow: 0 0 5px #fff, 0 0 10px var(--hud-color), 0 0 20px var(--hud-color);
     margin-bottom: 14px;
     padding-bottom: 8px;
