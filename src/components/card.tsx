@@ -167,13 +167,18 @@ export default function Card(props: FetchProps) {
             }
             else if (props.width >= 408){
                 cardContainer.current.style.setProperty("--card-scale", "1");
+                blurContainer.current.style.setProperty("--card-scale", "1");
             }
             else {
-                cardContainer.current.style.setProperty("--card-scale", (props.width / 408).toString());
+                let perc = (props.width / 408).toString()
+                cardContainer.current.style.setProperty("--card-scale", perc);
+                blurContainer.current.style.setProperty("--card-scale", perc);
             }
-            //blurContainer.current.style.width = cardContainer.current.offsetWidth + "px"
-            //blurContainer.current.style.height = cardContainer.current.offsetHeight + "px"
 
+            if (cardContainer.current.offsetHeight){
+                blurContainer.current.style.height = cardContainer.current.offsetHeight + 'px'
+            }
+        
         }
 
     }, [props.width, nameEffect, props.scale])
