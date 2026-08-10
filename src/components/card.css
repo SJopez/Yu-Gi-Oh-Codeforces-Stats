@@ -490,12 +490,12 @@ body {
 #blurContainer {
     z-index: 21;
     position: absolute;
-    max-width: 408px;
-    max-height: 612px;
     opacity: 0.5;
-    transform: scale(var(--card-scale));
     width: 408px;
     height: 612px;
+    transform-origin: top left;
+    transform: scale(var(--card-scale));
+    
 }
 .loadingText {
     position: absolute;

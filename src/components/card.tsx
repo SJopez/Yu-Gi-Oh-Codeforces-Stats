@@ -173,12 +173,7 @@ export default function Card(props: FetchProps) {
                 let perc = (props.width / 408).toString()
                 cardContainer.current.style.setProperty("--card-scale", perc);
                 blurContainer.current.style.setProperty("--card-scale", perc);
-            }
-
-            if (cardContainer.current.offsetHeight){
-                blurContainer.current.style.height = cardContainer.current.offsetHeight + 'px'
-            }
-        
+            }        
         }
 
     }, [props.width, nameEffect, props.scale])
