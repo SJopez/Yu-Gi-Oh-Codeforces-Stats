@@ -171,8 +171,8 @@ export default function Card(props: FetchProps) {
             else {
                 cardContainer.current.style.setProperty("--card-scale", (props.width / 408).toString());
             }
-            blurContainer.current.style.width = cardContainer.current.offsetWidth + "px"
-            blurContainer.current.style.height = cardContainer.current.offsetHeight + "px"
+            //blurContainer.current.style.width = cardContainer.current.offsetWidth + "px"
+            //blurContainer.current.style.height = cardContainer.current.offsetHeight + "px"
 
         }
 

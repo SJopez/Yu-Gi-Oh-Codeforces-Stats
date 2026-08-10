@@ -487,12 +487,12 @@ body {
     background: #ffffff;
 }
 #blurContainer {
-    position:relative;
     z-index: 21;
-    height: 100px;
     position: absolute;
     width: 408px;
     height: 612px;
+    opacity: 0.5;
+    background-color: #d4af37;
 }
 .loadingText {
     position: absolute;
