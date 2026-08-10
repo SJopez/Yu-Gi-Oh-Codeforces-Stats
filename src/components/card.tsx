@@ -160,7 +160,7 @@ export default function Card(props: FetchProps) {
                 name.current.classList.remove('golden')
             }
         }
-        if (cardContainer.current && blurContainer.current){
+        if (cardContainer.current && blurContainer.current && props.width){
             if (props.scale){
                 let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
