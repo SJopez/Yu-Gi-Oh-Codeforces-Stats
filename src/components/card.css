@@ -26,6 +26,7 @@
     max-width: 408px;
     max-height: 612px;
     width: 100%;
+    height: 100%;
     transform: scale(var(--card-scale)) translateX(var(--card-left));
 }
 #nameContainer {
@@ -493,6 +494,7 @@ body {
     max-height: 612px;
     opacity: 0.5;
     transform: scale(var(--card-scale));
+    background-color: #00f6ff;
 }
 .loadingText {
     position: absolute;
