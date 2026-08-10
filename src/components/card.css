@@ -24,6 +24,8 @@
     transform-origin: top left;
     left: var(--card-left);
     transform: scale(var(--card-scale)) translateX(var(--card-left));
+    width: 408px;
+    height: 612px
 }
 #nameContainer {
     font-family: "CardNameFont";
@@ -174,6 +176,7 @@
 #effect {
     position: absolute;
     width: 100%;
+    height: 100%;
     z-index: 10;
    
 }
@@ -318,6 +321,28 @@ body {
     text-shadow: 
         0 0 8px rgba(0, 246, 255, 0.8),
         0 0 18px rgba(0, 246, 255, 0.4);
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.username::-webkit-scrollbar {
+    height: 3px; 
+}
+.username::-webkit-scrollbar-track {
+    background: transparent;
+}
+.username::-webkit-scrollbar-thumb {
+    background: rgba(0, 246, 255, 0.2);
+    border-radius: 3px;
+}
+.username:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 246, 255, 0.6); 
+}
+
+.username:hover {
+    background: rgba(0, 246, 255, 0.08);
+    border-left-color: var(--hud-red);
+    transform: translateX(4px);
 }
 
 .statsList {
