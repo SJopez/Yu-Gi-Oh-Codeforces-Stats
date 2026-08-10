@@ -97,8 +97,6 @@
     margin-bottom: -10px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    
-    /* Gradiente dividido: Rojo (Yugi) a la izquierda y Azul (Kaiba) a la derecha */
     background: linear-gradient(
         90deg, 
         #e53e3e 0%, 
@@ -113,7 +111,6 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
     
-    /* Resplandor dual en rojo y azul que combina con los bordes laterales */
     filter: 
         drop-shadow(-4px 0 10px rgba(197, 48, 48, 0.6)) 
         drop-shadow(4px 0 10px rgba(43, 108, 176, 0.6));

@@ -93,29 +93,37 @@
 #contriContainer {
     flex-direction: row-reverse;
 }
+
 .topContainer {
     display: inline-block;
     width: 80%;
     box-sizing: border-box;
     padding: 12px 16px 16px;
-    background: linear-gradient(180deg, var(--hud-color-dim), transparent 40%);
-    backdrop-filter: blur(2px);
+    position: relative; 
+    background: 
+        linear-gradient(180deg, var(--hud-color-dim) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+        rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px); 
     border: 1px solid var(--hud-color-border);
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 0 12px var(--hud-color-border), inset 0 0 20px var(--hud-color-dim);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5), 0 0 12px var(--hud-color-border), inset 0 0 25px var(--hud-color-dim);
     font-family: 'Courier New', monospace;
 }
+
 .topContainerRed {
     --hud-color: #ff3c3c;
     --hud-color-dim: rgba(255, 60, 60, 0.35);
-    --hud-color-border: rgba(255, 60, 60, 0.5);
+    --hud-color-border: rgba(255, 60, 60, 0.6);
 }
+
 .topContainerBlue {
     --hud-color: #0096ff;
     --hud-color-dim: rgba(0, 150, 255, 0.35);
-    --hud-color-border: rgba(0, 150, 255, 0.5);
+    --hud-color-border: rgba(0, 150, 255, 0.6);
 }
+
 .topContainerHeader {
     font-size: 1rem;
     font-weight: 700;
@@ -123,39 +131,74 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    text-shadow: 0 0 6px var(--hud-color), 0 0 14px var(--hud-color);
+    /* MEJORA: Resplandor de texto más intenso y línea divisoria inferior */
+    text-shadow: 0 0 5px #fff, 0 0 10px var(--hud-color), 0 0 20px var(--hud-color);
     margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--hud-color-dim);
 }
+
 .slotList {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 .slotRow {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 6px 10px;
-    background-color: rgba(255, 255, 255, 0.04);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
     border: 1px solid var(--hud-color-dim);
+    border-left: 3px solid var(--hud-color);
     border-radius: 3px;
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
+.slotRow:active {
+    background: linear-gradient(90deg, var(--hud-color) 0%, var(--hud-color-dim) 100%);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.4), 0 0 15px var(--hud-color);
+    border-color: #ffffff;
+    transition: none; 
+}
+
+.slotRow:hover {
+    background: linear-gradient(90deg, var(--hud-color-dim) 0%, rgba(255, 255, 255, 0.05) 100%);
+    box-shadow: inset 0 0 10px var(--hud-color-dim);
+    border-color: var(--hud-color);
+    cursor: pointer;
+}
+
 .slotRank {
     font-weight: 700;
-    color: var(--hud-color);
-    text-shadow: 0 0 4px var(--hud-color);
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--hud-color-dim);
+    text-shadow: 0 0 6px var(--hud-color);
     min-width: 16px;
+    text-align: center;
 }
+
 .slotName {
     color: #f5f5f0;
     letter-spacing: 0.03em;
+    /* MEJORA: Pequeño brillo al texto para que no se pierda contra el fondo */
+    text-shadow: 0 0 3px rgba(255,255,255,0.3);
 }
+
 .hudCorner {
     position: absolute;
     width: 16px;
     height: 16px;
     border: 2px solid var(--hud-color);
+    /* MEJORA: Drop-shadow en lugar de box-shadow para que el brillo siga la forma de la esquina (forma de L) */
+    filter: drop-shadow(0 0 4px var(--hud-color));
+    opacity: 0.8;
 }
+
 .hudCornerTopLeft, .hudCornerTopRight { top: 6px; border-bottom: none; }
 .hudCornerBottomLeft, .hudCornerBottomRight { bottom: 6px; border-top: none; }
 .hudCornerTopLeft, .hudCornerBottomLeft { left: 6px; border-right: none; }
@@ -170,3 +213,4 @@
         display: block;
     }
 }
+

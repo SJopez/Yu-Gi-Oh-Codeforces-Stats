@@ -44,6 +44,7 @@
     width: min-content;
     display: inline-block;
     font-size: clamp(12px, 8cqw, 32px);
+    white-space: nowrap;
 }
 
 #cardName.golden {

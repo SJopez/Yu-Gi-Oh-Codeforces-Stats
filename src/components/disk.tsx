@@ -2,7 +2,7 @@ const images = import.meta.glob('/src/assets/*.{png,jpg}', { eager: true, import
 import { useEffect, useRef, useState } from 'react';
 import Card from './card';
 import './disk.css'
-import type { CodeforcesUser } from './menu';
+import { handleSubmit, type CodeforcesUser } from './menu';
 
 function TopContributorsBanner() {
     return (
@@ -35,15 +35,23 @@ interface TopList {
     list: Array<CodeforcesUser>;
     subclass: string;
     title: string;
+    nameSetter: (name: string) => void;
 }
 
 function TopList(props: TopList) {
     if (!props.list) return
     let slotList = []
 
+    function searchTopUser(user: string, nameSetter: (name: string) => void) {
+        nameSetter(user)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+
+
     for (let i = 0; i < props.list.length; i++){
         slotList.push(
-            <div className="slotRow" key={i}><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i].handle}</span></div>
+            <div className="slotRow" key={i} onClick={() => searchTopUser(props.list[i].handle, props.nameSetter)}><span className="slotRank">{i + 1}</span><span className="slotName">{props.list[i].handle}</span></div>
         )
     }
 
@@ -65,6 +73,7 @@ interface DuelProps {
     width: number;
     ratingRank: Array<CodeforcesUser>;
     contributionRank: Array<CodeforcesUser>;
+    nameSetter: (name: string) => void;
 }
 
 export default function DuelDisk(props: DuelProps){
@@ -110,10 +119,7 @@ export default function DuelDisk(props: DuelProps){
             if (rank && contri){
                 if (windowWidth > 800){
                     contri.style.width = (windowWidth - kaiba.offsetWidth - 20) + "px"
-                    //contri.style.height = kaiba.offsetHeight + "px"
-
                     rank.style.width = (windowWidth - yugi.offsetWidth - 20) + "px"
-                    //rank.style.height = yugi.offsetHeight + "px"
                     contri.style.minHeight = kaiba.offsetHeight + "px"
                     rank.style.minHeight = yugi.offsetHeight + "px"
                 }
@@ -165,7 +171,7 @@ export default function DuelDisk(props: DuelProps){
             <TopRatingBanner></TopRatingBanner>
             <div id='rankContainer'>
                 <div id='rankTopContainer' ref={rankTopContainer}>
-                    <TopList list={rankUsernameList!} subclass='topContainerRed' title='Top 10 mundial rating'></TopList>
+                    <TopList list={rankUsernameList!} subclass='topContainerRed' title='Top 10 mundial rating' nameSetter={props.nameSetter}></TopList>
                 </div>
                 <div className="diskContainer" id="yugiContainer" ref={yugiContainer}>
                     <img className='diskImage' src={`${images["/src/assets/yugi.png"]}`}></img>
@@ -175,7 +181,7 @@ export default function DuelDisk(props: DuelProps){
             <TopContributorsBanner></TopContributorsBanner>
             <div id='contriContainer'>
                 <div id='contriTopContainer' ref={contriTopContainer}>
-                    <TopList list={contriUsernameList!} subclass='topContainerBlue' title='Top 10 mundial contributors'></TopList>
+                    <TopList list={contriUsernameList!} subclass='topContainerBlue' title='Top 10 mundial contributors' nameSetter={props.nameSetter}></TopList>
                 </div>
                 <div className="diskContainer" id="kaibaContainer" ref={kaibaContainer}>
                     <img className='diskImage' id='kaibaImage' src={`${images["/src/assets/kaiba.png"]}`}></img>

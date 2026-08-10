@@ -75,8 +75,8 @@ export default function Card(props: FetchProps) {
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
-        else handleSubmit(props.username, change)
-    }, [props.username, props.isTopUser, props.topUser, props.width])
+        else if (props.username != handle) handleSubmit(props.username, change)
+    }, [props.username, props.isTopUser, props.width])
 
     function buildDescription(user: CodeforcesUser) {
         type Legend = keyof typeof Descriptions.legends
@@ -108,6 +108,7 @@ export default function Card(props: FetchProps) {
     }
 
    function change(user: CodeforcesUser) {
+        if (user.handle === handle) return
         type Rank = keyof typeof Metrics
         const maxRankIndex = user.max_rank as Rank
         const rankIndex = user.rank as Rank
