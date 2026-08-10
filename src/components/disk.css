@@ -207,7 +207,7 @@
 @media (max-width: 800px) {
     .topContainer {
         margin-top: 20px;
-        width: 90%;
+        width: 100%;
     }
     #rankContainer, #contriContainer {
         display: block;

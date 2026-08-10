@@ -342,6 +342,22 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     transition: all 0.25s ease;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.statLine::-webkit-scrollbar {
+    height: 3px; 
+}
+.statLine::-webkit-scrollbar-track {
+    background: transparent;
+}
+.statLine::-webkit-scrollbar-thumb {
+    background: rgba(0, 246, 255, 0.2);
+    border-radius: 3px;
+}
+.statLine:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 246, 255, 0.6); 
 }
 
 .statLine:hover {
