@@ -18,14 +18,11 @@
 
 .cardContainer {
     position: relative;
-    display: inline-block;
-    width: fit-content;
-    height: fit-content;
-    transform-origin: top left;
-    left: var(--card-left);
     width: 408px;
     height: 612px;
-    transform: scale(var(--card-scale)) translateX(var(--card-left));
+    transform-origin: top center;
+    margin-bottom: calc((612px * var(--card-scale, 1)) - 612px);
+    
 }
 #nameContainer {
     font-family: "CardNameFont";
@@ -261,10 +258,12 @@ body {
     to { top: 612px; }
 }
 .totalContainer {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   
 }
 .cardInfo {
@@ -272,8 +271,6 @@ body {
     --hud-red: #ff3366;
     --hud-bg: rgba(10, 14, 23, 0.85);
 
-    position: relative;
-    display: inline-block;
     flex-direction: column;
     max-width: 400px;
     padding: 20px 16px 16px 16px;
@@ -297,7 +294,6 @@ body {
         inset 0 0 25px rgba(0, 246, 255, 0.05),
         0 0 15px rgba(0, 246, 255, 0.15);
     transition: box-shadow 0.3s ease;
-    vertical-align: top;
 }
 
 .cardInfo:hover {
@@ -489,8 +485,7 @@ body {
     position: absolute;
     width: 408px;
     height: 612px;
-    opacity: 0.5;
-    transform-origin: top left;
+    transform-origin: top center;
     transform: scale(var(--card-scale));
     
 }
@@ -526,15 +521,15 @@ body {
     }
 }
 @media (max-width: 835px) {
+    .totalContainer {
+        flex-direction: column;
+    }
     .cardContainer, #blurContainer {
-        left: 50%;
-        transform: scale(var(--card-scale)) translateX(-50%);
+        transform: scale(var(--card-scale));
     }
     .cardInfo {
-        left: 50%;
-        top: 0px;
-        transform: translate(-50%, -20px);
         max-width: 400px;
-        width: 90%;
+        width: calc(100vw - 60px);
+        margin-bottom: 20px;
     }
 }

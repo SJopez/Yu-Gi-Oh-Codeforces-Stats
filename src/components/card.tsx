@@ -54,6 +54,7 @@ export default function Card(props: FetchProps) {
     let name = useRef<HTMLHeadingElement>(null)
     let cardContainer = useRef<HTMLDivElement>(null)
     let blurContainer = useRef<HTMLDivElement>(null)
+    let cardInfo = useRef<HTMLDivElement>(null)
     let [handle, setHandle] = useState("")
     let [type, setType] = useState("Legendary Grandmaster")
     let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
@@ -160,7 +161,7 @@ export default function Card(props: FetchProps) {
                 name.current.classList.remove('golden')
             }
         }
-        if (cardContainer.current && blurContainer.current && props.width){
+        if (cardInfo.current && cardContainer.current && blurContainer.current && props.width){
             if (props.scale){
                 let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
@@ -168,11 +169,13 @@ export default function Card(props: FetchProps) {
             else if (props.width >= 408){
                 cardContainer.current.style.setProperty("--card-scale", "1");
                 blurContainer.current.style.setProperty("--card-scale", "1");
+                cardInfo.current.style.setProperty("--card-scale", "1");
             }
             else {
                 let perc = (props.width / 408).toString()
                 cardContainer.current.style.setProperty("--card-scale", perc);
                 blurContainer.current.style.setProperty("--card-scale", perc);
+                cardInfo.current.style.setProperty("--card-scale", perc);  
             }        
         }
 
@@ -200,7 +203,7 @@ export default function Card(props: FetchProps) {
         }
 
         return (
-            <div className="cardInfo">
+            <div className="cardInfo" ref={cardInfo}>
                 <div className="username">{handle}</div>
                 <div className="statsList">
                     <div className="statLine">Rank: <span className="statValue">{type}</span></div>
@@ -223,35 +226,37 @@ export default function Card(props: FetchProps) {
 
     return (
         <div className={props.preffix + 'totalContainer'}>
-            <div id='blurContainer' ref={blurContainer}>
-                {loading && <h1 className="loadingText"> Loading... </h1>}
-            </div>
-            <div id={props.preffix} className={className} ref={cardContainer}>
-                {sparkle && <Sparkle></Sparkle>}
-                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
-                <img id='cardTemplate' src={images[`/${template}`] as string}></img>
-                <div id='nameContainer'>
-                    <h1 id='cardName' ref={name}>{handle}</h1>
-                    <Attribute lang={lang}></Attribute>
+            <div className='cardWrapper'>
+                <div id='blurContainer' ref={blurContainer}>
+                    {loading && <h1 className="loadingText"> Loading... </h1>}
                 </div>
-                <div id='starsContainer'>
-                    {starArray}
-                </div>
-                <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
-                <div id='badgesContainer'>
-                    {badgeArray}
-                </div>
-                <div id='textContainer'>
-                    <label id='cardType'> [{type}] </label>
-                    <div id='descriptionContainer' className='scrollable'>
-                        <p id='description'>
-                            {description}  
-                        </p>
+                <div id={props.preffix} className={className} ref={cardContainer}>
+                    {sparkle && <Sparkle></Sparkle>}
+                    <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
+                    <img id='cardTemplate' src={images[`/${template}`] as string}></img>
+                    <div id='nameContainer'>
+                        <h1 id='cardName' ref={name}>{handle}</h1>
+                        <Attribute lang={lang}></Attribute>
                     </div>
-                    <hr id='separator'></hr>
-                    <div id='statsContainer'>
-                        <label id='atk'>ATK/{maxRating}</label>
-                        <label id='def'>DEF/{problems}</label>
+                    <div id='starsContainer'>
+                        {starArray}
+                    </div>
+                    <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
+                    <div id='badgesContainer'>
+                        {badgeArray}
+                    </div>
+                    <div id='textContainer'>
+                        <label id='cardType'> [{type}] </label>
+                        <div id='descriptionContainer' className='scrollable'>
+                            <p id='description'>
+                                {description}  
+                            </p>
+                        </div>
+                        <hr id='separator'></hr>
+                        <div id='statsContainer'>
+                            <label id='atk'>ATK/{maxRating}</label>
+                            <label id='def'>DEF/{problems}</label>
+                        </div>
                     </div>
                 </div>
             </div>
