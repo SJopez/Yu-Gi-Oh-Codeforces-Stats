@@ -16,17 +16,15 @@
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 } 
 
-.cardContainer, #blurContainer {
+.cardContainer {
     position: relative;
     display: inline-block;
     width: fit-content;
     height: fit-content;
     transform-origin: top left;
     left: var(--card-left);
-    max-width: 408px;
-    max-height: 612px;
-    width: 100%;
-    height: 100%;
+    width: 408px;
+    height: 612px;
     transform: scale(var(--card-scale)) translateX(var(--card-left));
 }
 #nameContainer {
@@ -277,7 +275,7 @@ body {
     position: relative;
     display: inline-block;
     flex-direction: column;
-    width: 400px;
+    max-width: 400px;
     padding: 20px 16px 16px 16px;
     box-sizing: border-box;
     max-height: 520px;
@@ -300,7 +298,6 @@ body {
         0 0 15px rgba(0, 246, 255, 0.15);
     transition: box-shadow 0.3s ease;
     vertical-align: top;
-    top: 40px;
 }
 
 .cardInfo:hover {
@@ -490,9 +487,9 @@ body {
 #blurContainer {
     z-index: 21;
     position: absolute;
-    opacity: 0.5;
     width: 408px;
     height: 612px;
+    opacity: 0.5;
     transform-origin: top left;
     transform: scale(var(--card-scale));
     
@@ -531,7 +528,7 @@ body {
 @media (max-width: 835px) {
     .cardContainer, #blurContainer {
         left: 50%;
-        transform: translateX(-50%);
+        transform: scale(var(--card-scale)) translateX(-50%);
     }
     .cardInfo {
         left: 50%;
