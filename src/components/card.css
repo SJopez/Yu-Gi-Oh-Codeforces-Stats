@@ -23,9 +23,10 @@
     height: fit-content;
     transform-origin: top left;
     left: var(--card-left);
+    max-width: 408px;
+    max-height: 612px;
+    width: 100%;
     transform: scale(var(--card-scale)) translateX(var(--card-left));
-    width: 408px;
-    height: 612px
 }
 #nameContainer {
     font-family: "CardNameFont";
@@ -265,7 +266,6 @@ body {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin: 24px;
   
 }
 .cardInfo {
