@@ -177,6 +177,7 @@
     z-index: 10;
     opacity: 0.55;
     pointer-events: none;
+    background-color: red;
 }
 .sparkle {
   position: absolute;
@@ -466,6 +467,7 @@ body {
     z-index: 21;
     height: 100px;
     position: absolute;
+    background-color: blue;
 }
 .loadingText {
     position: absolute;
