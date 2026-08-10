@@ -78,9 +78,13 @@ export default function Card(props: FetchProps) {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
         else if (props.username != handle && cardContainer.current) {
+            let htop = cardContainer.current.getBoundingClientRect().top + window.scrollY
+
+            if (window.innerWidth > 800) htop = 0
+
             cardContainer.current.style.filter = "blur(8px)"
-            setLoading(true)
-            handleSubmit(props.username, change)
+            if (handle != "") window.scrollTo({ top: htop, behavior: 'smooth' })
+            handleSubmit(props.username, change, setLoading)
         }
     }, [props.username, props.isTopUser, props.width])
 
@@ -156,7 +160,7 @@ export default function Card(props: FetchProps) {
                 name.current.classList.remove('golden')
             }
         }
-        if (cardContainer.current){
+        if (cardContainer.current && blurContainer.current){
             if (props.scale){
                 let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
@@ -167,6 +171,9 @@ export default function Card(props: FetchProps) {
             else {
                 cardContainer.current.style.setProperty("--card-scale", (props.width / 360).toString());
             }
+            blurContainer.current.style.width = cardContainer.current.offsetWidth + "px"
+            blurContainer.current.style.height = cardContainer.current.offsetHeight + "px"
+
         }
 
     }, [props.width, nameEffect, props.scale])
@@ -218,37 +225,37 @@ export default function Card(props: FetchProps) {
         <div className={props.preffix + 'totalContainer'}>
             <div id='blurContainer' ref={blurContainer}>
                 {loading && <h1 className="loadingText"> Loading... </h1>}
-                
-                <div id={props.preffix} className={className} ref={cardContainer}>
-                    {sparkle && <Sparkle></Sparkle>}
-                    <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
-                    <img id='cardTemplate' src={images[`/${template}`] as string}></img>
-                    <div id='nameContainer'>
-                        <h1 id='cardName' ref={name}>{handle}</h1>
-                        <Attribute lang={lang}></Attribute>
+            </div>
+            <div id={props.preffix} className={className} ref={cardContainer}>
+                {sparkle && <Sparkle></Sparkle>}
+                <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
+                <img id='cardTemplate' src={images[`/${template}`] as string}></img>
+                <div id='nameContainer'>
+                    <h1 id='cardName' ref={name}>{handle}</h1>
+                    <Attribute lang={lang}></Attribute>
+                </div>
+                <div id='starsContainer'>
+                    {starArray}
+                </div>
+                <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
+                <div id='badgesContainer'>
+                    {badgeArray}
+                </div>
+                <div id='textContainer'>
+                    <label id='cardType'> [{type}] </label>
+                    <div id='descriptionContainer' className='scrollable'>
+                        <p id='description'>
+                            {description}  
+                        </p>
                     </div>
-                    <div id='starsContainer'>
-                        {starArray}
-                    </div>
-                    <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
-                    <div id='badgesContainer'>
-                        {badgeArray}
-                    </div>
-                    <div id='textContainer'>
-                        <label id='cardType'> [{type}] </label>
-                        <div id='descriptionContainer' className='scrollable'>
-                            <p id='description'>
-                                {description}  
-                            </p>
-                        </div>
-                        <hr id='separator'></hr>
-                        <div id='statsContainer'>
-                            <label id='atk'>ATK/{maxRating}</label>
-                            <label id='def'>DEF/{problems}</label>
-                        </div>
+                    <hr id='separator'></hr>
+                    <div id='statsContainer'>
+                        <label id='atk'>ATK/{maxRating}</label>
+                        <label id='def'>DEF/{problems}</label>
                     </div>
                 </div>
             </div>
+        
             {props.info && <CardInformation></CardInformation>}
         </div>
     )

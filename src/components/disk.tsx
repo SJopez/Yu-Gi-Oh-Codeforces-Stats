@@ -44,10 +44,7 @@ function TopList(props: TopList) {
 
     function searchTopUser(user: string, nameSetter: (name: string) => void) {
         nameSetter(user)
-        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-
-
 
     for (let i = 0; i < props.list.length; i++){
         slotList.push(

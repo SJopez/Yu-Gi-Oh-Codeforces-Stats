@@ -184,7 +184,6 @@
 .slotName {
     color: #f5f5f0;
     letter-spacing: 0.03em;
-    /* MEJORA: Pequeño brillo al texto para que no se pierda contra el fondo */
     text-shadow: 0 0 3px rgba(255,255,255,0.3);
 }
 
@@ -193,7 +192,6 @@
     width: 16px;
     height: 16px;
     border: 2px solid var(--hud-color);
-    /* MEJORA: Drop-shadow en lugar de box-shadow para que el brillo siga la forma de la esquina (forma de L) */
     filter: drop-shadow(0 0 4px var(--hud-color));
     opacity: 0.8;
 }

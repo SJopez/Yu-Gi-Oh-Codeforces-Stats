@@ -26,12 +26,17 @@ interface MenuOptions {
     width: number;
 }
 
-export async function handleSubmit(user: string, change: Function) {
-    const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/user.info?handle="+user)
-    if(!response.ok) throw new Error("Something went wrong!")
-    const data = await response.json()
-    const result = data as CodeforcesUser
-    change(result)
+export async function handleSubmit(user: string, change: Function, setter: (value: boolean) => void) {
+    try {
+        setter(true)
+        const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/user.info?handle="+user)
+        if(!response.ok) throw new Error("Something went wrong!")
+        const data = await response.json()
+        const result = data as CodeforcesUser
+        change(result)
+    } catch (error) {
+        setter(false)
+    }
 }
 
 function InputField(props: Input) {

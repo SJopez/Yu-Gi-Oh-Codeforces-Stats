@@ -16,7 +16,7 @@
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 } 
 
-.cardContainer {
+.cardContainer, #blurContainer {
     position: relative;
     display: inline-block;
     width: fit-content;
@@ -463,6 +463,9 @@ body {
 }
 #blurContainer {
     position:relative;
+    z-index: 21;
+    height: 100px;
+    position: absolute;
 }
 .loadingText {
     position: absolute;
@@ -496,7 +499,7 @@ body {
     }
 }
 @media (max-width: 835px) {
-    .cardContainer {
+    .cardContainer, #blurContainer {
         left: 50%;
         transform: translateX(-50%);
     }
