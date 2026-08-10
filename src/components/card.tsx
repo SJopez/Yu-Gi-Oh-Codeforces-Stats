@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import './card.css'
+import './card.css';
 import { handleSubmit, type CodeforcesUser } from './menu';
 const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, import: 'default' });
 const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
-import Metrics from '../metrics.json'
-import Langs from '../langs.json'
-import Descriptions from '../assets/descriptions.json'
+import Metrics from '../metrics.json';
+import Langs from '../langs.json';
+import Descriptions from '../assets/descriptions.json';
 
 interface FetchProps {
     username: string;
@@ -48,9 +48,63 @@ export function Sparkle() {
   )
 }
 
+interface CoreProps {
+    preffix: string;
+    className: string;
+    cardContainer: React.RefObject<HTMLDivElement | null>;
+    sparkle: boolean;
+    effectOpacity: number;
+    effect: string;
+    template: string;
+    nameRef: React.RefObject<HTMLHeadingElement | null>;
+    handle: string;
+    lang: string;
+    starArray: React.JSX.Element[];
+    photo: string;
+    badgeArray: React.JSX.Element[];
+    type: string;
+    description: string;
+    maxRating: number;
+    problems: number;
+}
+
+function Core(props: CoreProps) {
+    return (
+        <div id={props.preffix} className={props.className} ref={props.cardContainer}>
+            {props.sparkle && <Sparkle></Sparkle>}
+            <img style={{opacity: props.effectOpacity}} id='effect' src={effects[`/${props.effect}`] as string}></img>
+            <img id='cardTemplate' src={images[`/${props.template}`] as string}></img>
+            <div id='nameContainer'>
+                <h1 id='cardName' ref={props.nameRef}>{props.handle}</h1>
+                <Attribute lang={props.lang}></Attribute>
+            </div>
+            <div id='starsContainer'>
+                {props.starArray}
+            </div>
+            <div id='imageContainer' style = {{ backgroundImage: `url(${props.photo})` }}></div>
+            <div id='badgesContainer'>
+                {props.badgeArray}
+            </div>
+            <div id='textContainer'>
+                <label id='cardType'> [{props.type}] </label>
+                <div id='descriptionContainer' className='scrollable'>
+                    <p id='description'>
+                        {props.description}  
+                    </p>
+                </div>
+                <hr id='separator'></hr>
+                <div id='statsContainer'>
+                    <label id='atk'>ATK/{props.maxRating}</label>
+                    <label id='def'>DEF/{props.problems}</label>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function Card(props: FetchProps) {
-    let starArray = []
-    let badgeArray = []
+    let starArray: React.JSX.Element[] = []
+    let badgeArray: React.JSX.Element[] = []
     let name = useRef<HTMLHeadingElement>(null)
     let cardContainer = useRef<HTMLDivElement>(null)
     let blurContainer = useRef<HTMLDivElement>(null)
@@ -161,12 +215,12 @@ export default function Card(props: FetchProps) {
                 name.current.classList.remove('golden')
             }
         }
-        if (cardInfo.current && cardContainer.current && blurContainer.current && props.width){
-            if (props.scale){
+        if (props.scale && cardContainer.current){
                 let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
             }
-            else if (props.width >= 408){
+        else if (cardInfo.current && cardContainer.current && blurContainer.current && props.width){
+            if (props.width >= 408){
                 cardContainer.current.style.setProperty("--card-scale", "1");
                 blurContainer.current.style.setProperty("--card-scale", "1");
                 cardInfo.current.style.setProperty("--card-scale", "1");
@@ -226,40 +280,52 @@ export default function Card(props: FetchProps) {
 
     return (
         <div className={props.preffix + 'totalContainer'}>
-            <div className='cardWrapper'>
-                <div id='blurContainer' ref={blurContainer}>
-                    {loading && <h1 className="loadingText"> Loading... </h1>}
+            {props.info ? (
+                <div className='cardWrapper'>
+                    <div id='blurContainer' ref={blurContainer}>
+                        {loading && <h1 className="loadingText"> Loading... </h1>}
+                    </div>
+                    <Core 
+                        preffix={props.preffix}
+                        className={className}
+                        cardContainer={cardContainer}
+                        sparkle={sparkle}
+                        effectOpacity={effectOpacity}
+                        effect={effect}
+                        template={template}
+                        nameRef={name}
+                        handle={handle}
+                        lang={lang}
+                        starArray={starArray}
+                        photo={photo}
+                        badgeArray={badgeArray}
+                        type={type}
+                        description={description}
+                        maxRating={maxRating}
+                        problems={problems}
+                    />
                 </div>
-                <div id={props.preffix} className={className} ref={cardContainer}>
-                    {sparkle && <Sparkle></Sparkle>}
-                    <img style={{opacity: effectOpacity}} id='effect' src={effects[`/${effect}`] as string}></img>
-                    <img id='cardTemplate' src={images[`/${template}`] as string}></img>
-                    <div id='nameContainer'>
-                        <h1 id='cardName' ref={name}>{handle}</h1>
-                        <Attribute lang={lang}></Attribute>
-                    </div>
-                    <div id='starsContainer'>
-                        {starArray}
-                    </div>
-                    <div id='imageContainer' style = {{ backgroundImage: `url(${photo})` }}></div>
-                    <div id='badgesContainer'>
-                        {badgeArray}
-                    </div>
-                    <div id='textContainer'>
-                        <label id='cardType'> [{type}] </label>
-                        <div id='descriptionContainer' className='scrollable'>
-                            <p id='description'>
-                                {description}  
-                            </p>
-                        </div>
-                        <hr id='separator'></hr>
-                        <div id='statsContainer'>
-                            <label id='atk'>ATK/{maxRating}</label>
-                            <label id='def'>DEF/{problems}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            ) : (
+                <Core 
+                    preffix={props.preffix}
+                    className={className}
+                    cardContainer={cardContainer}
+                    sparkle={sparkle}
+                    effectOpacity={effectOpacity}
+                    effect={effect}
+                    template={template}
+                    nameRef={name}
+                    handle={handle}
+                    lang={lang}
+                    starArray={starArray}
+                    photo={photo}
+                    badgeArray={badgeArray}
+                    type={type}
+                    description={description}
+                    maxRating={maxRating}
+                    problems={problems}
+                />
+            )}
         
             {props.info && <CardInformation></CardInformation>}
         </div>

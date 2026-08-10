@@ -28,7 +28,7 @@
     transform-origin: center;
     top: var(--mt);
     left: var(--ml);
-    transform: translate(-50%, -50%) rotate(var(--mr)) scale(var(--card-scale));
+    transform: translate(-50%, -50%) rotate(var(--mr)) scale(var(--card-scale, 1));
 }
 
 #mini1  { --mt: 35.94%; --ml: 14%;    --mr: -102.5deg; }
