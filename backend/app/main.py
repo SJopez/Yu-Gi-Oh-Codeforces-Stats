@@ -1,3 +1,5 @@
+from app.models import User
+
 from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
@@ -16,6 +18,9 @@ from app.utils import unique_solved_problems
 from app.utils import get_problems_tags
 from app.utils import get_pos
 
+from app.database import create_database
+from app.database import update_database
+
 http_client : httpx.AsyncClient = httpx.AsyncClient()
 
 
@@ -24,13 +29,12 @@ async def lifespan(app : FastAPI):
     global http_client
     timeout = httpx.Timeout(30.0, connect = 10.0)
     headers = {
-        'User-Agent': (
-            'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0'
-        ),
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
     }
 
+    create_database()
     http_client = httpx.AsyncClient(
         headers=headers, 
         follow_redirects=True,
@@ -87,6 +91,22 @@ async def trigger_cache_uptade(background_task : BackgroundTasks):
     background_task.add_task(update_tops_cache)
     return {'result': 'cache update started'}
 
+
+@app.post('/update_database')
+async def update_database_endpoint(background_task: BackgroundTasks):
+
+    url = 'https://codeforces.com/api/user.ratedList?includeRetired=false'
+    response = await http_client.get(url)
+    response = response.json().get('result')[:10]
+    users = []
+    for user in response:
+        aux = await user_info(user.get('handle'))
+        users.append(aux)
+
+    background_task.add_task(update_database, users)
+    return {'result': 'database uptade started, this may take a long'}
+
+
 @app.get('/tops')
 async def get_tops():
     #return all top 10, contributors and rated
@@ -99,8 +119,9 @@ async def get_tops():
         'top_contributors' : top_contributors
     }
 
+
 @app.get('/user.info')
-async def user_info(handle : str = Query(...)) -> dict:
+async def user_info(handle : str = Query(...)) -> User:
     
 
     url_info = 'https://codeforces.com/api/user.info'
@@ -130,7 +151,7 @@ async def user_info(handle : str = Query(...)) -> dict:
         'handle' : response.get('handle'),
         'rating' : response.get('rating'),
         'max_rating' : response.get('maxRating'),
-        'solved_problemes' : len(problems),
+        'solved_problems' : len(problems),
         'tags': problems_tags,
         'contributions' : response.get('contribution'),
         'rank' : response.get('rank').lower() if response.get('rank') else None,
@@ -145,10 +166,12 @@ async def user_info(handle : str = Query(...)) -> dict:
     if response.get('rank') is None or response.get('maxRank') is None:
         await process_null_rated(ans)
 
-    return ans
+
+    user = User(**ans)
+
+    return user
 
 
 @app.get('/health')
 async def health():
     return {'status': 'ok'}
-
