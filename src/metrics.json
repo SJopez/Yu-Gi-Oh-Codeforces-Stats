@@ -113,7 +113,7 @@
     "card": "src/assets/cards/legendary_grandmaster.png",
     "nameDecoration": true,
     "sparkle": true,
-    "effect": "src/assets/cards/effects/newbie.png",
+    "effect": "src/assets/cards/effects/international_grandmaster.png",
     "rankName": "legendary_grandmaster",
     "type": "Legendary Grandmaster",
     "effectOpacity": 1,
