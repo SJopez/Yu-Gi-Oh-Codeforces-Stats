@@ -193,7 +193,7 @@ export default function Card(props: FetchProps) {
         setEffectOpacity(config.effectOpacity)
         setNameEffect(config.nameEffect)
         setBadgeList(user.badges)
-        setProblems(user.solved_problemes)
+        setProblems(user.solved_problems)
         setProblemsTags(user.tags)
         buildDescription(user)
         

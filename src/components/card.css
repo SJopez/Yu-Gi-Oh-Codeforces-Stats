@@ -130,14 +130,13 @@
 #descriptionContainer {
     font-family: "CardNameFont";
     font-size: clamp(7px, 3.6cqw, 12px);
-    line-height: 1.15;
+    line-height: 1.2;
     overflow-y: scroll;
-    height: 90%;
+    height: 98%;
     padding-left: 2px;
 }
 #statsContainer {
     font-family: "CardDescFont";
-    height: 10%;
     text-align: end;
     font-size: clamp(8px, 4.2cqw, 13px);
     line-height: 1.2;
@@ -529,7 +528,7 @@ body {
     }
     .cardInfo {
         max-width: 400px;
-        width: calc(100vw - 60px);
+        width: calc(100vw - 50px);
         margin-bottom: 20px;
     }
 }

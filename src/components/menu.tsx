@@ -13,7 +13,7 @@ export interface CodeforcesUser {
     type: string;
     most_used_lang: string;
     badges: Array<string>;
-    solved_problemes: number;
+    solved_problems: number;
     tags: Array<Array<number | string>>;
     rated_pos: number;
     contr_pos: number;
