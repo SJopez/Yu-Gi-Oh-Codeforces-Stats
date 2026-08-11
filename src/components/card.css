@@ -174,7 +174,9 @@
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: #ff3366;
+    background-origin: top left;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .sparkle {

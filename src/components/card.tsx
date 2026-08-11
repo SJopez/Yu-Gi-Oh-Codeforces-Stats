@@ -72,7 +72,7 @@ function Core(props: CoreProps) {
     return (
         <div id={props.preffix} className={props.className} ref={props.cardContainer}>
             {props.sparkle && <Sparkle></Sparkle>}
-            <img style={{opacity: props.effectOpacity}} id='effect' src={effects[`/${props.effect}`] as string}></img>
+            <div style={{opacity: props.effectOpacity, backgroundImage: `url(${effects[`/${props.effect}`] as string})`}} id='effect'></div>
             <img id='cardTemplate' src={images[`/${props.template}`] as string}></img>
             <div id='nameContainer'>
                 <h1 id='cardName' ref={props.nameRef}>{props.handle}</h1>
