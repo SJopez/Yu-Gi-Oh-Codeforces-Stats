@@ -307,7 +307,7 @@ export default function Card(props: FetchProps) {
                     
                     <button className="saveCardBtn" onClick={() => console.log('Guardar carta')}>
                         <svg viewBox="0 0 24 24">
-                            <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-5.58L17 8l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>
                         Download Card
                     </button>
