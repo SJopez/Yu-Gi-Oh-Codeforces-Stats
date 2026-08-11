@@ -130,7 +130,7 @@
 #descriptionContainer {
     font-family: "CardNameFont";
     font-size: clamp(7px, 3.6cqw, 12px);
-    line-height: 1.2;
+    line-height: 1.15;
     overflow-y: scroll;
     height: 98%;
     padding-left: 2px;
@@ -169,12 +169,16 @@
     );
     position: absolute;
 }
+
 #effect {
     position: absolute;
+    top: 0;       
+    left: 0;      
     width: 100%;
     height: 100%;
     z-index: 10;
-   
+    object-fit: cover;    
+    pointer-events: none; 
 }
 .sparkle {
   position: absolute;
