@@ -91,7 +91,7 @@ function GithubLink() {
 }
 
 export default function Menu(props: MenuOptions) {
-    let [username, setUsername] = useState("sergio22")
+    let [username, setUsername] = useState("tourist")
     let menu = useRef<HTMLDivElement>(null)
     let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>([]) 
     let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>([])
