@@ -50,7 +50,7 @@ function InputField(props: Input) {
                     id='inputField'
                     type="text"
                     placeholder='Enter your username...'
-                    defaultValue={"Tourist"}
+    
                 />
                 <button id='inputButton' onClick={() => props.onchange(currInput.current?.value!)}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +91,7 @@ function GithubLink() {
 }
 
 export default function Menu(props: MenuOptions) {
-    let [username, setUsername] = useState("tourist")
+    let [username, setUsername] = useState("sergio22")
     let menu = useRef<HTMLDivElement>(null)
     let [rankUsernameList, setRankUsernameList] = useState<Array<CodeforcesUser>>([]) 
     let [contriUsernameList, setContriUsernameList] = useState<Array<CodeforcesUser>>([])
