@@ -81,19 +81,19 @@
     height: 90%;
 }
 #imageContainer {
-    width: 66.8%;
-    height: 44%;
+    width: 67%;
+    height: 44.1%;
     background-color:white;
     position: absolute;
-    top: 22%;
-    left: 16.8%;
+    top: 22.5%;
+    left: 16.45%;
     background-repeat: no-repeat;
     background-size: cover;      
 }
 #cardImg {
     width: 100%;
-
 }
+
 #textContainer {
     font-family: "CardTypeFont";
     width: 75%;
@@ -262,7 +262,7 @@ body {
 .totalContainer {
   display: flex;
   flex-direction: row;
-  align-items: center; 
+  align-items: flex-start; 
   justify-content: center;
   position: relative;
   width: 100%;
@@ -274,11 +274,14 @@ body {
     --hud-bg: rgba(10, 14, 23, 0.85);
 
     flex-direction: column;
+    vertical-align: top;
     max-width: 400px;
     padding: 20px 16px 16px 16px;
     box-sizing: border-box;
     max-height: 520px;
-    
+    position: relative;
+    top: 35px;
+
     background: 
         linear-gradient(180deg, rgba(0, 246, 255, 0.04) 0%, transparent 100%),
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 246, 255, 0.03) 3px, rgba(0, 246, 255, 0.03) 3px),
@@ -510,6 +513,53 @@ body {
     text-transform: uppercase;
     animation: hud-loading-pulse 1.5s ease-in-out infinite;
 }
+.saveCardBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 90%;
+    max-width: 365px;
+    height: 44px;
+    top: -20px;
+    margin-bottom: 10px;
+    background: rgba(0, 246, 255, 0.1);
+    border: 1px solid rgba(0, 246, 255, 0.4);
+    border-radius: 6px;
+    color: #e2f1f8;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.15), inset 0 0 15px rgba(0, 246, 255, 0.05);
+    transition: all 0.25s ease;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.saveCardBtn:hover {
+    background: rgba(0, 246, 255, 0.25);
+    border-color: #00f6ff;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(0, 246, 255, 0.4), inset 0 0 20px rgba(0, 246, 255, 0.15);
+    transform: translate(-50%, -2px);
+}
+
+.saveCardBtn:active {
+    transform: translate(-50%, 0);
+}
+
+.saveCardBtn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    filter: drop-shadow(0 0 4px #00f6ff);
+}
+
 @keyframes hud-loading-pulse {
     0%, 100% {
         opacity: 0.6;
@@ -525,6 +575,7 @@ body {
 @media (max-width: 835px) {
     .totalContainer {
         flex-direction: column;
+        align-items: center;
     }
     .cardContainer, #blurContainer {
         transform: scale(var(--card-scale));
@@ -533,5 +584,10 @@ body {
         max-width: 400px;
         width: calc(100vw - 50px);
         margin-bottom: 20px;
+        top: 0px;
     }
+    .saveCardBtn {
+        width: calc(100vw - 50px);
+    }
+    
 }
