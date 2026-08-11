@@ -113,10 +113,10 @@
     "card": "src/assets/cards/legendary_grandmaster.png",
     "nameDecoration": true,
     "sparkle": true,
-    "effect": "src/assets/cards/effects/legendary_grandmaster.png",
+    "effect": "src/assets/cards/effects/newbie.png",
     "rankName": "legendary_grandmaster",
     "type": "Legendary Grandmaster",
-    "effectOpacity": 0.5,
+    "effectOpacity": 1,
     "nameEffect": true,
     "stars": 11 
   },
