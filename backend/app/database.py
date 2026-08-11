@@ -18,3 +18,6 @@ def update_database(users : list[User]):
     session.commit()
 
     session.close()
+
+def get_user_info_db(handle : str) -> User:
+    pass
