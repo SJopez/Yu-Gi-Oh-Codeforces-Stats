@@ -116,14 +116,24 @@ async def get_individual_info(handle: str) -> User:
     response = response.json().get('result')[0]
 
     user: User = User()
-    user.handle = response.get('handle').lower()
-    user.rating = response.get('rating')
-    user.max_rating = response.get('maxRating')
-    user.contributions = response.get('contribution')
-    user.rank = response.get('rank')
-    user.max_rank = response.get('maxRank')
-    user.avatar = response.get('titlePhoto')
-    user.rated_pos, user.contr_pos = await get_pos(user.handle)
+
+    try:
+        user.handle = response.get('handle')
+        user.rating = response.get('rating')
+        user.max_rating = response.get('maxRating')
+        user.contributions = response.get('contribution')
+        user.rank = response.get('rank').lower()
+        user.max_rank = response.get('maxRank').lower()
+        user.avatar = response.get('titlePhoto')
+        user.rated_pos, user.contr_pos = await get_pos(user.handle)
+    except AttributeError:
+        user.handle = response.get('handle')
+        user.contributions = response.get('contribution')
+        user.avatar = response.get('titlePhoto')
+        user.rated_pos, user.contr_pos = await get_pos(user.handle)
+
+    await process_null_rated(user)
+
 
     await update_database([user])
     
@@ -139,12 +149,12 @@ async def codeforces_api_info():
     for user_info in response:
 
         user: User = User()
-        user.handle = user_info.get('handle').lower()
+        user.handle = user_info.get('handle')
         user.rating = user_info.get('rating')
         user.max_rating = user_info.get('maxRating')
         user.contributions = user_info.get('contribution')
-        user.rank = user_info.get('rank')
-        user.max_rank = user_info.get('maxRank')
+        user.rank = user_info.get('rank').lower()
+        user.max_rank = user_info.get('maxRank').lower()
         user.avatar = user_info.get('titlePhoto')
         user.rated_pos, user.contr_pos = await get_pos(user.handle)
 
@@ -192,12 +202,13 @@ async def scrap_info(user: User):
 @app.get('/user.info')
 async def user_info(handle : str = Query(...)) -> User:
     
+    handle = handle.lower()
     user: User = await get_user_info_db(handle)
     if user is None:
         user: User = await get_individual_info(handle)
 
     await scrap_info(user)
-    user: User = await get_user_info_db(handle)
+    user: User = await get_user_info_db(user.handle)
 
     return user
 
