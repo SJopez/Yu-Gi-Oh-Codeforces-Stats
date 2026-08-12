@@ -15,7 +15,11 @@
     font-family: "CardDescFont";
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 } 
-
+#alter {
+    width: 408px;
+    height: 612px;
+    position: absolute;
+}
 .cardContainer {
     position: relative;
     width: 408px;

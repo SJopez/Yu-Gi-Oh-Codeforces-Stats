@@ -80,7 +80,7 @@ function Core(props: CoreProps) {
             <img id='cardTemplate' src={images[`/${props.template}`] as string}></img>
             <div id='nameContainer'>
                 <h1 id='cardName' ref={props.nameRef}>{props.handle}</h1>
-                <Attribute lang={"C++"}></Attribute>
+                <Attribute lang={props.lang}></Attribute>
             </div>
             <div id='starsContainer'>
                 {props.starArray}
@@ -141,7 +141,7 @@ export default function Card(props: FetchProps) {
 
             if (window.innerWidth > 800) htop = 0
 
-            //cardContainer.current.style.filter = "blur(8px)"
+            cardContainer.current.style.filter = "blur(8px)"
             if (handle != "") window.scrollTo({ top: htop, behavior: 'smooth' })
             handleSubmit(props.username, change, setLoading)
         }
@@ -312,6 +312,7 @@ export default function Card(props: FetchProps) {
                     <div id='blurContainer' ref={blurContainer}>
                         {loading && <h1 className="loadingText"> Loading... </h1>}
                     </div>
+                    <img id='alter' src='https://images.ygoprodeck.com/images/cards/40640057.jpg' style={{display: "none"}}></img>
                     <Core 
                         preffix={props.preffix}
                         className={className}
