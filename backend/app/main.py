@@ -108,19 +108,26 @@ async def get_tops():
         'top_contributors' : top_contributors
     }
 
-'''
-Codeforces Api info
+async def get_individual_info(handle: str) -> User:
+    url = 'https://codeforces.com/api/user.info'
+    params = {'handles': handle}
 
-handle
-rating           #if null requiere scrap
-max_rating       #if null requiere scrap
-contributions
-rank             #if null requiere scrap
-max_rank         #if null requiere scrap
-avatar
-rated_pos
-contr_pos
-'''
+    response = await http_client.get(url,params=params)
+    response = response.json().get('result')[0]
+
+    user: User = User()
+    user.handle = response.get('handle').lower()
+    user.rating = response.get('rating')
+    user.max_rating = response.get('maxRating')
+    user.contributions = response.get('contribution')
+    user.rank = response.get('rank')
+    user.max_rank = response.get('maxRank')
+    user.avatar = response.get('titlePhoto')
+    user.rated_pos, user.contr_pos = await get_pos(user.handle)
+
+    await update_database([user])
+    
+    return user
 
 async def codeforces_api_info():
     url_users_list =  'https://codeforces.com/api/user.ratedList?activeOnly=false&includeRetired=false'
@@ -154,21 +161,12 @@ async def trigger_codeforces_api_info(background_task : BackgroundTasks):
     
     return {"result": "base info is being updated"}
 
-'''
-Scrap info
-rating           #if null requiere scrap
-max_rating       #if null requiere scrap
-rank             #if null requiere scrap
-max_rank         #if null requiere scrap
-tags
-badges
-
-'''
 
 async def scrap_info(user: User):
-    now_time = datetime.now(timezone.utc)
-    if (now_time - user.timestamp) < timedelta(hours=24):
-        return {'result': 'user is already update'}
+    now_time = datetime.now(timezone.utc).replace(tzinfo=None)
+    if user.timestamp is not None:
+        if (now_time - user.timestamp) < timedelta(hours=24):
+            return {'result': 'user is already update'}
 
     extra = user.rating and user.max_rating
     extra = extra and user.rank and user.max_rank
@@ -181,10 +179,11 @@ async def scrap_info(user: User):
     response_2 = response_2.json().get('result')
     problems = await unique_solved_problems(response_2)
 
+    user.solved_problems = len(problems)
     user.tags = await get_problems_tags(problems)
     user.most_used_lang = await most_used_lang(problems)
     user.badges = await get_badges(user.handle)
-    
+    user.timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
     await update_database([user])
     
     return {'result': 'user have been updated succesfully'}
@@ -194,11 +193,13 @@ async def scrap_info(user: User):
 async def user_info(handle : str = Query(...)) -> User:
     
     user: User = await get_user_info_db(handle)
+    if user is None:
+        user: User = await get_individual_info(handle)
+
     await scrap_info(user)
     user: User = await get_user_info_db(handle)
 
     return user
-
 
 @app.get('/health')
 async def health():
