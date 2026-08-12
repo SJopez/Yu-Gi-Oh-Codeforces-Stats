@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, create_engine, Session
+from sqlmodel import select, func
 from app.models import User
 
 sqlite_url = 'sqlite:///database/codeforces.db'
@@ -19,8 +20,7 @@ async def update_database(users : list[User]):
 
     session.close()
 
-async def get_user_info_db(handle : str) -> User:
-    session = Session(engine)
-    response : User = session.get(User, handle)
-
-    return  response
+async def get_user_info_db(handle: str) -> User | None:
+    with Session(engine) as session:
+        statement = select(User).where(func.lower(User.handle) == handle.lower())
+        return session.exec(statement).first()
