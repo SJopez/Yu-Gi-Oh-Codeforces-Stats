@@ -148,26 +148,33 @@
 #atk {
     padding-right: 8px;
 }
-#attribute {
-    height: 100%;
-}
+
 #langContainer {
+    position: absolute;
     right: 2px;
-    width: min-content;
-    height: 90%;
-    padding: 2px;
     top: 5%;
+    width: 32px;
+    height: 32px;
+    padding: 2px;
     border-radius: 50%;
-    display: inline-block;
+    
+    display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    
     background: radial-gradient(
         circle at 35% 30%,
         #dde0e2,
         #596672 60%,
         #011629
     );
-    position: absolute;
+}
+#attribute {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 #effect {
     position: absolute;

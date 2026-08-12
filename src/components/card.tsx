@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import './card.css';
 import { handleSubmit, type CodeforcesUser } from './menu';
-const images = import.meta.glob('/src/assets/cards/*.{png,jpg}', { eager: true, import: 'default' });
+const images = import.meta.glob('/src/assets/cards/*.{png,jpg,svg}', { eager: true, import: 'default' });
 const effects = import.meta.glob('/src/assets/cards/effects/*.png', { eager: true, import: 'default' });
+const langIcons = import.meta.glob('/src/assets/lang/*.png', { eager: true, import: 'default' });
 import Metrics from '../metrics.json';
 import Langs from '../langs.json';
 import Descriptions from '../assets/descriptions.json';
+import html2canvas from 'html2canvas';
 
 interface FetchProps {
     username: string;
@@ -26,10 +28,12 @@ interface AttributeProps {
 function Attribute(props: AttributeProps){
     type Lang = keyof typeof Langs
     const langKey = props.lang as Lang
+    const path = Langs[langKey]
     
     return (
-        <div id='langContainer' style={{opacity: props.lang == "" ? 0 : 1}}>
-            <img id="attribute" src={Langs[langKey]} />
+        <div id='langContainer' style={{opacity: props.lang === "" ? 0 : 1}}>
+            <img src={`${langIcons[path]}`} id='attribute'></img>
+            
         </div>
     )
 }
@@ -76,7 +80,7 @@ function Core(props: CoreProps) {
             <img id='cardTemplate' src={images[`/${props.template}`] as string}></img>
             <div id='nameContainer'>
                 <h1 id='cardName' ref={props.nameRef}>{props.handle}</h1>
-                <Attribute lang={props.lang}></Attribute>
+                <Attribute lang={"C++"}></Attribute>
             </div>
             <div id='starsContainer'>
                 {props.starArray}
@@ -137,7 +141,7 @@ export default function Card(props: FetchProps) {
 
             if (window.innerWidth > 800) htop = 0
 
-            cardContainer.current.style.filter = "blur(8px)"
+            //cardContainer.current.style.filter = "blur(8px)"
             if (handle != "") window.scrollTo({ top: htop, behavior: 'smooth' })
             handleSubmit(props.username, change, setLoading)
         }
@@ -278,6 +282,29 @@ export default function Card(props: FetchProps) {
         )
     }
 
+    function saveCard() {
+        if (cardContainer.current) {
+            if (nameEffect && name.current){
+                name.current.classList.remove('golden')
+                name.current.style.color = "#d4af37"
+            }
+            html2canvas(cardContainer.current, 
+                {
+                    backgroundColor: null,
+                    useCORS: true,
+                }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `${handle}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                if (nameEffect && name.current){
+                    name.current.classList.add('golden')
+                    name.current.style.color = "black"
+                }
+            });
+        }
+    }
+
     return (
         <div className={props.preffix + 'totalContainer'}>
             {props.info ? (
@@ -305,7 +332,7 @@ export default function Card(props: FetchProps) {
                         problems={problems}
                     />
                     
-                    <button className="saveCardBtn" onClick={() => console.log('Guardar carta')}>
+                    <button className="saveCardBtn" onClick={() => saveCard()}>
                         <svg viewBox="0 0 24 24">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>

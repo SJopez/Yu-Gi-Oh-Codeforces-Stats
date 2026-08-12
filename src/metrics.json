@@ -105,7 +105,7 @@
     "effect": "src/assets/cards/effects/international_grandmaster.png",
     "rankName": "international_grandmaster",
     "type": "International Grandmaster",
-    "effectOpacity": 0.6,
+    "effectOpacity": 0.5,
     "nameEffect": false,
     "stars": 10
   },
@@ -116,7 +116,7 @@
     "effect": "src/assets/cards/effects/international_grandmaster.png",
     "rankName": "legendary_grandmaster",
     "type": "Legendary Grandmaster",
-    "effectOpacity": 1,
+    "effectOpacity": 0.55,
     "nameEffect": true,
     "stars": 11 
   },
