@@ -5,7 +5,6 @@ from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
 
-import asyncio
 from contextlib import asynccontextmanager
 import json
 
