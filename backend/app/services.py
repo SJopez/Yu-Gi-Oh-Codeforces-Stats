@@ -94,8 +94,8 @@ async def process_null_rated(user: User):
         rating = 0
         max_rating = 0
 
-    user.rank = rank
-    user.max_rank = max_rank
+    user.rank = rank.lower()
+    user.max_rank = max_rank.lower()
     user.rating = rating
     user.max_rating = max_rating
 
