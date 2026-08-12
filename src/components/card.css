@@ -16,9 +16,12 @@
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 } 
 #alter {
+    padding: 43px 27px 50px 25px;
     width: 408px;
     height: 612px;
     position: absolute;
+    z-index: 20;
+    opacity: 0.5;
 }
 .cardContainer {
     position: relative;

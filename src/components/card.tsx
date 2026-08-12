@@ -113,6 +113,7 @@ export default function Card(props: FetchProps) {
     let cardContainer = useRef<HTMLDivElement>(null)
     let blurContainer = useRef<HTMLDivElement>(null)
     let cardInfo = useRef<HTMLDivElement>(null)
+    let alter = useRef<HTMLImageElement>(null)
     let [handle, setHandle] = useState("")
     let [type, setType] = useState("Legendary Grandmaster")
     let [photo, setPhoto] = useState("https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg")
@@ -223,17 +224,19 @@ export default function Card(props: FetchProps) {
                 let scale = 0.24 * props.width / 1000
                 cardContainer.current.style.setProperty("--card-scale", scale.toString());
             }
-        else if (cardInfo.current && cardContainer.current && blurContainer.current && props.width){
+        else if (cardInfo.current && cardContainer.current && blurContainer.current && alter.current && props.width){
             if (props.width >= 408){
                 cardContainer.current.style.setProperty("--card-scale", "1");
                 blurContainer.current.style.setProperty("--card-scale", "1");
                 cardInfo.current.style.setProperty("--card-scale", "1");
+                alter.current.style.setProperty("--card-scale", "1")
             }
             else {
                 let perc = (props.width / 408).toString()
                 cardContainer.current.style.setProperty("--card-scale", perc);
                 blurContainer.current.style.setProperty("--card-scale", perc);
                 cardInfo.current.style.setProperty("--card-scale", perc);  
+                alter.current.style.setProperty("--card-scale", perc)
             }        
         }
 
@@ -312,7 +315,7 @@ export default function Card(props: FetchProps) {
                     <div id='blurContainer' ref={blurContainer}>
                         {loading && <h1 className="loadingText"> Loading... </h1>}
                     </div>
-                    <img id='alter' src='https://images.ygoprodeck.com/images/cards/40640057.jpg' style={{display: "none"}}></img>
+                    <img id='alter' ref={alter} src='https://images.ygoprodeck.com/images/cards/40640057.jpg' className='cardContainer' style={{display: "none"}}></img>
                     <Core 
                         preffix={props.preffix}
                         className={className}
