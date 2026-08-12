@@ -1,6 +1,7 @@
 from collections import defaultdict
 import json
 
+
 async def unique_solved_problems(response_2):
     problems = dict()
     for sub in response_2:
@@ -76,7 +77,7 @@ def normalize_lang(lang: str) -> str:
     
     return mapping.get(lang_lower, lang.split()[0] if lang else "Other")
 
-async def get_pos(handle : str):
+async def get_pos(handle : str) -> tuple:
     
     with open('app/cache/top10_rated_cache.json', 'r') as file:
         rated_data = json.load(file)

@@ -1,7 +1,10 @@
 from curl_cffi import AsyncSession
 from bs4 import BeautifulSoup
+from app.models import User
 
 import json
+
+from app.database import update_database
 
 async def get_top10_rated(cached : bool = False):
     if cached:
@@ -63,8 +66,8 @@ async def get_badges(handle : str):
 
     return badges
 
-async def process_null_rated(user_info : dict = None):
-    handle = user_info.get('handle')
+async def process_null_rated(user: User):
+    handle = user.handle
     url = f'https://codeforces.com/profile/{handle}'
     
     #rank, maxrank, rating, maxrating
@@ -91,13 +94,14 @@ async def process_null_rated(user_info : dict = None):
         rating = 0
         max_rating = 0
 
-    user_info.update({
-        'rank' : rank.lower(),
-        'max_rank' : max_rank.lower(),
-        'rating' : rating,
-        'max_rating' : max_rating
-    })
+    user.rank = rank
+    user.max_rank = max_rank
+    user.rating = rating
+    user.max_rating = max_rating
 
+    await update_database([user])
+
+    
 
 
 
