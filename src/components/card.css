@@ -20,7 +20,7 @@
     width: 408px;
     height: 612px;
     transform-origin: top center;
-    margin-bottom: calc((612px * var(--card-scale, 1)) - 612px);
+    margin-bottom: calc((600px * var(--card-scale, 1)) - 612px);
     pointer-events: none;
 }
 #alter {
@@ -28,33 +28,33 @@
     position: absolute;
 }
 #alter {
-    transform: rotateY(90deg);
+    transform: scale(var(--card-scale)) rotateY(90deg);
 }
 
 
 @keyframes turnAlter {
-    from { transform: rotateY(90deg); }
+    from { transform: scale(var(--card-scale)) rotateY(90deg); }
     to { 
-           transform: rotateY(0deg); 
+           transform: scale(var(--card-scale)) rotateY(0deg); 
     }
 }
 @keyframes unTurnAlter {
-    from { transform: rotateY(0deg); }
+    from { transform: scale(var(--card-scale)) rotateY(0deg); }
     to { 
-           transform: rotateY(90deg); 
+           transform: scale(var(--card-scale)) rotateY(90deg); 
     }
 }
 
 @keyframes turnCard {
-  from { transform: rotateY(0deg); }
+  from { transform: scale(var(--card-scale)) rotateY(0deg); }
   to { 
-        transform: rotateY(90deg);
+        transform: scale(var(--card-scale)) rotateY(90deg);
   }
 }
 @keyframes unTurnCard {
-  from { transform: rotateY(90deg); }
+  from { transform: scale(var(--card-scale)) rotateY(90deg); }
   to { 
-        transform: rotateY(0deg);
+        transform: scale(var(--card-scale)) rotateY(0deg);
   }
 }
 
@@ -337,6 +337,7 @@ body {
     flex-direction: column;
     vertical-align: top;
     max-width: 400px;
+    min-width: 365px;
     padding: 20px 16px 16px 16px;
     box-sizing: border-box;
     max-height: 520px;
@@ -692,9 +693,11 @@ body {
         transform: scale(var(--card-scale));
     }
     .cardInfo {
-        max-width: 400px;
+        max-width: 365px;
         width: calc(100vw - 50px);
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        min-width: 0px;
+        margin-top: 10px;
         top: 0px;
     }
     .cardActions {
