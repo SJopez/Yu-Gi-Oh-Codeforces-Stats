@@ -133,7 +133,7 @@ export default function Card(props: FetchProps) {
     let [template, setTemplate] = useState("src/assets/cards/legendary_grandmaster.png")
     let [effect, setEffect] = useState("src/assets/cards/effects/legendary_grandmaster.png")
     let [loading, setLoading] = useState(false)
-
+    
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
@@ -308,6 +308,30 @@ export default function Card(props: FetchProps) {
         }
     }
 
+    let [flip, setFlip] = useState(true)
+
+    function flipCard() {
+        if (alter.current && cardContainer.current){
+            if (!flip){
+                cardContainer.current.classList.add('flipped')
+            }
+            alter.current.classList.remove('flip', 'unflip')
+            cardContainer.current.classList.remove('flip', 'unflip')
+
+            if (flip){    
+                cardContainer.current.classList.add('flip')
+                alter.current.classList.add('flip')
+            }
+            else {
+                cardContainer.current.classList.add('unflip')
+                alter.current.classList.add('unflip')
+            }
+            setTimeout(() => {
+                setFlip(!flip)
+            }, 500)
+        }
+    }
+
     return (
         <div className={props.preffix + 'totalContainer'}>
             {props.info ? (
@@ -315,7 +339,7 @@ export default function Card(props: FetchProps) {
                     <div id='blurContainer' ref={blurContainer}>
                         {loading && <h1 className="loadingText"> Loading... </h1>}
                     </div>
-                    <img id='alter' ref={alter} src='https://images.ygoprodeck.com/images/cards/40640057.jpg' className='cardContainer' style={{display: "none"}}></img>
+                    <img id='alter' className='cardContainer' ref={alter} src='https://images.ygoprodeck.com/images/cards/40640057.jpg'></img>
                     <Core 
                         preffix={props.preffix}
                         className={className}
@@ -336,12 +360,21 @@ export default function Card(props: FetchProps) {
                         problems={problems}
                     />
                     
-                    <button className="saveCardBtn" onClick={() => saveCard()}>
-                        <svg viewBox="0 0 24 24">
-                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                        </svg>
-                        Download Card
-                    </button>
+                    <div className="cardActions">
+                        <button className="saveCardBtn" onClick={saveCard}>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                            </svg>
+                            Download Card
+                        </button>
+                        <button className="spinCardBtn" onClick={flipCard}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
                 </div>
             ) : (
                 <Core 

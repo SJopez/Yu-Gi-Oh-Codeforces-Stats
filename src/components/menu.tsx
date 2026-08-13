@@ -115,7 +115,7 @@ export default function Menu(props: MenuOptions) {
             <Card 
                 username={username}
                 width={props.width}
-                preffix=''
+                preffix='card'
                 scale={false}
                 info={true}
                 rankRating={rankUsernameList}

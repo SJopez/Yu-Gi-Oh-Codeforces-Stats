@@ -15,22 +15,71 @@
     font-family: "CardDescFont";
     src: url(../assets/fonts/Stone\ Serif\ Semibold.ttf);
 } 
-#alter {
-    padding: 43px 27px 50px 25px;
-    width: 408px;
-    height: 612px;
-    position: absolute;
-    z-index: 20;
-    opacity: 0.5;
-}
 .cardContainer {
     position: relative;
     width: 408px;
     height: 612px;
     transform-origin: top center;
     margin-bottom: calc((612px * var(--card-scale, 1)) - 612px);
-    
+    pointer-events: none;
 }
+#alter {
+    padding: 43px 27px 50px 25px;
+    position: absolute;
+}
+#alter {
+    transform: rotateY(90deg);
+}
+
+
+@keyframes turnAlter {
+    from { transform: rotateY(90deg); }
+    to { 
+           transform: rotateY(0deg); 
+    }
+}
+@keyframes unTurnAlter {
+    from { transform: rotateY(0deg); }
+    to { 
+           transform: rotateY(90deg); 
+    }
+}
+
+@keyframes turnCard {
+  from { transform: rotateY(0deg); }
+  to { 
+        transform: rotateY(90deg);
+  }
+}
+@keyframes unTurnCard {
+  from { transform: rotateY(90deg); }
+  to { 
+        transform: rotateY(0deg);
+  }
+}
+
+#card.flipped {
+    transform: rotateY(90deg);
+}
+
+#card.flip {
+    animation: turnCard 0.2s linear forwards 1;
+}
+#alter.flip {
+    animation: turnAlter 0.2s linear forwards 1;
+    animation-delay: 0.2s;
+}
+
+#card.unflip {
+    animation: unTurnCard 0.2s linear forwards 1;
+    animation-delay: 0.2s;
+}
+
+#alter.unflip {
+    animation: unTurnAlter 0.2s linear forwards 1;
+}
+
+
 #nameContainer {
     font-family: "CardNameFont";
     width: 77%;
@@ -191,6 +240,7 @@
     background-origin: top left;
     background-repeat: no-repeat;
     background-size: cover;
+    pointer-events: none;
 }
 
 .sparkle {
@@ -269,18 +319,15 @@ body {
   top: 60%;
   left: 16.8%;
 }
-@keyframes scan {
-    from { top: -40px; }
-    to { top: 612px; }
-}
-.totalContainer {
+
+.cardtotalContainer {
   display: flex;
   flex-direction: row;
   align-items: flex-start; 
   justify-content: center;
   position: relative;
   width: 100%;
-  
+  padding-bottom: 20px;
 }
 .cardInfo {
     --hud-cyan: #00f6ff;
@@ -294,7 +341,7 @@ body {
     box-sizing: border-box;
     max-height: 520px;
     position: relative;
-    top: 35px;
+    top: 38px;
 
     background: 
         linear-gradient(180deg, rgba(0, 246, 255, 0.04) 0%, transparent 100%),
@@ -506,7 +553,7 @@ body {
     height: 612px;
     transform-origin: top center;
     transform: scale(var(--card-scale));
-    
+    pointer-events: none;
 }
 .loadingText {
     position: absolute;
@@ -527,16 +574,27 @@ body {
     text-transform: uppercase;
     animation: hud-loading-pulse 1.5s ease-in-out infinite;
 }
+
+.cardActions {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    width: 90%;
+    max-width: 365px;
+    margin-top: -30px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .saveCardBtn {
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    width: 90%;
-    max-width: 365px;
     height: 44px;
-    top: -20px;
-    margin-bottom: 10px;
     background: rgba(0, 246, 255, 0.1);
     border: 1px solid rgba(0, 246, 255, 0.4);
     border-radius: 6px;
@@ -550,9 +608,7 @@ body {
     backdrop-filter: blur(4px);
     box-shadow: 0 0 10px rgba(0, 246, 255, 0.15), inset 0 0 15px rgba(0, 246, 255, 0.05);
     transition: all 0.25s ease;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%)
+    z-index: 40;
 }
 
 .saveCardBtn:hover {
@@ -560,11 +616,11 @@ body {
     border-color: #00f6ff;
     color: #ffffff;
     box-shadow: 0 0 18px rgba(0, 246, 255, 0.4), inset 0 0 20px rgba(0, 246, 255, 0.15);
-    transform: translate(-50%, -2px);
+    transform: translateY(-2px);
 }
 
 .saveCardBtn:active {
-    transform: translate(-50%, 0);
+    transform: translateY(0);
 }
 
 .saveCardBtn svg {
@@ -572,6 +628,47 @@ body {
     height: 18px;
     fill: currentColor;
     filter: drop-shadow(0 0 4px #00f6ff);
+}
+
+.spinCardBtn {
+    flex: 0 0 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    background: rgba(0, 246, 255, 0.1);
+    border: 1px solid rgba(0, 246, 255, 0.4);
+    border-radius: 6px;
+    color: #e2f1f8;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.15), inset 0 0 15px rgba(0, 246, 255, 0.05);
+    transition: all 0.25s ease;
+    z-index: 40;
+}
+
+.spinCardBtn:hover {
+    background: rgba(0, 246, 255, 0.25);
+    border-color: #00f6ff;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(0, 246, 255, 0.4), inset 0 0 20px rgba(0, 246, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.spinCardBtn svg {
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0 0 4px #00f6ff);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spinCardBtn:hover svg {
+    transform: rotate(180deg);
+}
+
+.spinCardBtn:active svg {
+    transform: rotate(0deg);
+    transition: transform 0.1s linear;
 }
 
 @keyframes hud-loading-pulse {
@@ -587,7 +684,7 @@ body {
     }
 }
 @media (max-width: 835px) {
-    .totalContainer {
+    .cardtotalContainer {
         flex-direction: column;
         align-items: center;
     }
@@ -600,7 +697,7 @@ body {
         margin-bottom: 20px;
         top: 0px;
     }
-    .saveCardBtn {
+    .cardActions {
         width: calc(100vw - 50px);
     }
     
