@@ -306,7 +306,8 @@ export default function Card(props: FetchProps) {
                 }
             });
         }
-    }
+    } 
+
 
     let [flip, setFlip] = useState(true)
 
