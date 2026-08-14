@@ -96,14 +96,9 @@ async def process_null_rated(user: User):
 
     user.rank = rank.lower()
     user.max_rank = max_rank.lower()
-    user.rating = rating
-    user.max_rating = max_rating
+    user.rating = int(rating)
+    user.max_rating = int(max_rating)
 
     await update_database([user])
-
-    
-
-
-
 
     

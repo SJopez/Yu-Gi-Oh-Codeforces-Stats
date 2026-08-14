@@ -21,6 +21,7 @@ async def update_database(users : list[User]):
     session.close()
 
 async def get_user_info_db(handle: str) -> User | None:
+    
     with Session(engine) as session:
         statement = select(User).where(func.lower(User.handle) == handle.lower())
         return session.exec(statement).first()
