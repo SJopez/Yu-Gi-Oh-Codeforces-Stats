@@ -1,7 +1,7 @@
 [
     {
-        "handle": "Qingyu",
         "solved_problems": 693,
+        "handle": "Qingyu",
         "contributions": 157,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
@@ -163,8 +163,8 @@
         "avatar": "https://userpic.codeforces.org/747128/title/188117d8deb6f127.jpg"
     },
     {
-        "handle": "maspy",
         "solved_problems": 12803,
+        "handle": "maspy",
         "contributions": 149,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
@@ -334,8 +334,8 @@
         "avatar": "https://userpic.codeforces.org/2070194/title/b0b760d26d548074.jpg"
     },
     {
-        "handle": "Um_nik",
         "solved_problems": 4581,
+        "handle": "Um_nik",
         "contributions": 145,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
@@ -499,8 +499,8 @@
         "avatar": "https://userpic.codeforces.org/65550/title/f473a58c80b87e06.jpg"
     },
     {
-        "handle": "adamant",
         "solved_problems": 1495,
+        "handle": "adamant",
         "contributions": 138,
         "max_rank": "grandmaster",
         "most_used_lang": "C++",
@@ -658,8 +658,8 @@
         "avatar": "https://userpic.codeforces.org/50468/title/c71d0c4ebbfe17f.jpg"
     },
     {
-        "handle": "maroonrk",
         "solved_problems": 2666,
+        "handle": "maroonrk",
         "contributions": 134,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
@@ -827,8 +827,8 @@
         "avatar": "https://userpic.codeforces.org/319962/title/a76bf9501ce85c52.jpg"
     },
     {
-        "handle": "Dominater069",
         "solved_problems": 3332,
+        "handle": "Dominater069",
         "contributions": 132,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
@@ -994,8 +994,8 @@
         "avatar": "https://userpic.codeforces.org/2716850/title/7d13621c709ac866.jpg"
     },
     {
-        "handle": "DNR",
         "solved_problems": 1231,
+        "handle": "DNR",
         "contributions": 132,
         "max_rank": "master",
         "most_used_lang": "C++",
@@ -1161,8 +1161,8 @@
         "avatar": "https://userpic.codeforces.org/4043346/title/f9af41709def650d.jpg"
     },
     {
-        "handle": "Proof_by_QED",
         "solved_problems": 1945,
+        "handle": "Proof_by_QED",
         "contributions": 130,
         "max_rank": "international master",
         "most_used_lang": "C++",
@@ -1328,77 +1328,77 @@
         "avatar": "https://userpic.codeforces.org/2998434/title/306a10d7e535d94b.jpg"
     },
     {
-        "handle": "BledDest",
-        "solved_problems": 841,
-        "contributions": 129,
-        "max_rank": "international grandmaster",
+        "solved_problems": 389,
+        "handle": "chromate00",
+        "contributions": 127,
+        "max_rank": "candidate master",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:16:46.704116",
-        "rating": 2643,
-        "max_rating": 2657,
+        "timestamp": "2026-08-14T08:38:19.103348",
+        "rating": 1709,
+        "max_rating": 1900,
         "tags": [
             [
-                "dp",
-                55
-            ],
-            [
-                "implementation",
-                53
+                "greedy",
+                175
             ],
             [
                 "math",
-                53
+                161
             ],
             [
-                "greedy",
-                52
-            ],
-            [
-                "data structures",
-                38
-            ],
-            [
-                "constructive algorithms",
-                38
-            ],
-            [
-                "graphs",
-                38
+                "implementation",
+                110
             ],
             [
                 "brute force",
-                36
+                84
             ],
             [
-                "dfs and similar",
-                28
-            ],
-            [
-                "bitmasks",
-                24
-            ],
-            [
-                "trees",
-                23
-            ],
-            [
-                "strings",
-                22
-            ],
-            [
-                "number theory",
-                22
-            ],
-            [
-                "*special",
-                19
+                "constructive algorithms",
+                83
             ],
             [
                 "sortings",
-                18
+                56
+            ],
+            [
+                "dp",
+                53
+            ],
+            [
+                "data structures",
+                47
+            ],
+            [
+                "number theory",
+                38
             ],
             [
                 "binary search",
+                35
+            ],
+            [
+                "bitmasks",
+                31
+            ],
+            [
+                "strings",
+                29
+            ],
+            [
+                "*special",
+                22
+            ],
+            [
+                "dfs and similar",
+                19
+            ],
+            [
+                "two pointers",
+                17
+            ],
+            [
+                "graphs",
                 16
             ],
             [
@@ -1406,239 +1406,247 @@
                 15
             ],
             [
-                "dsu",
-                15
-            ],
-            [
-                "divide and conquer",
-                11
-            ],
-            [
-                "shortest paths",
-                9
-            ],
-            [
-                "flows",
-                9
-            ],
-            [
-                "two pointers",
-                7
-            ],
-            [
-                "geometry",
-                5
-            ],
-            [
-                "meet-in-the-middle",
-                5
-            ],
-            [
-                "probabilities",
-                5
-            ],
-            [
-                "games",
-                5
-            ],
-            [
-                "hashing",
-                4
-            ],
-            [
-                "graph matchings",
-                4
-            ],
-            [
-                "interactive",
-                3
-            ],
-            [
-                "string suffix structures",
-                2
-            ],
-            [
-                "2-sat",
-                2
-            ],
-            [
-                "matrices",
-                1
-            ],
-            [
-                "chinese remainder theorem",
-                1
-            ]
-        ],
-        "rank": "international grandmaster",
-        "badges": [],
-        "avatar": "https://userpic.codeforces.org/331814/title/c39bc69975d6dd4.jpg"
-    },
-    {
-        "handle": "errorgorn",
-        "solved_problems": 2040,
-        "contributions": 129,
-        "max_rank": "legendary grandmaster",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:16:54.085948",
-        "rating": 3073,
-        "max_rating": 3119,
-        "tags": [
-            [
-                "greedy",
-                761
-            ],
-            [
-                "math",
-                673
-            ],
-            [
-                "constructive algorithms",
-                502
-            ],
-            [
-                "dp",
-                466
-            ],
-            [
-                "implementation",
-                427
-            ],
-            [
-                "data structures",
-                407
-            ],
-            [
-                "brute force",
-                354
-            ],
-            [
-                "sortings",
-                243
-            ],
-            [
-                "graphs",
-                238
-            ],
-            [
-                "binary search",
-                231
-            ],
-            [
-                "dfs and similar",
-                209
-            ],
-            [
                 "trees",
-                178
-            ],
-            [
-                "number theory",
-                166
-            ],
-            [
-                "combinatorics",
-                158
-            ],
-            [
-                "bitmasks",
-                157
-            ],
-            [
-                "two pointers",
-                148
-            ],
-            [
-                "strings",
-                121
+                12
             ],
             [
                 "dsu",
-                90
-            ],
-            [
-                "divide and conquer",
-                74
-            ],
-            [
-                "geometry",
-                69
-            ],
-            [
-                "*special",
-                68
-            ],
-            [
-                "interactive",
-                67
-            ],
-            [
-                "shortest paths",
-                64
+                10
             ],
             [
                 "games",
-                49
+                9
             ],
             [
-                "probabilities",
-                45
-            ],
-            [
-                "hashing",
-                45
-            ],
-            [
-                "fft",
-                25
-            ],
-            [
-                "matrices",
-                24
-            ],
-            [
-                "flows",
-                20
-            ],
-            [
-                "graph matchings",
-                20
-            ],
-            [
-                "string suffix structures",
-                15
-            ],
-            [
-                "ternary search",
-                15
-            ],
-            [
-                "meet-in-the-middle",
+                "geometry",
                 8
             ],
             [
-                "2-sat",
+                "divide and conquer",
+                8
+            ],
+            [
+                "interactive",
                 7
             ],
             [
-                "chinese remainder theorem",
+                "shortest paths",
                 6
             ],
             [
+                "hashing",
+                6
+            ],
+            [
+                "ternary search",
+                4
+            ],
+            [
+                "probabilities",
+                4
+            ],
+            [
+                "meet-in-the-middle",
+                2
+            ],
+            [
+                "graph matchings",
+                2
+            ],
+            [
+                "string suffix structures",
+                2
+            ],
+            [
+                "schedules",
+                2
+            ],
+            [
+                "matrices",
+                1
+            ],
+            [
                 "expression parsing",
-                3
+                1
+            ],
+            [
+                "chinese remainder theorem",
+                1
+            ],
+            [
+                "flows",
+                1
+            ],
+            [
+                "2-sat",
+                1
+            ]
+        ],
+        "rank": "expert",
+        "badges": [],
+        "avatar": "https://userpic.codeforces.org/2388646/title/d3ecbb091f82478.jpg"
+    },
+    {
+        "solved_problems": 1371,
+        "handle": "Intellegent",
+        "contributions": 128,
+        "max_rank": "grandmaster",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-14T08:44:40.321453",
+        "rating": 2378,
+        "max_rating": 2509,
+        "tags": [
+            [
+                "greedy",
+                645
+            ],
+            [
+                "math",
+                541
+            ],
+            [
+                "constructive algorithms",
+                372
+            ],
+            [
+                "implementation",
+                341
+            ],
+            [
+                "dp",
+                339
+            ],
+            [
+                "brute force",
+                301
+            ],
+            [
+                "data structures",
+                253
+            ],
+            [
+                "sortings",
+                194
+            ],
+            [
+                "binary search",
+                179
+            ],
+            [
+                "dfs and similar",
+                161
+            ],
+            [
+                "graphs",
+                141
+            ],
+            [
+                "number theory",
+                138
+            ],
+            [
+                "bitmasks",
+                134
+            ],
+            [
+                "trees",
+                132
+            ],
+            [
+                "combinatorics",
+                125
+            ],
+            [
+                "strings",
+                105
+            ],
+            [
+                "two pointers",
+                99
+            ],
+            [
+                "dsu",
+                63
+            ],
+            [
+                "games",
+                54
+            ],
+            [
+                "divide and conquer",
+                49
+            ],
+            [
+                "shortest paths",
+                38
+            ],
+            [
+                "interactive",
+                35
+            ],
+            [
+                "geometry",
+                28
+            ],
+            [
+                "*special",
+                22
+            ],
+            [
+                "hashing",
+                22
+            ],
+            [
+                "probabilities",
+                22
+            ],
+            [
+                "matrices",
+                16
+            ],
+            [
+                "graph matchings",
+                14
+            ],
+            [
+                "2-sat",
+                12
+            ],
+            [
+                "flows",
+                11
+            ],
+            [
+                "fft",
+                5
+            ],
+            [
+                "chinese remainder theorem",
+                5
+            ],
+            [
+                "ternary search",
+                5
+            ],
+            [
+                "string suffix structures",
+                4
             ],
             [
                 "schedules",
                 3
             ],
             [
-                "*broken",
+                "expression parsing",
+                2
+            ],
+            [
+                "meet-in-the-middle",
                 1
             ]
         ],
-        "rank": "legendary grandmaster",
+        "rank": "international master",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/1160696/title/caaf7df04876b93c.jpg"
+        "avatar": "https://userpic.codeforces.org/2239385/title/b876652e1944accf.jpg"
     }
 ]

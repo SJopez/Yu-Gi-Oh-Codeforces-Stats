@@ -1,3 +1,5 @@
+from datetime import datetime, timezone, timedelta
+
 from curl_cffi import AsyncSession
 from bs4 import BeautifulSoup
 from app.models import User
@@ -5,6 +7,92 @@ from app.models import User
 import json
 
 from app.database import update_database
+
+from app.utils import unique_solved_problems
+from app.utils import get_problems_tags
+from app.utils import most_used_lang
+
+async def update_cache_if_in_top(users: list[User]):
+    rated_data = await get_top10_rated(True)
+    contr_data = await get_top10_contr(True)
+
+    rated_updated = False
+    contr_updated = False
+
+    for user in users:
+        for i, cached_user in enumerate(rated_data):
+            if cached_user.get('handle') == user.handle:
+                rated_data[i] = user.model_dump(mode='json')
+                rated_updated = True
+                break
+
+        for i, cached_user in enumerate(contr_data):
+            if cached_user.get('handle') == user.handle:
+                contr_data[i] = user.model_dump(mode='json')
+                contr_updated = True
+                break
+
+    if rated_updated:
+        with open('app/cache/top10_rated_cache.json', 'w') as file:
+            json.dump(rated_data, file, indent=4)
+
+    if contr_updated:
+        with open('app/cache/top10_contributors_cache.json', 'w') as file:
+            json.dump(contr_data, file, indent=4)
+
+async def get_individual_info(handle: str, http_client: AsyncSession = None) -> User:
+    url = 'https://codeforces.com/api/user.info'
+    params = {'handles': handle}
+
+    response = await http_client.get(url,params=params)
+    response = response.json().get('result')[0]
+
+    user: User = User()
+
+    try:
+        user.handle = response.get('handle')
+        user.rating = response.get('rating')
+        user.max_rating = response.get('maxRating')
+        user.contributions = response.get('contribution')
+        user.rank = response.get('rank').lower()
+        user.max_rank = response.get('maxRank').lower()
+        user.avatar = response.get('titlePhoto')
+    except AttributeError:
+        user.handle = response.get('handle')
+        user.contributions = response.get('contribution')
+        user.avatar = response.get('titlePhoto')
+
+    await process_null_rated(user)
+    
+    return user
+
+async def scrap_info(user: User, http_client: AsyncSession = None):
+    now_time = datetime.now(timezone.utc).replace(tzinfo=None)
+    if user.timestamp is not None:
+        if (now_time - user.timestamp) < timedelta(hours=24):
+            return {'result': 'user is already update'}
+
+    extra = user.rating and user.max_rating
+    extra = extra and user.rank and user.max_rank
+    
+    if not extra:
+        await process_null_rated(user)
+    
+    url_stats = 'https://codeforces.com/api/user.status'
+    response_2 = await http_client.get(url_stats,params={'handle': user.handle})
+    response_2 = response_2.json().get('result')
+    problems = await unique_solved_problems(response_2)
+
+    user.solved_problems = len(problems)
+    user.tags = await get_problems_tags(problems)
+    user.most_used_lang = await most_used_lang(problems)
+    user.badges = await get_badges(user.handle)
+    user.timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
+    
+    await update_database([user])
+    await update_cache_if_in_top([user])
+    
+    return {'result': 'user have been updated succesfully'}
 
 async def get_top10_rated(cached : bool = False):
     if cached:
@@ -101,4 +189,3 @@ async def process_null_rated(user: User):
 
     await update_database([user])
 
-    

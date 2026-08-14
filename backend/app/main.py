@@ -1,4 +1,3 @@
-from datetime import timedelta
 from app.models import User
 
 from fastapi import FastAPI, Query, BackgroundTasks
@@ -10,19 +9,13 @@ import json
 
 from app.services import get_top10_rated
 from app.services import get_top10_contr
-from app.services import get_badges
-from app.services import process_null_rated
-
-from app.utils import most_used_lang
-from app.utils import unique_solved_problems
-from app.utils import get_problems_tags
-from app.utils import rated_pos, contr_pos
+from app.services import get_individual_info
+from app.services import scrap_info
 
 from app.database import create_database
 from app.database import get_user_info_db
 from app.database import update_database 
 
-from datetime import datetime, timezone
 
 http_client : httpx.AsyncClient = httpx.AsyncClient()
 
@@ -61,32 +54,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
     
-async def update_cache_if_in_top(users: list[User]):
-    
-    rated_data = await get_top10_rated(cached=True)
-    contr_data = await get_top10_contr(cached=True)
-    
-    updated_rated = False
-    updated_contr = False
-    
-    for user in users:
-        for i, cached_user in enumerate(rated_data):
-            rated_data[i] = user.model_dump(mode='json')
-            updated_rated = True
-            break
-        
-        for i, cached_user in enumerate(contr_data):
-            contr_data[i] = user.model_dump(mode='json')
-            updated_contr = True
-            break
-    
-    if updated_rated:
-        with open('app/cache/top10_rated_cache.json', 'w') as file:
-            json.dump(rated_data, file, indent=4)
-    
-    if updated_contr:
-        with open('app/cache/top10_contributors_cache.json', 'w') as file:
-            json.dump(contr_data, file, indent=4)
 
 async def update_tops_cache():
     rated : list[str] = await get_top10_rated()
@@ -96,8 +63,8 @@ async def update_tops_cache():
     rated_path = 'app/cache/top10_rated_cache.json'
     rated_list : list[str] = []
 
-    for user in rated:
-        response: User = await user_info(user)
+    for user_handle in rated:
+        response: User = await user_info(user_handle)
         rated_list.append(response.model_dump(mode='json'))
 
     with open(rated_path, 'w') as file:
@@ -108,8 +75,8 @@ async def update_tops_cache():
     contr_path = 'app/cache/top10_contributors_cache.json'
     contr_list = []
 
-    for user in contr:
-        response: User = await user_info(user)
+    for user_handle in contr:
+        response: User = await user_info(user_handle)
         contr_list.append(response.model_dump(mode='json'))
 
     with open(contr_path, 'w') as file:
@@ -133,40 +100,6 @@ async def get_tops():
         'top_contributors' : top_contributors
     }
 
-async def get_individual_info(handle: str, include_position: bool = False) -> User:
-    url = 'https://codeforces.com/api/user.info'
-    params = {'handles': handle}
-
-    response = await http_client.get(url,params=params)
-    response = response.json().get('result')[0]
-
-    user: User = User()
-
-    try:
-        user.handle = response.get('handle')
-        user.rating = response.get('rating')
-        user.max_rating = response.get('maxRating')
-        user.contributions = response.get('contribution')
-        user.rank = response.get('rank').lower()
-        user.max_rank = response.get('maxRank').lower()
-        user.avatar = response.get('titlePhoto')
-        if include_position:
-            user.rated_pos = await rated_pos(user.handle)
-            user.contr_pos = await contr_pos(user.handle)
-    except AttributeError:
-        user.handle = response.get('handle')
-        user.contributions = response.get('contribution')
-        user.avatar = response.get('titlePhoto')
-        if include_position:
-            user.rated_pos = await rated_pos(user.handle)
-            user.contr_pos = await contr_pos(user.handle)
-
-    await process_null_rated(user)
-
-
-    await update_database([user])
-    
-    return user
 
 async def codeforces_api_info():
     url_users_list =  'https://codeforces.com/api/user.ratedList?activeOnly=false&includeRetired=false'
@@ -185,8 +118,7 @@ async def codeforces_api_info():
         user.rank = user_info.get('rank').lower()
         user.max_rank = user_info.get('maxRank').lower()
         user.avatar = user_info.get('titlePhoto')
-        user.rated_pos = await rated_pos(user.handle)
-        user.contr_pos = await contr_pos(user.handle)
+
 
         users_list.append(user)
     
@@ -202,44 +134,15 @@ async def trigger_codeforces_api_info(background_task : BackgroundTasks):
     return {"result": "base info is being updated"}
 
 
-async def scrap_info(user: User):
-    now_time = datetime.now(timezone.utc).replace(tzinfo=None)
-    if user.timestamp is not None:
-        if (now_time - user.timestamp) < timedelta(hours=24):
-            return {'result': 'user is already update'}
-
-    extra = user.rating and user.max_rating
-    extra = extra and user.rank and user.max_rank
-    
-    if not extra:
-        await process_null_rated(user)
-    
-    url_stats = 'https://codeforces.com/api/user.status'
-    response_2 = await http_client.get(url_stats,params={'handle': user.handle})
-    response_2 = response_2.json().get('result')
-    problems = await unique_solved_problems(response_2)
-
-    user.solved_problems = len(problems)
-    user.tags = await get_problems_tags(problems)
-    user.most_used_lang = await most_used_lang(problems)
-    user.badges = await get_badges(user.handle)
-    user.timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
-    
-    await update_database([user])
-    await update_cache_if_in_top([user])
-    
-    return {'result': 'user have been updated succesfully'}
-
-
 @app.get('/user.info')
 async def user_info(handle : str = Query(...)) -> User:
     
     handle = handle.lower()
     user: User = await get_user_info_db(handle)
     if user is None:
-        user: User = await get_individual_info(handle)
+        user: User = await get_individual_info(handle, http_client)
 
-    await scrap_info(user)
+    await scrap_info(user,http_client)
     user: User = await get_user_info_db(user.handle)
 
     return user
