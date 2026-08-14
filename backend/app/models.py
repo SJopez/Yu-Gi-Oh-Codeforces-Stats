@@ -15,6 +15,6 @@ class User(SQLModel, table=True):
     badges: list[str] | None = Field(default_factory=list,sa_column=Column(JSON))
     most_used_lang : str | None
     avatar : str 
-    rated_pos : int | None
-    contr_pos : int | None
+    # rated_pos : int | None
+    # contr_pos : int | None
     timestamp : Optional[datetime] | None
