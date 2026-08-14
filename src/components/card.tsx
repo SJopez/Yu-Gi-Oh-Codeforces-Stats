@@ -148,11 +148,27 @@ export default function Card(props: FetchProps) {
         }
     }, [props.username, props.isTopUser, props.width])
 
-    function buildDescription(user: CodeforcesUser) {
+    function buildDescription(user: CodeforcesUser, ratingList: Array<CodeforcesUser>, contributionList: Array<CodeforcesUser>) {
         type Legend = keyof typeof Descriptions.legends
         type RatingTop = keyof typeof Descriptions.tops.rank
         type ContriTop = keyof typeof Descriptions.tops.contribution
         type UserRank = keyof typeof Descriptions.users
+        let isRatedTop = -1
+        let isContriTop = -1
+        let username = user.handle.toLowerCase()
+
+        for (let i = 0; i < ratingList.length; i++){
+            let rated = ratingList[i].handle.toLowerCase()
+            let contri = contributionList[i].handle.toLowerCase() 
+            
+            if (username == rated){
+                isRatedTop = i + 1
+            }
+            if (username == contri){
+                isContriTop = i + 1
+            }
+        }
+
 
         let handle = user.handle
         
@@ -162,11 +178,11 @@ export default function Card(props: FetchProps) {
         else if (user.rank == "headquarters"){ 
             setDescription(Descriptions.headquarters)
         }
-        else if (user.rated_pos > 0){
-            setDescription(Descriptions.tops.rank[user.rated_pos.toString() as RatingTop])
+        else if (isRatedTop > 0){
+            setDescription(Descriptions.tops.rank[isRatedTop.toString() as RatingTop])
         }
-        else if (user.contr_pos > 0){
-            setDescription(Descriptions.tops.contribution[user.contr_pos.toString() as ContriTop])
+        else if (isContriTop > 0){
+            setDescription(Descriptions.tops.contribution[isContriTop.toString() as ContriTop])
         }
         else {
             let numIndex = Math.max(400, user.rating)
@@ -200,7 +216,7 @@ export default function Card(props: FetchProps) {
         setBadgeList(user.badges)
         setProblems(user.solved_problems)
         setProblemsTags(user.tags)
-        buildDescription(user)
+        buildDescription(user, props.rankRating, props.contributionRank)
         
         if (maxRankConfig == undefined) setStars(12)
         else setStars(maxRankConfig.stars)

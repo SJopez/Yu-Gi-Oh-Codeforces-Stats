@@ -15,8 +15,6 @@ export interface CodeforcesUser {
     badges: Array<string>;
     solved_problems: number;
     tags: Array<Array<number | string>>;
-    rated_pos: number;
-    contr_pos: number;
 }
 
 interface Input {
