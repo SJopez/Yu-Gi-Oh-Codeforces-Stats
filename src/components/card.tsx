@@ -309,7 +309,7 @@ export default function Card(props: FetchProps) {
             }
             html2canvas(cardContainer.current, 
                 {
-                    onclone: (clonedDoc, clonedElement) => {
+                    onclone: (_, clonedElement) => {
                         clonedElement.style.scale = "1"; 
                     },
                     backgroundColor: null,
