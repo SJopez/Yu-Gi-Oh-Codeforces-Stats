@@ -248,11 +248,13 @@ export default function Card(props: FetchProps) {
                 alter.current.style.setProperty("--card-scale", "1")
             }
             else {
+             /*
                 let perc = (props.width / 408).toString()
                 cardContainer.current.style.setProperty("--card-scale", perc);
                 blurContainer.current.style.setProperty("--card-scale", perc);
                 cardInfo.current.style.setProperty("--card-scale", perc);  
                 alter.current.style.setProperty("--card-scale", perc)
+            */
             }        
         }
 
