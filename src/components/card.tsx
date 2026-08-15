@@ -302,16 +302,16 @@ export default function Card(props: FetchProps) {
     }
 
     function saveCard() {
-        if (cardContainer.current) {
-            let scale = cardContainer.current.style.getPropertyValue("--card-scale")
-            cardContainer.current.style.setProperty("--card-scale", "1");
-            
+        if (cardContainer.current) {    
             if (nameEffect && name.current){
                 name.current.classList.remove('golden')
                 name.current.style.color = "#d4af37"
             }
             html2canvas(cardContainer.current, 
                 {
+                    onclone: (clonedDoc, clonedElement) => {
+                        clonedElement.style.scale = "1"; 
+                    },
                     backgroundColor: null,
                     useCORS: true,
                 }).then(canvas => {
@@ -320,7 +320,6 @@ export default function Card(props: FetchProps) {
                 link.href = canvas.toDataURL();
                 link.click();
 
-                cardContainer.current!.style.setProperty("--card-scale", scale);
                 if (nameEffect && name.current){
                     name.current.classList.add('golden')
                     name.current.style.color = "black"
