@@ -248,13 +248,11 @@ export default function Card(props: FetchProps) {
                 alter.current.style.setProperty("--card-scale", "1")
             }
             else {
-             /*
                 let perc = (props.width / 408).toString()
                 cardContainer.current.style.setProperty("--card-scale", perc);
                 blurContainer.current.style.setProperty("--card-scale", perc);
                 cardInfo.current.style.setProperty("--card-scale", perc);  
                 alter.current.style.setProperty("--card-scale", perc)
-            */
             }        
         }
 
@@ -305,6 +303,9 @@ export default function Card(props: FetchProps) {
 
     function saveCard() {
         if (cardContainer.current) {
+            let scale = cardContainer.current.style.getPropertyValue("--card-scale")
+            cardContainer.current.style.setProperty("--card-scale", "1");
+            
             if (nameEffect && name.current){
                 name.current.classList.remove('golden')
                 name.current.style.color = "#d4af37"
@@ -318,6 +319,8 @@ export default function Card(props: FetchProps) {
                 link.download = `${handle}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
+
+                cardContainer.current!.style.setProperty("--card-scale", scale);
                 if (nameEffect && name.current){
                     name.current.classList.add('golden')
                     name.current.style.color = "black"
