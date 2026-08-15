@@ -2,6 +2,7 @@ import Card from './card'
 import './menu.css'
 import { useEffect, useRef, useState } from 'react'
 import DuelDisk from './disk';
+import toast, { Toaster } from "react-hot-toast";
 
 export interface CodeforcesUser {
     handle: string;
@@ -25,7 +26,7 @@ interface MenuOptions {
 }
 
 export async function handleSubmit(user: string, change: Function, setter: (value: boolean) => void) {
-    try {
+    try {    
         setter(true)
         const response = await fetch("https://yu-gi-oh-codeforces-stats.onrender.com/user.info?handle="+user)
         if(!response.ok) throw new Error("Something went wrong!")
@@ -33,12 +34,20 @@ export async function handleSubmit(user: string, change: Function, setter: (valu
         const result = data as CodeforcesUser
         change(result)
     } catch (error) {
+        toast.error("User not found!")
+        console.log("mojonson")
         setter(false)
     }
 }
 
 function InputField(props: Input) {
     let currInput = useRef<HTMLInputElement>(null);
+
+    function keyDown(e: React.KeyboardEvent<HTMLInputElement>){
+        if (e.key == "Enter"){
+            props.onchange(currInput.current?.value!)
+        }
+    }
 
     return (
         <div id='inputWrapper'>
@@ -48,7 +57,7 @@ function InputField(props: Input) {
                     id='inputField'
                     type="text"
                     placeholder='Enter your username...'
-    
+                    onKeyDown={keyDown}
                 />
                 <button id='inputButton' onClick={() => props.onchange(currInput.current?.value!)}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,6 +114,14 @@ export default function Menu(props: MenuOptions) {
 
     return (
         <div id='menu' ref={menu}>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    style: {
+                    background: "#1f1f1f",
+                    color: "#fff",
+                    },
+                }}/>
             <h1 id='menuTitle'>
                 Yu-Gi-Oh! <span>Codeforces Stats</span>
             </h1>

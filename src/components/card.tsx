@@ -70,11 +70,17 @@ interface CoreProps {
     description: string;
     maxRating: number;
     problems: number;
+    loading?: Boolean
 }
 
 function Core(props: CoreProps) {
+    let blur = "none"
+
+    if (props.loading) blur = "blur(8px)"
+    else blur = "none"
+
     return (
-        <div id={props.preffix} className={props.className} ref={props.cardContainer}>
+        <div id={props.preffix} className={props.className} ref={props.cardContainer} style={{filter: blur}}>
             {props.sparkle && <Sparkle></Sparkle>}
             <div style={{opacity: props.effectOpacity, backgroundImage: `url(${effects[`/${props.effect}`] as string})`}} id='effect'></div>
             <img id='cardTemplate' src={images[`/${props.template}`] as string}></img>
@@ -142,7 +148,6 @@ export default function Card(props: FetchProps) {
 
             if (window.innerWidth > 800) htop = 0
 
-            cardContainer.current.style.filter = "blur(8px)"
             if (handle != "") window.scrollTo({ top: htop, behavior: 'smooth' })
             handleSubmit(props.username, change, setLoading)
         }
@@ -223,7 +228,6 @@ export default function Card(props: FetchProps) {
         
         if (cardContainer.current) {
             setLoading(false)
-            cardContainer.current.style.filter = "blur(0px)"
         }
     }
 
@@ -379,6 +383,7 @@ export default function Card(props: FetchProps) {
                         description={description}
                         maxRating={maxRating}
                         problems={problems}
+                        loading={loading}
                     />
                     
                     <div className="cardActions">
