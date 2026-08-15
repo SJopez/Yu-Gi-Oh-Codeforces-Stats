@@ -144,11 +144,6 @@ export default function Card(props: FetchProps) {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
         else if (props.username != handle && cardContainer.current) {
-            let htop = cardContainer.current.getBoundingClientRect().top + window.scrollY
-
-            if (window.innerWidth > 800) htop = 0
-
-            if (handle != "") window.scrollTo({ top: htop, behavior: 'smooth' })
             handleSubmit(props.username, change, setLoading)
         }
     }, [props.username, props.isTopUser, props.width])
@@ -173,7 +168,6 @@ export default function Card(props: FetchProps) {
                 isContriTop = i + 1
             }
         }
-
 
         let handle = user.handle
         

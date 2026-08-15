@@ -43,6 +43,7 @@ function TopList(props: TopList) {
     let slotList = []
 
     function searchTopUser(user: string, nameSetter: (name: string) => void) {
+        window.scrollTo({top: 0, behavior:"smooth"})
         nameSetter(user)
     }
 
