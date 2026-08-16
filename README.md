@@ -1,6 +1,6 @@
 <h1 style="margin:0;">
   <img src="public/icon.png" alt="App Icon" width="36" style="border-radius:8px; vertical-align:middle; margin-right:4px;" />
-  <span style="vertical-align:middle; margin-bottom: 4px;">Yu-Gi-Oh Codeforces Stats</span>
+  <span style="vertical-align:middle; margin-bottom: 10px;">Yu-Gi-Oh Codeforces Stats</span>
 </h1>
 
 
