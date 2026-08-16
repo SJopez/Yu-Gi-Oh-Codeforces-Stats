@@ -1,25 +1,19 @@
 [
     {
-        "solved_problems": 3936,
-        "handle": "Benq",
-        "contributions": 51,
-        "max_rank": "legendary grandmaster",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:13:54.794278",
         "rating": 3857,
         "max_rating": 3857,
         "tags": [
             [
                 "math",
-                1042
+                1046
             ],
             [
                 "greedy",
-                955
+                957
             ],
             [
                 "dp",
-                904
+                905
             ],
             [
                 "implementation",
@@ -27,7 +21,7 @@
             ],
             [
                 "data structures",
-                754
+                759
             ],
             [
                 "constructive algorithms",
@@ -35,7 +29,7 @@
             ],
             [
                 "brute force",
-                515
+                517
             ],
             [
                 "graphs",
@@ -43,23 +37,23 @@
             ],
             [
                 "trees",
-                399
+                400
             ],
             [
                 "binary search",
-                368
+                369
             ],
             [
                 "sortings",
-                353
+                354
             ],
             [
                 "combinatorics",
-                330
+                333
             ],
             [
                 "dfs and similar",
-                330
+                331
             ],
             [
                 "number theory",
@@ -71,7 +65,7 @@
             ],
             [
                 "bitmasks",
-                241
+                243
             ],
             [
                 "*special",
@@ -119,7 +113,7 @@
             ],
             [
                 "fft",
-                71
+                72
             ],
             [
                 "matrices",
@@ -168,18 +162,19 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [
-            "//codeforces.com/codeforces.org/s/14915/images/badge-crowdfunding-2018.png",
-            "//codeforces.com/codeforces.org/s/14915/images/badge-crowdfunding-2020.png"
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2018.png",
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2020.png"
         ],
-        "avatar": "https://userpic.codeforces.org/312472/title/7cf0a442d4071e87.jpg"
+        "avatar": "https://userpic.codeforces.org/312472/title/7cf0a442d4071e87.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/100458003.jpg",
+        "solved_problems": 3943,
+        "handle": "Benq",
+        "contributions": 51,
+        "max_rank": "legendary grandmaster",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-16T07:32:41.841220"
     },
     {
-        "solved_problems": 7286,
-        "handle": "jiangly",
-        "contributions": 22,
-        "max_rank": "jiangly",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:03.979141",
         "rating": 3812,
         "max_rating": 4039,
         "tags": [
@@ -342,15 +337,16 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/887306/title/b450806e36caa423.jpg"
+        "avatar": "https://userpic.codeforces.org/887306/title/b450806e36caa423.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/92359409.jpg",
+        "solved_problems": 7286,
+        "handle": "jiangly",
+        "contributions": 22,
+        "max_rank": "jiangly",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-16T07:32:49.401423"
     },
     {
-        "solved_problems": 515,
-        "handle": "VivaciousAubergine",
-        "contributions": 7,
-        "max_rank": "legendary grandmaster",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:08.334630",
         "rating": 3647,
         "max_rating": 3647,
         "tags": [
@@ -505,15 +501,16 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/436135/title/d429161cb219e72d.jpg"
-    },
-    {
-        "solved_problems": 2666,
-        "handle": "maroonrk",
-        "contributions": 134,
+        "avatar": "https://userpic.codeforces.org/436135/title/d429161cb219e72d.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/70488851.jpg",
+        "solved_problems": 515,
+        "handle": "VivaciousAubergine",
+        "contributions": 7,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:13.749324",
+        "timestamp": "2026-08-16T07:32:55.061864"
+    },
+    {
         "rating": 3536,
         "max_rating": 3650,
         "tags": [
@@ -672,17 +669,18 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [
-            "//codeforces.com/codeforces.org/s/14915/images/badge-crowdfunding-2020.png"
+            "//codeforces.com/codeforces.org/s/31229/images/badge-crowdfunding-2020.png"
         ],
-        "avatar": "https://userpic.codeforces.org/319962/title/a76bf9501ce85c52.jpg"
+        "avatar": "https://userpic.codeforces.org/319962/title/a76bf9501ce85c52.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/66523544.jpg",
+        "solved_problems": 2666,
+        "handle": "maroonrk",
+        "contributions": 134,
+        "max_rank": "legendary grandmaster",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-16T07:33:03.329070"
     },
     {
-        "solved_problems": 3027,
-        "handle": "tourist",
-        "contributions": 109,
-        "max_rank": "tourist",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:22.230995",
         "rating": 3530,
         "max_rating": 4009,
         "tags": [
@@ -845,19 +843,20 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [
-            "//codeforces.com/codeforces.org/s/41195/images/badge-crowdfunding-2015.png",
-            "//codeforces.com/codeforces.org/s/41195/images/badge-crowdfunding-2018.png",
-            "//codeforces.com/codeforces.org/s/41195/images/badge-crowdfunding-2020.png"
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2015.png",
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2018.png",
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2020.png"
         ],
-        "avatar": "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg"
+        "avatar": "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/100458003.jpg",
+        "solved_problems": 3027,
+        "handle": "tourist",
+        "contributions": 109,
+        "max_rank": "tourist",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-16T07:33:12.451222"
     },
     {
-        "solved_problems": 1993,
-        "handle": "Kevin114514",
-        "contributions": 78,
-        "max_rank": "legendary grandmaster",
-        "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:29.630441",
         "rating": 3510,
         "max_rating": 3811,
         "tags": [
@@ -1016,15 +1015,16 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/888350/title/ec7b2b5bd30c511a.jpg"
-    },
-    {
-        "solved_problems": 2686,
-        "handle": "turmax",
-        "contributions": 39,
+        "avatar": "https://userpic.codeforces.org/888350/title/ec7b2b5bd30c511a.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/66523544.jpg",
+        "solved_problems": 1993,
+        "handle": "Kevin114514",
+        "contributions": 79,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:14:37.453500",
+        "timestamp": "2026-08-16T07:33:22.471445"
+    },
+    {
         "rating": 3402,
         "max_rating": 3559,
         "tags": [
@@ -1173,25 +1173,26 @@
                 3
             ],
             [
-                "schedules",
+                "expression parsing",
                 2
             ],
             [
-                "expression parsing",
-                1
+                "schedules",
+                2
             ]
         ],
         "rank": "legendary grandmaster",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/no-title.jpg"
-    },
-    {
-        "solved_problems": 4581,
-        "handle": "Um_nik",
-        "contributions": 145,
+        "avatar": "https://userpic.codeforces.org/no-title.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/21435914.jpg",
+        "solved_problems": 2686,
+        "handle": "turmax",
+        "contributions": 39,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:15:31.179768",
+        "timestamp": "2026-08-16T07:33:30.119313"
+    },
+    {
         "rating": 3389,
         "max_rating": 3663,
         "tags": [
@@ -1346,17 +1347,18 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [
-            "//codeforces.com/codeforces.org/s/53279/images/badge-crowdfunding-2018.png"
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2018.png"
         ],
-        "avatar": "https://userpic.codeforces.org/65550/title/f473a58c80b87e06.jpg"
-    },
-    {
-        "solved_problems": 4037,
-        "handle": "Radewoosh",
-        "contributions": 100,
+        "avatar": "https://userpic.codeforces.org/65550/title/f473a58c80b87e06.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/30698243.jpg",
+        "solved_problems": 4581,
+        "handle": "Um_nik",
+        "contributions": 145,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:15:43.257753",
+        "timestamp": "2026-08-16T07:33:40.129551"
+    },
+    {
         "rating": 3367,
         "max_rating": 3759,
         "tags": [
@@ -1519,17 +1521,18 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [
-            "//codeforces.com/codeforces.org/s/41195/images/badge-crowdfunding-2020.png"
+            "//codeforces.com/codeforces.org/s/30042/images/badge-crowdfunding-2020.png"
         ],
-        "avatar": "https://userpic.codeforces.org/147752/title/13dfa099dea83936.jpg"
-    },
-    {
-        "solved_problems": 1035,
-        "handle": "heuristica",
-        "contributions": 32,
+        "avatar": "https://userpic.codeforces.org/147752/title/13dfa099dea83936.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/100458003.jpg",
+        "solved_problems": 4037,
+        "handle": "Radewoosh",
+        "contributions": 100,
         "max_rank": "legendary grandmaster",
         "most_used_lang": "C++",
-        "timestamp": "2026-08-14T08:15:50.078546",
+        "timestamp": "2026-08-16T07:33:49.093878"
+    },
+    {
         "rating": 3322,
         "max_rating": 3659,
         "tags": [
@@ -1688,6 +1691,13 @@
         ],
         "rank": "legendary grandmaster",
         "badges": [],
-        "avatar": "https://userpic.codeforces.org/702574/title/472e669a989b4b82.jpg"
+        "avatar": "https://userpic.codeforces.org/702574/title/472e669a989b4b82.jpg",
+        "match_card": "https://images.ygoprodeck.com/images/cards/66523544.jpg",
+        "solved_problems": 1035,
+        "handle": "heuristica",
+        "contributions": 32,
+        "max_rank": "legendary grandmaster",
+        "most_used_lang": "C++",
+        "timestamp": "2026-08-16T07:33:57.167015"
     }
 ]

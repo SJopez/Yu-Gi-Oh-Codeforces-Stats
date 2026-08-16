@@ -1,5 +1,3 @@
-from app.models import User
-
 from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import httpx 
@@ -16,6 +14,9 @@ from app.database import create_database
 from app.database import get_user_info_db
 from app.database import update_database 
 
+from app.models import User
+
+from app.card_matcher import most_close_card
 
 http_client : httpx.AsyncClient = httpx.AsyncClient()
 
@@ -64,7 +65,7 @@ async def update_tops_cache():
     rated_list : list[str] = []
 
     for user_handle in rated:
-        response: User = await user_info(user_handle)
+        response: User = await user_info(user_handle, 'rate')
         rated_list.append(response.model_dump(mode='json'))
 
     with open(rated_path, 'w') as file:
@@ -76,11 +77,12 @@ async def update_tops_cache():
     contr_list = []
 
     for user_handle in contr:
-        response: User = await user_info(user_handle)
+        response: User = await user_info(user_handle, 'contr')
         contr_list.append(response.model_dump(mode='json'))
 
     with open(contr_path, 'w') as file:
         json.dump(contr_list, file, indent=4)
+
 
 @app.post('/update_tops_cache')
 async def trigger_cache_uptade(background_task : BackgroundTasks):
@@ -100,7 +102,6 @@ async def get_tops():
         'top_contributors' : top_contributors
     }
 
-
 async def codeforces_api_info():
     url_users_list =  'https://codeforces.com/api/user.ratedList?activeOnly=false&includeRetired=false'
     response = await http_client.get(url_users_list)
@@ -118,7 +119,7 @@ async def codeforces_api_info():
         user.rank = user_info.get('rank').lower()
         user.max_rank = user_info.get('maxRank').lower()
         user.avatar = user_info.get('titlePhoto')
-
+        user.match_card = await most_close_card(user)
 
         users_list.append(user)
     
@@ -135,20 +136,22 @@ async def trigger_codeforces_api_info(background_task : BackgroundTasks):
 
 
 @app.get('/user.info')
-async def user_info(handle : str = Query(...)) -> User:
+async def user_info(handle : str = Query(...), update_type: str = 'rate'):
     
     handle = handle.lower()
     user: User = await get_user_info_db(handle)
     if user is None:
         user: User = await get_individual_info(handle, http_client)
 
-    await scrap_info(user,http_client)
+    await scrap_info(user,http_client, update_type)
     user: User = await get_user_info_db(user.handle)
+
 
     return user
 
 @app.get('/health')
 async def health():
     return {'status': 'ok'}
+
 
 
