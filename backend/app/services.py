@@ -1,10 +1,11 @@
+import json
+
 from datetime import datetime, timezone, timedelta
 
 from curl_cffi import AsyncSession
 from bs4 import BeautifulSoup
-from app.models import User
 
-import json
+from app.models import User
 
 from app.database import update_database
 
@@ -67,10 +68,7 @@ async def get_individual_info(handle: str, http_client: AsyncSession = None) -> 
         user.handle = response.get('handle')
         user.contributions = response.get('contribution')
         user.avatar = response.get('titlePhoto')
-
-    user.match_card = await most_close_card(user)
-
-    await process_null_rated(user)
+        await process_null_rated(user)
 
     return user
 
