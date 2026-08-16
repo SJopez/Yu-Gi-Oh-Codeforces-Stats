@@ -16,7 +16,7 @@
   - [Cards](#cards)
   - [Card screenshot](#card-screenshot)
   - [Card stats panel](#card-stats-panel)
-  - [Yu Gi Oh! Similar](#yu-gi-oh-similar)
+  - [Match Card](#match-card)
   - [World Tops](#world-tops)
 - [Backend](#backend)
   - [API](#api)
@@ -25,7 +25,7 @@
     - [Headquarters](#headquarters)
     - [Badges](#badges)
   - [Database](#database)
-  - [Similar Card (PENDING)](#similar-card-pending)
+  - [Codeforces to Yu-Gi-Oh! Monster Mapper](#codeforces-to-yu-gi-oh-monster-mapper)
 - [Credits](#credits)
 
 
@@ -98,7 +98,7 @@ The sidebar panel displays the user's main profile statistics, including the typ
   <img src="src/assets/readme/stats.png" alt="Card stats example" width="400" style="border-radius:8px; overflow:hidden; display:block; height:auto;" />
 </p>
 
-### Yu Gi Oh! Similar
+### Match Card
 
 A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
 
@@ -149,7 +149,7 @@ The API returns JSON responses consumable by the frontend; the most important ro
 More detailed behavior, caching and update strategies are documented in the roadmap and service code (`backend/app/services.py`, `backend/app/database.py`, `backend/app/utils.py`).
 
 ### Web Scrapping
-The backend performs targeted web scraping to fill gaps and enrich user profiles. Scraping is implemented using `curl_cffi.AsyncSession` for HTTP requests and `BeautifulSoup` for HTML parsing (see `backend/app/services.py`). Scraping usages are described below
+The backend performs targeted web scraping to fill gaps and enrich user profiles. Scraping is implemented using `curl_cffi.AsyncSession` for HTTP requests (see `backend/app/services.py`). Scraping usages are described below
 
 #### Headquarters
 <p align="center">
@@ -169,9 +169,43 @@ These badges are awarded to users for long tenure on the platform and are displa
 
 Badge images are scraped from the user's Codeforces profile page and stored as image URLs on the `User.badges` JSON field. In the frontend these badges are displayed on the user's card (bottom-right of the avatar). See `services.get_badges` for the scraping implementation.
 
-### Similar Card (PENDING)
+### Codeforces to Yu-Gi-Oh! Monster Mapper
 
-Status: PENDING — requires endpoint implementation and card-source integration.
+The `most_close_card` function maps a Codeforces user's competitive profile to the most fitting Yu-Gi-Oh! monster card. It translates competitive statistics into monster attributes—**ATK**, **DEF**, **Level/Rank**, and **Race**—and evaluates candidate cards using a weighted Euclidean distance algorithm to find the closest match.
+
+---
+
+#### Stat Conversion Logic
+
+1. **Attack (ATK):** Derived directly from the user's highest Codeforces rating (`maxRating`):
+   $$\text{Target ATK} = \lfloor \text{maxRating} \times 1.25 \rfloor$$
+
+2. **Defense (DEF):** Scaled using the square root of total solved problems (`solvedProblems`) to avoid runaway growth while rewarding persistence, capped at 4000:
+   $$\text{Target DEF} = \min\left(\lfloor \sqrt{\text{solvedProblems}} \times 36.5 \rfloor, 4000\right)$$
+
+3. **Level / Rank:** Mapped directly from the user's highest rank (`maxRank`) on a 1-to-12 scale (e.g., *Newbie* = Level 1, *Master* = Level 7, *Legend / Tourist / Jiangly* = Level 12).
+
+4. **Monster Type (Race):** Assigned based on the user's **dominant tag**, determined by multiplying problem counts by custom difficulty weights (e.g., `dp` $\rightarrow$ *Wyrm*, `math` $\rightarrow$ *Spellcaster*, `graphs` $\rightarrow$ *Thunder*, `data structures` $\rightarrow$ *Cyberse*).
+
+---
+
+#### Candidate Selection & Matching Algorithm
+
+* **Candidate Filtering:**
+  * **Standard Users ($\text{Level} < 10$):** Searches exclusively within monsters matching the user's assigned $Race$.
+  * **Elite Users ($\text{Level} \ge 10$):** Expands the pool to any high-tier boss monster ($\text{Level} \ge 10$) regardless of $Race$, ensuring high-ranking competitors receive legendary cards.
+
+* **Weighted Distance Calculation:** 
+  The algorithm normalizes differences across $ATK$, $DEF$, and $Level$, computing a weighted Euclidean distance to identify the closest matching card:
+
+  $$\text{Distance} = \sqrt{0.55 \cdot (\Delta \text{ATK}_{\text{norm}})^2 + 0.25 \cdot (\Delta \text{DEF}_{\text{norm}})^2 + 0.20 \cdot (\Delta \text{Level}_{\text{norm}})^2}$$
+
+  * **55% Weight on ATK:** Emphasizes peak competitive rating.
+  * **25% Weight on DEF:** Rewards problem-solving volume.
+  * **20% Weight on Level:** Aligns the card with the user's rank tier.
+
+* **Tie-Breaking:** If two cards have the exact same distance score, the card with the lower internal card ID is chosen as a deterministic fallback.
+
 
 ### Database
 

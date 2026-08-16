@@ -16,6 +16,7 @@ export interface CodeforcesUser {
     badges: Array<string>;
     solved_problems: number;
     tags: Array<Array<number | string>>;
+    match_card: string;
 }
 
 interface Input {
@@ -35,7 +36,6 @@ export async function handleSubmit(user: string, change: Function, setter: (valu
         change(result)
     } catch (error) {
         toast.error("User not found!")
-        console.log("mojonson")
         setter(false)
     }
 }

@@ -139,7 +139,8 @@ export default function Card(props: FetchProps) {
     let [template, setTemplate] = useState("src/assets/cards/legendary_grandmaster.png")
     let [effect, setEffect] = useState("src/assets/cards/effects/legendary_grandmaster.png")
     let [loading, setLoading] = useState(false)
-    
+    let [match, setMatch] = useState("")
+
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
@@ -203,6 +204,7 @@ export default function Card(props: FetchProps) {
         setTemplate(config.card)
         setEffect(config.effect)
         setHandle(user.handle)
+        setMatch(user.match_card)
         setMaxRank(user.max_rank)
         setRating(user.rating)
         setMaxRating(user.max_rating)
@@ -358,7 +360,7 @@ export default function Card(props: FetchProps) {
                     <div id='blurContainer' ref={blurContainer}>
                         {loading && <h1 className="loadingText"> Loading... </h1>}
                     </div>
-                    <img id='alter' className='cardContainer' ref={alter} src='https://images.ygoprodeck.com/images/cards/40640057.jpg'></img>
+                    <img id='alter' className='cardContainer' ref={alter} src={match}></img>
                     <Core 
                         preffix={props.preffix}
                         className={className}
