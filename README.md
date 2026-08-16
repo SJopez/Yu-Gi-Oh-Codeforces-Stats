@@ -234,7 +234,6 @@ Calls to `update_database` originate in the enrichment flow inside `backend/app/
 </table>
 
 External APIs and services used:
-
 - Codeforces API — <https://codeforces.com/api>
 - YGOPRODeck API — <https://ygoprodeck.com>
 
