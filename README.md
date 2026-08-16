@@ -7,7 +7,7 @@
 
 
 <p align="center">
-  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="90%" style="border-radius:8px; max-width: 512px" />
+  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="90%" style="border-radius:8px; max-width: 480px" />
 </p>
   Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> username into a Yu-Gi-Oh card based on your problem-solving skills.
 
@@ -28,7 +28,7 @@ This section describes the frontend application that renders interactive Yu-Gi-O
 
 ### Cards
 <p align="center">
-  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; max-width:480px; width:100%; height:auto;" />
+  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; max-width:400px; width:90%; height:auto;" />
 </p>
 
 Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
@@ -39,9 +39,8 @@ The correspondences are:
 - **Defense:** `problems solved` — total number of problems the user has solved.
 - **Attribute:** `most-used programming language` — the language the user most commonly uses to solve problems.
 - **Card template color:** `rank` — the user's current Codeforces rank (used to color the card template).
-- **Card type:** `max rank` — the user's maximum rank used to determine the card type.
+- **Card type:** `rank` — the user's current rank used to determine the card type.
 - **Card level:** `max rank` — the user's maximum rank represented as a level (stars) on the card.
- - **Card level:** `max rank` — the user's maximum rank represented as a level (stars) on the card.
 
 As a card's rank increases, additional animations and visual effects (for example: glow, animated borders, and particle accents) are applied to emphasize rarity and achievement.
 
