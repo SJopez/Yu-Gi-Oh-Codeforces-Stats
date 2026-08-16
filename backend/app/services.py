@@ -12,31 +12,37 @@ from app.utils import unique_solved_problems
 from app.utils import get_problems_tags
 from app.utils import most_used_lang
 
-async def update_cache_if_in_top(users: list[User]):
-    rated_data = await get_top10_rated(True)
-    contr_data = await get_top10_contr(True)
+from app.card_matcher import most_close_card
+
+async def update_cache_if_in_top(users: list[User], update_type: str = 'rate'):
+    if update_type == 'rate':
+        rated_data = await get_top10_rated(True)
+    else:
+        contr_data = await get_top10_contr(True)
 
     rated_updated = False
     contr_updated = False
-
+    
     for user in users:
-        for i, cached_user in enumerate(rated_data):
-            if cached_user.get('handle') == user.handle:
-                rated_data[i] = user.model_dump(mode='json')
-                rated_updated = True
-                break
+        if update_type == 'rate':
+            for i, cached_user in enumerate(rated_data):
+                if cached_user.get('handle') == user.handle:
+                    rated_data[i] = user.model_dump(mode='json')
+                    rated_updated = True
+                    break
+        
+        if update_type == 'contr':
+            for i, cached_user in enumerate(contr_data):
+                if cached_user.get('handle') == user.handle:
+                    contr_data[i] = user.model_dump(mode='json')
+                    contr_updated = True
+                    break
 
-        for i, cached_user in enumerate(contr_data):
-            if cached_user.get('handle') == user.handle:
-                contr_data[i] = user.model_dump(mode='json')
-                contr_updated = True
-                break
-
-    if rated_updated:
+    if rated_updated and update_type == 'rate':
         with open('app/cache/top10_rated_cache.json', 'w') as file:
             json.dump(rated_data, file, indent=4)
 
-    if contr_updated:
+    if contr_updated and update_type == 'contr':
         with open('app/cache/top10_contributors_cache.json', 'w') as file:
             json.dump(contr_data, file, indent=4)
 
@@ -62,11 +68,13 @@ async def get_individual_info(handle: str, http_client: AsyncSession = None) -> 
         user.contributions = response.get('contribution')
         user.avatar = response.get('titlePhoto')
 
+    user.match_card = await most_close_card(user)
+
     await process_null_rated(user)
-    
+
     return user
 
-async def scrap_info(user: User, http_client: AsyncSession = None):
+async def scrap_info(user: User, http_client: AsyncSession = None, update_type: str = 'rate'):
     now_time = datetime.now(timezone.utc).replace(tzinfo=None)
     if user.timestamp is not None:
         if (now_time - user.timestamp) < timedelta(hours=24):
@@ -88,9 +96,10 @@ async def scrap_info(user: User, http_client: AsyncSession = None):
     user.most_used_lang = await most_used_lang(problems)
     user.badges = await get_badges(user.handle)
     user.timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
-    
+    user.match_card = await most_close_card(user)
+
     await update_database([user])
-    await update_cache_if_in_top([user])
+    await update_cache_if_in_top([user],update_type)
     
     return {'result': 'user have been updated succesfully'}
 
