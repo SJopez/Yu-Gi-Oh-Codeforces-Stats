@@ -7,7 +7,7 @@
 
 
 <p align="center">
-  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="480px" style="border-radius:8px;" />
+  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600px" style="border-radius:8px;" />
 </p>
   Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> username into a Yu-Gi-Oh card based on your problem-solving skills.
 
@@ -28,10 +28,16 @@ This section describes the frontend application that renders interactive Yu-Gi-O
 
 ### Cards
 <p align="center">
-  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; width:480px; height:auto;" />
+  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; width:540px; height:auto;" />
 </p>
 
 Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
+
+<p align="center">
+  <img src="src/assets/readme/diagram.jpeg" alt="Card diagram" 
+  width=480
+  style="border-radius:8px; height:auto;" />
+</p>
 
 The correspondences are:
 
@@ -54,6 +60,16 @@ As a card's rank increases, additional animations and visual effects (for exampl
 </div>
 
 These badges are awarded to users for long tenure on the platform and are displayed in the bottom-right corner of the user's avatar on the card. Badges are obtained by web scraping each user's Codeforces profile — this process and the backend implementation details are explained in the [Backend](#backend) section.
+
+### Features
+
+- **Card screenshot:** Users can capture a styled image of any generated card. This uses the `html2canvas` library to render the card element to a downloadable image.
+
+- **Card stats panel:** The sidebar panel displays the user's main profile statistics. Example below:
+
+<p align="center">
+  <img src="src/assets/readme/stats.png" alt="Card stats example" style="border-radius:8px; overflow:hidden; display:block; max-width:420px; width:100%; height:auto;" />
+</p>
 
 ## Backend
 
