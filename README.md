@@ -1,13 +1,13 @@
 <h1 style="margin:0;">
   <img src="public/icon.png" alt="App Icon" width="36" style="vertical-align:middle;" />
-  <span style="vertical-align:middle; margin-bottom: 10px;">Yu-Gi-Oh! Codeforces Stats</span>
+  <span style="vertical-align:middle; margin-bottom: 10px;">Yu-Gi-Oh Codeforces Stats</span>
 </h1>
 
 
 <p align="center">
   <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600" style="border-radius:8px;" />
 </p>
-  Welcome to the documentation of Yu-Gi-Oh! Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh! card based on your problem-solving skills.
+  Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh card based on your problem-solving skills.
 
 ## Table of Contents
 - [Usage](#usage)
@@ -62,14 +62,14 @@ Notes:
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" style="margin-right:6px;" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" style="margin-right:6px;" />
 </p>
-This section describes the frontend application that renders interactive Yu-Gi-Oh! style cards, manages user interactions, and fetches data from the backend API.
+This section describes the frontend application that renders interactive Yu-Gi-Oh style cards, manages user interactions, and fetches data from the backend API.
 
 ### Cards
 <p align="center">
   <img src="src/assets/readme/triade.png" alt="Triade cards" width="540" style="border-radius:8px; height:auto;" />
 </p>
 
-Codeforces users are modeled as Yu-Gi-Oh! style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
+Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
 
 <p align="center">
   <img src="src/assets/readme/diagram.jpeg" alt="Card diagram" width="480" style="border-radius:8px; height:auto;" />
@@ -100,7 +100,7 @@ The sidebar panel displays the user's main profile statistics, including the typ
 
 ### Match Card
 
-A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh! card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
+A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
 
 ### World Tops
 
@@ -191,20 +191,22 @@ The `most_close_card` function maps a Codeforces user's competitive profile to t
 
 #### Candidate Selection & Matching Algorithm
 
-* **Candidate Filtering:**
-  * **Standard Users ($\text{Level} < 10$):** Searches exclusively within monsters matching the user's assigned $Race$.
-  * **Elite Users ($\text{Level} \ge 10$):** Expands the pool to any high-tier boss monster ($\text{Level} \ge 10$) regardless of $Race$, ensuring high-ranking competitors receive legendary cards.
+**Candidate Filtering:**
 
-* **Weighted Distance Calculation:** 
-  The algorithm normalizes differences across $ATK$, $DEF$, and $Level$, computing a weighted Euclidean distance to identify the closest matching card:
+- **Standard Users ($\text{Level} < 10$):** Searches exclusively within monsters matching the user's assigned $Race$.
+- **Elite Users ($\text{Level} \ge 10$):** Expands the pool to any high-tier boss monster ($\text{Level} \ge 10$) regardless of $Race$, ensuring high-ranking competitors receive legendary cards.
 
-  $$\text{Distance} = \sqrt{0.55 \cdot (\Delta \text{ATK}_{\text{norm}})^2 + 0.25 \cdot (\Delta \text{DEF}_{\text{norm}})^2 + 0.20 \cdot (\Delta \text{Level}_{\text{norm}})^2}$$
+**Weighted Distance Calculation:**
 
-  * **55% Weight on ATK:** Emphasizes peak competitive rating.
-  * **25% Weight on DEF:** Rewards problem-solving volume.
-  * **20% Weight on Level:** Aligns the card with the user's rank tier.
+The algorithm normalizes differences across $ATK$, $DEF$, and $Level$, computing a weighted Euclidean distance to identify the closest matching card:
 
-* **Tie-Breaking:** If two cards have the exact same distance score, the card with the lower internal card ID is chosen as a deterministic fallback.
+$$\text{Distance} = \sqrt{0.55 \cdot (\Delta \text{ATK}_{\text{norm}})^2 + 0.25 \cdot (\Delta \text{DEF}_{\text{norm}})^2 + 0.20 \cdot (\Delta \text{Level}_{\text{norm}})^2}$$
+
+- **55% Weight on ATK:** Emphasizes peak competitive rating.
+- **25% Weight on DEF:** Rewards problem-solving volume.
+- **20% Weight on Level:** Aligns the card with the user's rank tier.
+
+**Tie-Breaking:** If two cards have the exact same distance score, the card with the lower internal card ID is chosen as a deterministic fallback.
 
 
 ### Database
@@ -234,6 +236,7 @@ Calls to `update_database` originate in the enrichment flow inside `backend/app/
 </table>
 
 External APIs and services used:
+
 - Codeforces API — <https://codeforces.com/api>
 - YGOPRODeck API — <https://ygoprodeck.com>
 
