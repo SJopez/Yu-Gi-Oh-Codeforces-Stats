@@ -3,3 +3,5 @@
 pyproyect.toml
 __pycache__
 .test.py
+cards.json
+cards_parsed.json
