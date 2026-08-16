@@ -171,6 +171,12 @@ Badge images are scraped from the user's Codeforces profile page and stored as i
 
 ### Codeforces to Yu-Gi-Oh! Monster Mapper
 
+<div style="display:flex; justify-content:center; gap:16px; margin:18px 0;">
+  <img src="src/assets/readme/maspy.png" alt="Maspy" style="width:200px; height:auto; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
+  <img src="src/assets/readme/dragon.jpg" alt="Dragon" style="width:200px; height:auto; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
+</div>
+<p align="center"><em>The card corresponding to the user Maspy and its equivalent in the Yu-Gi-Oh! universe.</em></p>
+
 The `most_close_card` function maps a Codeforces user's competitive profile to the most fitting Yu-Gi-Oh! monster card. It translates competitive statistics into monster attributes—**ATK**, **DEF**, **Level/Rank**, and **Race**—and evaluates candidate cards using a weighted Euclidean distance algorithm to find the closest match.
 
 ---
@@ -233,7 +239,6 @@ $$\text{Distance} = \sqrt{0.55 \cdot (\Delta \text{ATK}_{\text{norm}})^2 + 0.25 
 - **20% Weight on Level:** Aligns the card with the user's rank tier.
 
 **Tie-Breaking:** If two cards have the exact same distance score, the card with the lower internal card ID is chosen as a deterministic fallback.
-
 
 ### Database
 

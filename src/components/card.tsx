@@ -366,7 +366,7 @@ export default function Card(props: FetchProps) {
             {props.info ? (
                 <div className='cardWrapper'>
                     <div id='blurContainer' ref={blurContainer}>
-                        {loading && <h1 className="loadingText"> Loading... </h1>}
+                        {loading && flip && <h1 className="loadingText"> Loading... </h1>}
                     </div>
                     <img id='alter' className='cardContainer' ref={alter} src={match}></img>
                     <Core 
