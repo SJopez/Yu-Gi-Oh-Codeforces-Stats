@@ -1,21 +1,24 @@
-
-<h1 style="display:flex; align-items:center; gap:12px;">
-  <img src="public/icon.png" alt="App Icon" width="48" style="border-radius:8px;" />
-  <span>Yu-Gi-Oh Codeforces Stats</span>
-</h1>
- 
+<table border="0" cellpadding="0" cellspacing="0" style="border:none;">
+  <tr>
+    <td valign="middle" style="border:none; padding:0 10px 0 0;">
+      <img src="public/icon.png" alt="App Icon" width="48" style="border-radius:8px;" />
+    </td>
+    <td valign="middle" style="border:none; padding:0;">
+      <h1 style="margin:0;">Yu-Gi-Oh Codeforces Stats</h1>
+    </td>
+  </tr>
+</table>
 
 
 <p align="center">
-  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600px" style="border-radius:8px;" />
+  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600" style="border-radius:8px;" />
 </p>
   Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh card based on your problem-solving skills.
 
 ## Table of Contents
-
-- [Frontend](#frontend)
-  - [Usage](#usage)
+- [Usage](#usage)
     - [Run locally](#run-locally)
+- [Frontend](#frontend)
   - [Cards](#cards)
   - [Card screenshot](#card-screenshot)
   - [Card stats panel](#card-stats-panel)
@@ -31,19 +34,11 @@
   - [Similar Card (PENDING)](#similar-card-pending)
 - [Credits](#credits)
 
-## Frontend
 
-<p>
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" style="margin-right:6px;" />
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" style="margin-right:6px;" />
-  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" style="margin-right:6px;" />
-</p>
-This section describes the frontend application that renders interactive Yu-Gi-Oh style cards, manages user interactions, and fetches data from the backend API.
-
-### Usage
+## Usage
 Live demo: https://yu-gi-oh-codeforces-stats.vercel.app/
 
-#### Run locally
+### Run locally
 
 This project is a React application written in TypeScript and bundled by Vite. The frontend expects JSON endpoints served by the backend (FastAPI). Follow the steps below to run the app locally with the frontend served exactly at `localhost:5173` so the backend CORS rules permit requests.
 
@@ -65,17 +60,25 @@ npm run dev -- --host localhost --port 5173
 Notes:
 - Running Vite with `--host localhost` guarantees the dev server origin is `http://localhost:5173` (not `0.0.0.0` or an IP), which matches the backend CORS allow list.
 
+
+## Frontend
+
+<p>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" style="margin-right:6px;" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" style="margin-right:6px;" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" style="margin-right:6px;" />
+</p>
+This section describes the frontend application that renders interactive Yu-Gi-Oh style cards, manages user interactions, and fetches data from the backend API.
+
 ### Cards
 <p align="center">
-  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; width:540px; height:auto;" />
+  <img src="src/assets/readme/triade.png" alt="Triade cards" width="540" style="border-radius:8px; height:auto;" />
 </p>
 
 Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
 
 <p align="center">
-  <img src="src/assets/readme/diagram.jpeg" alt="Card diagram" 
-  width=480
-  style="border-radius:8px; height:auto;" />
+  <img src="src/assets/readme/diagram.jpeg" alt="Card diagram" width="480" style="border-radius:8px; height:auto;" />
 </p>
 
 The correspondences are:
@@ -98,9 +101,7 @@ Users can capture a styled image of any generated card. This uses the `html2canv
 The sidebar panel displays the user's main profile statistics, including the types of problems solved (for example: Algorithms, Data Structures, Math) along with counts for each type. Example below:
 
 <p align="center">
-  <img src="src/assets/readme/stats.png" alt="Card stats example"
-  width=400px
-  style="border-radius:8px; overflow:hidden; display:block height:auto;" />
+  <img src="src/assets/readme/stats.png" alt="Card stats example" width="400" style="border-radius:8px; overflow:hidden; display:block; height:auto;" />
 </p>
 
 ### Yu Gi Oh! Similar
@@ -110,9 +111,7 @@ A "flip" button is placed next to the screenshot/download button in the card UI.
 ### World Tops
 
 <p align="center">
-  <img src="src/assets/readme/duel.png" alt="World Tops Duel"
-  width=480px
-  style="border-radius:8px; max-width:640px; width:100%; height:auto;" />
+  <img src="src/assets/readme/duel.png" alt="World Tops Duel" width="480" style="border-radius:8px;" />
 </p>
 <p align="center"><em>The sprites shown in the photo have, in their Duel Disk, the cards corresponding to the top 5 places of the world top in rating and contribution respectively.</em></p>
 
@@ -159,19 +158,19 @@ More detailed behavior, caching and update strategies are documented in the road
 The backend performs targeted web scraping to fill gaps and enrich user profiles. Scraping is implemented using `curl_cffi.AsyncSession` for HTTP requests and `BeautifulSoup` for HTML parsing (see `backend/app/services.py`). Scraping usages are described below
 
 #### Headquarters
-<div style="display:flex; justify-content:center; margin:12px 0;">
-  <img src="src/assets/readme/MikeMirzayanov.png" alt="Mike Mirzayanov" style="width:200px; height:auto; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
-</div>
+<p align="center">
+  <img src="src/assets/readme/MikeMirzayanov.png" alt="Mike Mirzayanov" width="200" style="border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
+</p>
 
 The `process_null_rated` scraper targets the profile UI to recover ranking data when the Codeforces API response is incomplete. It specifically reads the `div.user-rank` and nearby `ul li` elements to compute `rank` and `max_rank`; these values are normalized and stored in the DB. One effect of this scraping is to correctly detect and persist special rank labels used on Codeforces (for example `headquarters`), so the frontend can map such users to the special `Headquarters` card template and description.
 
 #### Badges
 
-<div style="display:flex; flex-direction:row; justify-content:center; align-items:center; gap:12px; margin:12px 0;">
-  <img src="src/assets/readme/badge1.png" alt="badge-1" style="width:72px; height:auto;" />
-  <img src="src/assets/readme/badge2.png" alt="badge-2" style="width:72px; height:auto;" />
-  <img src="src/assets/readme/badge3.png" alt="badge-3" style="width:72px; height:auto;" />
-</div>
+<p align="center">
+  <img src="src/assets/readme/badge1.png" alt="badge-1" width="72" style="margin:0 6px;" />
+  <img src="src/assets/readme/badge2.png" alt="badge-2" width="72" style="margin:0 6px;" />
+  <img src="src/assets/readme/badge3.png" alt="badge-3" width="72" style="margin:0 6px;" />
+</p>
 These badges are awarded to users for long tenure on the platform and are displayed in the bottom-right corner of the user's avatar on the card.
 
 Badge images are scraped from the user's Codeforces profile page and stored as image URLs on the `User.badges` JSON field. In the frontend these badges are displayed on the user's card (bottom-right of the avatar). See `services.get_badges` for the scraping implementation.
@@ -193,14 +192,18 @@ Calls to `update_database` originate in the enrichment flow inside `backend/app/
 ## Credits
 
 #### Backend author:
- 
-<div style="display:flex; align-items:center; gap:12px; margin:12px 0;">
-  <img src="https://github.com/10Y6.png" alt="10Y6" style="width:64px; height:64px; border-radius:8px;" />
-  <div>
-    <strong><a href="https://github.com/10Y6" target="_blank" rel="noopener noreferrer">10Y6</a></strong>
-    <div>Co-author / Data Scientist </div>
-  </div>
-</div>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border:none;">
+  <tr>
+    <td valign="middle" style="border:none; padding:0 12px 0 0;">
+      <img src="https://github.com/10Y6.png" alt="10Y6" width="64" height="64" style="border-radius:8px;" />
+    </td>
+    <td valign="middle" style="border:none; padding:0;">
+      <strong><a href="https://github.com/10Y6" target="_blank" rel="noopener noreferrer">10Y6</a></strong><br/>
+      Co-author / Data Scientist
+    </td>
+  </tr>
+</table>
 
 External APIs and services used:
 
