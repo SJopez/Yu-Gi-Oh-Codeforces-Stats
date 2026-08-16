@@ -1,13 +1,7 @@
-<table border="0" cellpadding="0" cellspacing="0" style="border:none;">
-  <tr>
-    <td valign="middle" style="border:none; padding:0 10px 0 0;">
-      <img src="public/icon.png" alt="App Icon" width="48" style="border-radius:8px;" />
-    </td>
-    <td valign="middle" style="border:none; padding:0;">
-      <h1 style="margin:0;">Yu-Gi-Oh Codeforces Stats</h1>
-    </td>
-  </tr>
-</table>
+<h1 style="margin:0;">
+  <img src="public/icon.png" alt="App Icon" width="48" style="border-radius:8px; vertical-align:middle; margin-right:10px;" />
+  <span style="vertical-align:middle;">Yu-Gi-Oh Codeforces Stats</span>
+</h1>
 
 
 <p align="center">
