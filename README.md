@@ -189,6 +189,32 @@ The `most_close_card` function maps a Codeforces user's competitive profile to t
 
 ---
 
+#### Tag → Monster mapping
+
+| Tag | Monster Race |
+|---|---|
+| implementation | Warrior |
+| brute force | Beast |
+| greedy | Fiend |
+| math | Spellcaster |
+| number theory | Spellcaster |
+| combinatorics | Fairy |
+| fft | Psychic |
+| data structures | Cyberse |
+| trees | Plant |
+| bitmasks | Zombie |
+| string suffix structures | Dragon |
+| graphs | Thunder |
+| dfs and similar | Insect |
+| shortest paths | Winged Beast |
+| geometry | Machine |
+| binary search | Rock |
+| two pointers | Aqua |
+| constructive algorithms | Pyro |
+| dp | Wyrm |
+| sortings | Sea Serpent |
+
+
 #### Candidate Selection & Matching Algorithm
 
 **Candidate Filtering:**

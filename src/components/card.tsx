@@ -301,35 +301,43 @@ export default function Card(props: FetchProps) {
         )
     }
 
-    function saveCard() {
-        if (cardContainer.current) {    
-            if (nameEffect && name.current){
-                name.current.classList.remove('golden')
-                name.current.style.color = "#d4af37"
-            }
-            html2canvas(cardContainer.current, 
-                {
-                    onclone: (_, clonedElement) => {
-                        clonedElement.style.scale = "1"; 
-                    },
-                    backgroundColor: null,
-                    useCORS: true,
-                }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${handle}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
-
-                if (nameEffect && name.current){
-                    name.current.classList.add('golden')
-                    name.current.style.color = "black"
-                }
-            });
-        }
-    } 
-
-
     let [flip, setFlip] = useState(true)
+
+    function saveCard() {
+        if (flip) {
+            if (cardContainer.current) {    
+                if (nameEffect && name.current){
+                    name.current.classList.remove('golden')
+                    name.current.style.color = "#d4af37"
+                }
+                html2canvas(cardContainer.current, 
+                    {
+                        onclone: (_, clonedElement) => {
+                            clonedElement.style.scale = "1"; 
+                        },
+                        backgroundColor: null,
+                        useCORS: true,
+                    }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `${handle}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+
+                    if (nameEffect && name.current){
+                        name.current.classList.add('golden')
+                        name.current.style.color = "black"
+                    }
+                });
+            }
+        }
+        else if(alter.current) {
+            const link = document.createElement('a');
+            link.download = `match-${handle}.png`;
+            link.href = match
+            link.click();
+        }
+        
+    } 
 
     function flipCard() {
         if (alter.current && cardContainer.current){
