@@ -9,12 +9,19 @@
 <p align="center">
   <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600px" style="border-radius:8px;" />
 </p>
-  Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> username into a Yu-Gi-Oh card based on your problem-solving skills.
+  Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh card based on your problem-solving skills.
 
 ## Table of Contents
 
 - [Frontend](#frontend)
+  - [Cards](#cards)
+  - [Badges](#badges)
+  - [Card screenshot](#card-screenshot)
+  - [Card stats panel](#card-stats-panel)
+  - [Yu Gi Oh! Similar](#yu-gi-oh-similar)
+  - [World Tops](#world-tops)
 - [Backend](#backend)
+  - [API endpoints](#backend)
 
 ## Frontend
 
@@ -61,16 +68,34 @@ As a card's rank increases, additional animations and visual effects (for exampl
 
 These badges are awarded to users for long tenure on the platform and are displayed in the bottom-right corner of the user's avatar on the card. Badges are obtained by web scraping each user's Codeforces profile — this process and the backend implementation details are explained in the [Backend](#backend) section.
 
-### Features
+### Card screenshot
 
-- **Card screenshot:** Users can capture a styled image of any generated card. This uses the `html2canvas` library to render the card element to a downloadable image.
+Users can capture a styled image of any generated card. This uses the `html2canvas` library to render the card element to a downloadable image.
 
-- **Card stats panel:** The sidebar panel displays the user's main profile statistics. Example below:
+### Card stats panel
+
+The sidebar panel displays the user's main profile statistics, including the types of problems solved (for example: Algorithms, Data Structures, Math) along with counts for each type. Example below:
 
 <p align="center">
-  <img src="src/assets/readme/stats.png" alt="Card stats example" style="border-radius:8px; overflow:hidden; display:block; max-width:420px; width:100%; height:auto;" />
+  <img src="src/assets/readme/stats.png" alt="Card stats example"
+  width=400px
+  style="border-radius:8px; overflow:hidden; display:block height:auto;" />
 </p>
 
+### Yu Gi Oh! Similar
+
+A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
+
+### World Tops
+
+<p align="center">
+  <img src="src/assets/readme/duel.png" alt="World Tops Duel"
+  width=480px
+  style="border-radius:8px; max-width:640px; width:100%; height:auto;" />
+</p>
+The sprites shown in the photo have, in their Duel Disk, the cards corresponding to the top 5 places of the world top in rating and contribution respectively.
+
+The app includes a dedicated section that displays the world top lists: a leaderboard of top-rated users and a leaderboard of top contributors. These lists are populated from cached backend endpoints. 
 ## Backend
 
 <p>
