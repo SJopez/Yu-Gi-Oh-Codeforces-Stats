@@ -7,7 +7,7 @@
 
 
 <p align="center">
-  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="90%" style="border-radius:8px; max-width: 120px" />
+  <img src="src/assets/readme/init.jpeg" alt="Init Image" width="480px" style="border-radius:8px;" />
 </p>
   Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> username into a Yu-Gi-Oh card based on your problem-solving skills.
 
@@ -28,7 +28,7 @@ This section describes the frontend application that renders interactive Yu-Gi-O
 
 ### Cards
 <p align="center">
-  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; max-width:400px; width:90%; height:auto;" />
+  <img src="src/assets/readme/triade.png" alt="Triade cards" style="border-radius:8px; width:480px; height:auto;" />
 </p>
 
 Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
