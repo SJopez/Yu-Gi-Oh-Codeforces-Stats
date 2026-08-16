@@ -105,10 +105,11 @@ async def most_close_card(user: User) -> str | None:
 
     target_race = tag_to_monster.get(dominant_tag)
 
-    user_max_rating = _to_int(user.max_rating, 0)
+    user_max_rating = user.max_rating
     target_atk = int(user_max_rating * 1.25)
 
-    user_solved = max(_to_int(user.solved_problems, 0), 0)
+    user_solved = user.solved_problems
+    print(user_solved)
     target_def = min(int(math.sqrt(user_solved) * 36.5), 4000)
 
     user_rank = user.max_rank.lower()
@@ -148,13 +149,13 @@ async def most_close_card(user: User) -> str | None:
             w_level * (norm_level_diff ** 2)
         )
 
-        card_id = _to_int(card.get("id"), 10**12)
+        card_id = int(card.get("id"))
 
         if (distance < min_distance) or (distance == min_distance and card_id < best_tiebreak):
             min_distance = distance
             best_tiebreak = card_id
             best_card = card
 
-    images = best_card.get("card_images", []) if best_card else []
-    image_url = images[0].get("image_url") if images else None
+    images = best_card.get("card_images")
+    image_url = images[0].get("image_url")
     return image_url

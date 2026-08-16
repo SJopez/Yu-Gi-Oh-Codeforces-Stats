@@ -94,8 +94,8 @@ async def trigger_cache_uptade(background_task : BackgroundTasks):
 async def get_tops():
     #return all top 10, contributors and rated
     
-    top_rated = await get_top10_rated(True)
-    top_contributors = await get_top10_contr(True)
+    top_rated: list[User] = await get_top10_rated(True)
+    top_contributors: list[User] = await get_top10_contr(True)
 
     return {
         'top_rated' : top_rated,
@@ -125,8 +125,6 @@ async def codeforces_api_info():
     
     await update_database(users_list)
 
-    return {'result': 'ok'}
-
 
 @app.post('/update_base_info')
 async def trigger_codeforces_api_info(background_task : BackgroundTasks):
@@ -143,9 +141,10 @@ async def user_info(handle : str = Query(...), update_type: str = 'rate'):
     if user is None:
         user: User = await get_individual_info(handle, http_client)
 
-    await scrap_info(user,http_client, update_type)
+    await scrap_info(user, http_client, update_type)
     user: User = await get_user_info_db(user.handle)
-
+    
+    user.match_card = await most_close_card(user)
 
     return user
 
