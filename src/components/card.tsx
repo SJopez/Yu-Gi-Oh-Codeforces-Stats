@@ -313,6 +313,10 @@ export default function Card(props: FetchProps) {
                             let clonedName = clonedElement.getElementsByTagName("h1")[0]
                             clonedName.classList.remove('golden')
                             clonedName.style.color = "#d4af37"
+
+                            if (!nameEffect){
+                                clonedName.style.color = "black"    
+                            }
                         },
                         backgroundColor: null,
                         useCORS: true,
