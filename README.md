@@ -271,5 +271,4 @@ External APIs and services used:
 - Codeforces API — <https://codeforces.com/api>
 - YGOPRODeck API — <https://ygoprodeck.com>
 
-
 #### If you enjoyed this repository, please give it a star ⭐
