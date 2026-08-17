@@ -140,11 +140,13 @@ export default function Card(props: FetchProps) {
     let [effect, setEffect] = useState("src/assets/cards/effects/legendary_grandmaster.png")
     let [loading, setLoading] = useState(false)
     let [match, setMatch] = useState("")
+    let [flip, setFlip] = useState(true)
 
     useEffect(() => {
         if (props.scale) setClassName("miniCardContainer")
         if (props.isTopUser) change(props.topUser!)
         else if (props.username != handle && cardContainer.current) {
+            if (!flip) flipCard()
             handleSubmit(props.username, change, setLoading)
         }
     }, [props.username, props.isTopUser, props.width])
@@ -300,8 +302,6 @@ export default function Card(props: FetchProps) {
             </div>
         )
     }
-
-    let [flip, setFlip] = useState(true)
 
     function saveCard() {
         if (flip) {

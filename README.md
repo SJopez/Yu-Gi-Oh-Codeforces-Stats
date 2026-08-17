@@ -7,7 +7,7 @@
 <p align="center">
   <img src="src/assets/readme/init.jpeg" alt="Init Image" width="600" style="border-radius:8px;" />
 </p>
-  Welcome to the documentation of Yu-Gi-Oh Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh card based on your problem-solving skills.
+  Welcome to the documentation of Yu-Gi-Oh! Codeforces Stats — a web application that converts your <a href="https://codeforces.com" target="_blank" rel="noopener noreferrer">Codeforces</a> user into a Yu-Gi-Oh! card based on your problem-solving skills.
 
 ## Table of Contents
 - [Usage](#usage)
@@ -62,14 +62,14 @@ Notes:
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" style="margin-right:6px;" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" style="margin-right:6px;" />
 </p>
-This section describes the frontend application that renders interactive Yu-Gi-Oh style cards, manages user interactions, and fetches data from the backend API.
+This section describes the frontend application that renders interactive Yu-Gi-Oh! style cards, manages user interactions, and fetches data from the backend API.
 
 ### Cards
 <p align="center">
   <img src="src/assets/readme/triade.png" alt="Triade cards" width="540" style="border-radius:8px; height:auto;" />
 </p>
 
-Codeforces users are modeled as Yu-Gi-Oh style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
+Codeforces users are modeled as Yu-Gi-Oh! style cards based on their problem-solving skills and contest participation. The user statistics determine the card numeric stats, template color, and other visual elements.
 
 <p align="center">
   <img src="src/assets/readme/diagram.jpeg" alt="Card diagram" width="480" style="border-radius:8px; height:auto;" />
@@ -100,7 +100,7 @@ The sidebar panel displays the user's main profile statistics, including the typ
 
 ### Match Card
 
-A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
+A "flip" button is placed next to the screenshot/download button in the card UI. When the user presses this button the frontend requests a Yu-Gi-Oh! card image and displays it to the user; the backend is responsible for selecting and mapping the appropriate card using the [YGOPRODeck API](https://ygoprodeck.com). See the [Backend](#backend) section for selection details.
 
 ### World Tops
 
