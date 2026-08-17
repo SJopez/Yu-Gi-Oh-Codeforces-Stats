@@ -306,14 +306,13 @@ export default function Card(props: FetchProps) {
     function saveCard() {
         if (flip) {
             if (cardContainer.current) {    
-                if (nameEffect && name.current){
-                    name.current.classList.remove('golden')
-                    name.current.style.color = "#d4af37"
-                }
                 html2canvas(cardContainer.current, 
                     {
                         onclone: (_, clonedElement) => {
                             clonedElement.style.scale = "1"; 
+                            let clonedName = clonedElement.getElementsByTagName("h1")[0]
+                            clonedName.classList.remove('golden')
+                            clonedName.style.color = "#d4af37"
                         },
                         backgroundColor: null,
                         useCORS: true,
@@ -322,11 +321,6 @@ export default function Card(props: FetchProps) {
                     link.download = `${handle}.png`;
                     link.href = canvas.toDataURL();
                     link.click();
-
-                    if (nameEffect && name.current){
-                        name.current.classList.add('golden')
-                        name.current.style.color = "black"
-                    }
                 });
             }
         }
