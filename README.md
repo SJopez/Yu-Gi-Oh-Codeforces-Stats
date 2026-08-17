@@ -171,7 +171,7 @@ Badge images are scraped from the user's Codeforces profile page and stored as i
 
 ### Codeforces to Yu-Gi-Oh! Monster Mapper
 
-<div style="display:flex; justify-content:center; gap:16px; margin:18px 0;">
+<div align="center" style="display:flex; justify-content:center; gap:16px; margin:18px 0;">
   <img src="src/assets/readme/maspy.png" alt="Maspy" style="width:200px; height:auto; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
   <img src="src/assets/readme/dragon.jpg" alt="Dragon" style="width:200px; height:auto; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.12);" />
 </div>
