@@ -309,8 +309,10 @@ export default function Card(props: FetchProps) {
                 html2canvas(cardContainer.current, 
                     {
                         onclone: (_, clonedElement) => {
-                            clonedElement.style.setProperty("--card-scale", "1"); 
-                            
+                            clonedElement.style.setProperty("--card-scale", "1");
+                            clonedElement.classList.remove('flip', 'unflip');
+                            clonedElement.style.transform = "none"; // o rotateY(180deg) si estás del lado del match
+
                             let clonedName = clonedElement.getElementsByTagName("h1")[0]
                             clonedName.classList.remove('golden')
                             clonedName.style.color = "#d4af37"
