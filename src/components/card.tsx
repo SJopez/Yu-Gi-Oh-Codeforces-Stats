@@ -309,7 +309,8 @@ export default function Card(props: FetchProps) {
                 html2canvas(cardContainer.current, 
                     {
                         onclone: (_, clonedElement) => {
-                            clonedElement.style.scale = "1"; 
+                            clonedElement.style.setProperty("--card-scale", "1"); 
+                            
                             let clonedName = clonedElement.getElementsByTagName("h1")[0]
                             clonedName.classList.remove('golden')
                             clonedName.style.color = "#d4af37"
