@@ -198,27 +198,45 @@ The `most_close_card` function maps a Codeforces user's competitive profile to t
 #### Tag → Monster mapping
 
 | Tag | Monster Race |
-|---|---|
+| --- | --- |
 | implementation | Warrior |
-| brute force | Beast |
 | greedy | Fiend |
 | math | Spellcaster |
-| number theory | Spellcaster |
-| combinatorics | Fairy |
-| fft | Psychic |
-| data structures | Cyberse |
-| trees | Plant |
-| bitmasks | Zombie |
-| string suffix structures | Dragon |
-| graphs | Thunder |
-| dfs and similar | Insect |
-| shortest paths | Winged Beast |
-| geometry | Machine |
+| brute force | Beast |
+| sortings | Warrior |
 | binary search | Rock |
-| two pointers | Aqua |
-| constructive algorithms | Pyro |
-| dp | Wyrm |
-| sortings | Sea Serpent |
+| constructive algorithms | Machine |
+| number theory | Spellcaster |
+| bitmasks | Zombie |
+| dfs and similar | Insect |
+| strings | Winged Beast |
+| trees | Plant |
+| combinatorics | Fairy |
+| graphs | Thunder |
+| data structures | Cyberse |
+| dp | Dragon |
+| two pointers | Beast-Warrior |
+| dsu | Cyberse |
+| shortest paths | Winged Beast |
+| hashing | Zombie |
+| games | Fiend |
+| divide and conquer | Thunder |
+| interactive | Psychic |
+| matrices | Machine |
+| geometry | Dinosaur |
+| ternary search | Rock |
+| probabilities | Illusion |
+| expression parsing | Spellcaster |
+| graph matchings | Reptile |
+| meet-in-the-middle | Beast |
+| communication | Psychic |
+| flows | Aqua |
+| 2-sat | Insect |
+| chinese remainder theorem | Divine-Beast |
+| string suffix structures | Wyrm |
+| fft | Fish |
+| schedules | Pyro |
+| *special | Creator-God |
 
 
 #### Candidate Selection & Matching Algorithm
