@@ -99,8 +99,7 @@ async def scrap_info(user: User, http_client: AsyncSession = None, update_type: 
     await update_database([user])
     await update_cache_if_in_top([user],update_type)
     
-    return {'result': 'user have been updated succesfully'}
-
+    
 async def get_top10_rated(cached : bool = False):
     if cached:
         with open('app/cache/top10_rated_cache.json', 'r') as file:

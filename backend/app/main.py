@@ -142,9 +142,10 @@ async def user_info(handle : str = Query(...), update_type: str = 'rate'):
         user: User = await get_individual_info(handle, http_client)
 
     await scrap_info(user, http_client, update_type)
-    user: User = await get_user_info_db(user.handle)
+    if user.match_card is None:
+        user.match_card = await most_close_card(user)
     
-    user.match_card = await most_close_card(user)
+    user: User = await get_user_info_db(user.handle)
 
     return user
 

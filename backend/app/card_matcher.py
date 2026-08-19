@@ -10,7 +10,6 @@ with open('app/cache/monster_card_list.json', 'r') as file:
 
 async def most_close_card(user: User) -> str | None:
     #Select the most similar YuGiOh card according to the user stats
-
     def _to_int(value: Any, default: int = 0) -> int:
         try:
             if value in (None, "", "?"):
@@ -20,52 +19,85 @@ async def most_close_card(user: User) -> str | None:
             return default
 
     tag_weight = {
-        # Most common tags
-        "implementation": 0.1,
-        "math": 0.3,
-        "greedy": 0.3,
-        "brute force": 0.4,
-        # Uncommon tags
-        "constructive algorithms": 0.7,
-        "data structures": 0.8,
-        "sortings": 0.7,
-        "two pointers": 0.8,
-        "binary search": 0.8,
-        # Specialized tags
-        "dp": 1.2,
-        "graphs": 1.3,
-        "trees": 1.3,
+        "implementation": 0.8,
+        "brute force": 0.6,
+        "greedy": 0.6,       
+        "sortings": 0.9,
+        "two pointers": 1.0,
+        "binary search": 1.0,
+        "math": 0.9,
+        "constructive algorithms": 1.2,
+        "bitmasks": 1.3,
         "number theory": 1.4,
-        "dfs and similar": 1.2,
-        "combinatorics": 1.4,
-        "geometry": 1.6,
-        "bitmasks": 1.5,
-        "shortest paths": 1.5,
-        "string suffix structures": 2.0,
-        "fft": 2.0,
+        "combinatorics": 1.5,
+        "dfs and similar": 1.5,
+        "trees": 1.5,
+        "strings": 1.7,
+        "graphs": 1.7,
+        "data structures": 1.8,
+        "dp": 1.9,
+        "dsu": 1.9,
+        "shortest paths": 2.0,
+        "hashing": 2.2,
+        "games": 2.2,
+        "divide and conquer": 2.3,
+        "interactive": 2.4,
+        "probabilities": 2.5,
+        "matrices": 2.5,
+        "geometry": 2.6,
+        "ternary search": 2.7,
+        "expression parsing": 3.0,
+        "graph matchings": 3.0,
+        "meet-in-the-middle": 3.2,
+        "communication": 3.3,
+        "2-sat": 3.5,
+        "flows": 3.5,
+        "chinese remainder theorem": 3.6,
+        "string suffix structures": 3.8,
+        "fft": 4.0,
+        "schedules": 4.0,
+        "*special": 2.0,
     }
 
     tag_to_monster = {
         "implementation": "Warrior",
-        "brute force": "Beast",
         "greedy": "Fiend",
         "math": "Spellcaster",
-        "number theory": "Spellcaster",
-        "combinatorics": "Fairy",
-        "fft": "Psychic",
-        "data structures": "Cyberse",
-        "trees": "Plant",
-        "bitmasks": "Zombie",
-        "string suffix structures": "Dragon",
-        "graphs": "Thunder",
-        "dfs and similar": "Insect",
-        "shortest paths": "Winged Beast",
-        "geometry": "Machine",
+        "brute force": "Beast",
+        "sortings": "Warrior",
         "binary search": "Rock",
-        "two pointers": "Aqua",
-        "constructive algorithms": "Pyro",
-        "dp": "Wyrm",
-        "sortings": "Sea Serpent",
+        "constructive algorithms": "Machine",
+        "number theory": "Spellcaster",
+        "bitmasks": "Zombie",
+        "dfs and similar": "Insect",
+        "strings": "Winged Beast",
+        "trees": "Plant",
+        "combinatorics": "Fairy",
+        "graphs": "Thunder",
+        "data structures": "Cyberse",
+        "dp": "Dragon",
+        "two pointers": "Beast-Warrior",
+        "dsu": "Cyberse",
+        "shortest paths": "Winged Beast",
+        "hashing": "Zombie",
+        "games": "Fiend",
+        "divide and conquer": "Thunder",
+        "interactive": "Psychic",
+        "matrices": "Machine",
+        "geometry": "Dinosaur",
+        "ternary search": "Rock",
+        "probabilities": "Illusion",
+        "expression parsing": "Spellcaster",
+        "graph matchings": "Reptile",
+        "meet-in-the-middle": "Beast",
+        "communication": "Psychic",
+        "flows": "Aqua",
+        "2-sat": "Insect",
+        "chinese remainder theorem": "Divine-Beast",
+        "string suffix structures": "Wyrm",
+        "fft": "Fish",
+        "schedules": "Pyro",
+        "*special": "Creator-God",
     }
 
     max_rank_to_level = {
@@ -109,7 +141,6 @@ async def most_close_card(user: User) -> str | None:
     target_atk = int(user_max_rating * 1.25)
 
     user_solved = user.solved_problems
-    print(user_solved)
     target_def = min(int(math.sqrt(user_solved) * 36.5), 4000)
 
     user_rank = user.max_rank.lower()
