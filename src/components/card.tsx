@@ -91,7 +91,7 @@ function Core(props: CoreProps) {
             <div id='starsContainer'>
                 {props.starArray}
             </div>
-            <div id='imageContainer' style = {{ backgroundImage: `url(${props.photo})` }}></div>
+            <div id='imageContainer' style = {{ backgroundImage: `url(codeforces.com/${props.photo})` }}></div>
             <div id='badgesContainer'>
                 {props.badgeArray}
             </div>
